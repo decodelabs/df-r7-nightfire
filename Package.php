@@ -14,6 +14,6 @@ class Package extends core\Package {
     public static $dependencies = [
     	'coreWeb',
     	'media',
-    	'nightfireUtils'
+    	'nightfireCore'
     ];
 }
