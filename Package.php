@@ -12,8 +12,8 @@ class Package extends core\Package {
     const PRIORITY = 3;
 
     public static $dependencies = [
-    	'webCore',
-    	'media',
-    	'nightfireCore'
+        'webCore',
+        'media',
+        'nightfireCore'
     ];
 }
