@@ -64,4 +64,12 @@ class Record extends opal\record\Base implements fire\type\INode {
     public function getType() {
         return fire\type\Base::factory($this['type']);
     }
+
+    public function getTypeId() {
+        return $this['typeId'];
+    }
+
+    public function getTypeData() {
+        return $this['typeData'];
+    }
 }

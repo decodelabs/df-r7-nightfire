@@ -19,10 +19,12 @@ class HttpEdit extends HttpAdd {
             $this->request->query['node'],
             'edit'
         );
+
+        $this->_versionId = $this->request->query['version'];
     }
 
     protected function _getDataId() {
-        return $this->_node['id'];
+        return $this->_node['id'].':'.$this->_versionId;
     }
 
     protected function _onSessionCreate() {
@@ -33,9 +35,23 @@ class HttpEdit extends HttpAdd {
         parent::_onSessionCreate();
     }
 
+    protected function _setupDelegates() {
+        $this->_type->loadEditFormDelegate($this, 'type', $this->_node, $this->_versionId, $this->_versionId ? true : false);
+    }
+
     protected function _setDefaultValues() {
         $this->values->importFrom($this->_node, [
             'title', 'slug', 'defaultAccess', 'notes', 'isLive', 'isMappable'
         ]);
+    }
+
+    protected function _onInitComplete() {
+        if($this->isNew()) {
+            $values = $this->getDelegate('type')->getDefaultNodeValues();
+
+            if(is_array($values) && !empty($values)) {
+                $this->values->import($values);
+            }
+        }
     }
 }

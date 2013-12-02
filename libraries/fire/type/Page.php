@@ -30,6 +30,16 @@ class Page extends Base implements fire\type\IVersionedType {
         return $view;
     }
 
+    public function renderPreview(aura\view\IView $view, INode $node, $page=null) {
+        if(!$page instanceof fire\type\IVersion) {
+            $page = $this->getVersion($node, $page);
+        }
+
+        if($page) {
+            return $view->nightfire->renderLayoutPreview($page['body']);
+        }
+    }
+
 
 // Versions
     public function countVersions(INode $node) {
@@ -44,12 +54,23 @@ class Page extends Base implements fire\type\IVersionedType {
             ->count();
     }
 
-    public function getVersionList(INode $node) {
-        core\stub();
+    public function getVersion(INode $node, $versionId=null) {
+        if(!$versionId) {
+            $versionId = $node['typeId'];
+        }
+
+        return $this->_getUnit()->fetch()
+            ->where('node', '=', $node)
+            ->where('id', '=', $versionId)
+            ->toRow();
     }
 
-    public function getVersionInfo(INode $node) {
-        core\stub();
+    public function getVersionList(INode $node) {
+        return $this->_getUnit()->fetch()
+            ->populate('owner')
+            ->where('node', '=', $node)
+            ->orderBy('date DESC')
+            ->toArray();
     }
 
     public function getLatestVersionId(INode $node) {
@@ -75,12 +96,40 @@ class Page extends Base implements fire\type\IVersionedType {
             ->count() + 1;
     }
 
-    public function applyVersion(INode $node, $versionId, $deleteUnused=false, $keepCurrent=true) {
-        core\stub();
+    public function applyVersion(INode $node, $page, $deleteUnused=false, $keepCurrent=true) {
+        if(!$page instanceof fire\type\IVersion) {
+            $page = $this->getVersion($node, $page);
+        }
+
+        if(!$page) {
+            return false;
+        }
+
+        if($deleteUnused) {
+            $this->_getUnit()->delete()
+                ->where('node', '=', $node)
+                ->where('id', '!=', $page['id'])
+                ->chainIf($keepCurrent, function($query) use($node) {
+                    $query->where('id', '!=', $node['typeId']);
+                })
+                ->execute();
+        }
+
+        $node->title = $page['title'];
+        $node->lastEditDate = 'now';
+        $node->typeId = $page['id'];
+        $node->save();
+
+        return true;
     }
 
-    public function deleteVersion(INode $node, $versionId) {
-        core\stub();
+    public function deleteVersion(INode $node, $page) {
+        if(!$page instanceof fire\type\IVersion) {
+            $page = $this->getVersion($node, $page);
+        }
+
+        $page->delete();
+        return $this;
     }
 
 

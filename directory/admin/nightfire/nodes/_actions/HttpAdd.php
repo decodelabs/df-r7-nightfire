@@ -16,6 +16,7 @@ class HttpAdd extends arch\form\Action {
 
     protected $_node;
     protected $_type;
+    protected $_versionId;
 
     protected function _init() {
         $this->_node = $this->data->newRecord('axis://nightfire/Node');
@@ -31,11 +32,7 @@ class HttpAdd extends arch\form\Action {
 
     protected function _setupDelegates() {
         if($this->_type) {
-            if($this->_node->isNew()) {
-                $this->_type->loadAddFormDelegate($this, 'type', $this->_node);
-            } else {
-                $this->_type->loadEditFormDelegate($this, 'type', $this->_node);
-            }
+            $this->_type->loadAddFormDelegate($this, 'type', $this->_node);
         }
     }
 

@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\study\classes\_components;
+namespace df\apex\directory\admin\nightfire\nodes\_components;
 
 use df;
 use df\core;
@@ -13,59 +13,51 @@ use df\arch;
 class DetailHeaderBar extends arch\component\template\HeaderBar {
 
     protected function _getDefaultTitle() {
-        return $this->_('Class: %n%', [
-            '%n%' => $this->_record['name']
+        return $this->_('Node: %n%', [
+            '%n%' => $this->_record['title']
         ]);
     }
 
     protected function _addOperativeLinks($menu) {
         $menu->addLinks(
             // Edit
-            $this->import->component('ClassLink', '~admin/study/classes/', $this->_record, $this->_('Edit class'))
+            $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Edit node'))
                 ->setAction('edit'),
 
             // Delete
-            $this->import->component('ClassLink', '~admin/study/classes/', $this->_record, $this->_('Delete class'))
+            $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Delete node'))
                 ->setAction('delete')
-                ->setRedirectTo('~admin/study/classes/')
+                ->setRedirectTo('~admin/nightfire/nodes/')
         );
     }
 
     protected function _addSubOperativeLinks($menu) {
-        if($this->request->isAction('sessions')) {
+        if($this->request->isAction('versions')) {
+            /*
             $menu->addLinks(
                 // Add session
                 $this->html->link(
                         $this->uri->request('~admin/study/classroom-sessions/add?class='.$this->_record['id'], true),
                         $this->_('Add session')
                     )
-                    ->setIcon('add'),
-
-                // Reorder papers
-                $this->html->link(
-                        $this->uri->request('~admin/study/classroom-sessions/reorder?class='.$this->_record['id'], true),
-                        $this->_('Re-order sessions')
-                    )
-                    ->setIcon('reorder')
-                    ->setDisposition('operative')
+                    ->setIcon('add')
             );
+            */
         }
     }
 
     protected function _addSectionLinks($menu) {
-        $sessionCount = $this->_record->sessions->select()->count();
-
         $menu->addLinks(
             // Details
-            $this->import->component('ClassLink', '~admin/study/classes/', $this->_record, $this->_('Details'), true)
+            $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Details'), true)
                 ->setAction('details')
                 ->setIcon('details'),
 
             // Contacts
-            $this->import->component('ClassLink', '~admin/study/classes/', $this->_record, $this->_('Sessions'), true)
-                ->setAction('sessions')
-                ->setIcon('session')
-                ->setNote($this->format->counterNote($sessionCount))
+            $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Versions'), true)
+                ->setAction('versions')
+                ->setIcon('list')
+                ->setNote($this->format->counterNote($this->_record['versionCount']))
         );
     }
 }

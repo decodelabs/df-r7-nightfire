@@ -18,7 +18,7 @@ class PageEdit extends PageAdd {
     protected function _init() {
         $this->_page = $this->data->fetchForAction(
             'axis://nightfire/Page',
-            $this->_node['typeId'],
+            $this->_versionId,
             'edit'
         );
 
@@ -42,7 +42,11 @@ class PageEdit extends PageAdd {
 
     protected function _setDefaultValues() {
         $this->values->importFrom($this->_page, [
-            'description', 'keywords'
+            'title', 'description', 'keywords'
         ]);
+    }
+
+    public function getDefaultNodeValues() {
+        return ['title' => $this->_page['title']];
     }
 }

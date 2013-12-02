@@ -81,6 +81,15 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
             );
         }
 
+        // Title
+        if($this->_versionId && !$this->_makeNew) {
+            $fs->addFieldArea($this->_('Title'))->push(
+                $this->html->textbox($this->fieldName('title'), $this->values->title)
+                    ->setMaxLength(255)
+                    ->isRequired(true)
+            );
+        }
+
         // Description
         $fs->addFieldArea($this->_('Description'))->push(
             $this->html->textbox($this->fieldName('description'), $this->values->description)
@@ -95,7 +104,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
                 ->setPlaceholder($this->_('eg. about us, clients, work, company info'))
         );
 
-        if(!$this->_page->isNew()) {
+        if(!$this->_page->isNew() && !$this->_versionId) {
             // New version
             $fs->addFieldArea()->push(
                 $this->html->checkbox($this->fieldName('makeNew'), $this->values->makeNew, $this->_(
@@ -160,6 +169,14 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
         $validator = $this->data->newValidator()
 
+            // Title
+            ->chainIf($this->_versionId && !$this->_makeNew, function($validator) {
+                $validator->addField('title', 'text')
+                    ->isRequired(true)
+                    ->setMaxLength(255)
+                    ->end();
+            })
+
             // Description
             ->addField('description', 'text')
                 ->setMaxLength(255)
@@ -191,18 +208,22 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
             $layoutContent->addSlots($slots);
             $this->_page->body = $layoutContent->toXmlString(true);
 
+            if(!($this->_versionId && !$this->_makeNew)) {
+                $this->_page->title = $this->_node['title'];
+            }
+
             if($this->_page->isNew()) {
                 $this->_page->owner = $this->user->client->getId();
                 $this->_page->node = $this->_node;
             } else {
-                if($this->values['makeNew'] && $this->_page->hasChanged()) {
+                if(($this->_makeNew || $this->values['makeNew']) && $this->_page->hasChanged()) {
                     $this->_page->makeNew([
                         'date' => null
                     ]);
+                } else if($this->_page['id'] == $this->_node['typeId']) {
+                    $this->_node->title = $this->_page['title'];
                 }
             }
-
-            $this->_page->title = $this->_node['title'];
         }
     }
 

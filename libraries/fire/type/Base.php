@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\fire;
 use df\arch;
+use df\aura;
     
 abstract class Base implements IType {
 
@@ -57,16 +58,25 @@ abstract class Base implements IType {
         return core\string\Manipulator::formatName($this->getName());
     }
 
+    public function renderPreview(aura\view\IView $view, INode $node, $versionId=null) {}
 
     public function loadAddFormDelegate(arch\form\IAction $form, $delegateId, INode $node) {
         $form->loadDelegate($delegateId, 'types/'.$this->getName().'Add', '~/nightfire/')
             ->setNode($node);
+
         return $this;
     }
 
-    public function loadEditFormDelegate(arch\form\IAction $form, $delegateId, INode $node) {
+    public function loadEditFormDelegate(arch\form\IAction $form, $delegateId, INode $node, $versionId=null, $makeNew=false) {
+        if($versionId === null) {
+            $versionId = $node->getTypeId();
+        }
+
         $form->loadDelegate($delegateId, 'types/'.$this->getName().'Edit', '~/nightfire/')
-            ->setNode($node);
+            ->setNode($node)
+            ->setVersionId($versionId)
+            ->shouldMakeNew($makeNew);
+
         return $this;
     }
 

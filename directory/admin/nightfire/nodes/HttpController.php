@@ -29,6 +29,15 @@ class HttpController extends arch\Controller {
         return $view;
     }
 
+    public function versionsHtmlAction() {
+        $view = $this->aura->getView('Versions.html');
+        $this->_fetchNode($view);
+
+        $view['versionList'] = $view['node']->getType()->getVersionList($view['node']);
+
+        return $view;
+    }
+
     protected function _fetchNode($view) {
         $view['node'] = $this->data->fetchForAction(
             'axis://nightfire/Node',
