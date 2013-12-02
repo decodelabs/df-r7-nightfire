@@ -18,6 +18,7 @@ abstract class NightfireTypeDelegate extends arch\form\Delegate implements fire\
     protected $_node;
     protected $_versionId;
     protected $_makeNew = false;
+    protected $_isSpecificVersion = false;
 
     public function setNode(fire\type\INode $node) {
         $this->_node = $node;
@@ -44,6 +45,15 @@ abstract class NightfireTypeDelegate extends arch\form\Delegate implements fire\
         }
 
         return $this->_makeNew;
+    }
+
+    public function isSpecificVersion($flag=null) {
+        if($flag !== null) {
+            $this->_isSpecificVersion = (bool)$flag;
+            return $this;
+        }
+
+        return $this->_isSpecificVersion;
     }
 
     public function getDefaultNodeValues() {

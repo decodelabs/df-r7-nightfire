@@ -68,14 +68,18 @@ abstract class Base implements IType {
     }
 
     public function loadEditFormDelegate(arch\form\IAction $form, $delegateId, INode $node, $versionId=null, $makeNew=false) {
+        $specific = true;
+
         if($versionId === null) {
             $versionId = $node->getTypeId();
+            $specific = false;
         }
 
         $form->loadDelegate($delegateId, 'types/'.$this->getName().'Edit', '~/nightfire/')
             ->setNode($node)
             ->setVersionId($versionId)
-            ->shouldMakeNew($makeNew);
+            ->shouldMakeNew($makeNew)
+            ->isSpecificVersion($specific);
 
         return $this;
     }

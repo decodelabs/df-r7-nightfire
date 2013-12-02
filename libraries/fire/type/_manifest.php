@@ -75,6 +75,7 @@ interface IFormDelegate extends arch\form\ISelfContainedRenderableDelegate {
     public function setVersionId($versionId);
     public function getVersionId();
     public function shouldMakeNew($flag=null);
+    public function isSpecificVersion($flag=null);
     public function getDefaultNodeValues();
     public function validate();
     public function apply();

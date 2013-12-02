@@ -74,7 +74,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         }
 
         // Title
-        if($this->_versionId && !$this->_makeNew) {
+        if($this->_isSpecificVersion && !$this->_makeNew) {
             $fs->addFieldArea($this->_('Title'))->push(
                 $this->html->textbox($this->fieldName('title'), $this->values->title)
                     ->setMaxLength(255)
@@ -96,7 +96,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
                 ->setPlaceholder($this->_('eg. about us, clients, work, company info'))
         );
 
-        if(!$this->_page->isNew() && !$this->_versionId) {
+        if(!$this->_page->isNew() && !$this->_isSpecificVersion) {
             // New version
             $fs->addFieldArea()->push(
                 $this->html->checkbox($this->fieldName('makeNew'), $this->values->makeNew, $this->_(
@@ -162,7 +162,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         $validator = $this->data->newValidator()
 
             // Title
-            ->chainIf($this->_versionId && !$this->_makeNew, function($validator) {
+            ->chainIf($this->_isSpecificVersion && !$this->_makeNew, function($validator) {
                 $validator->addField('title', 'text')
                     ->isRequired(true)
                     ->setMaxLength(255)
@@ -200,7 +200,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
             $layoutContent->addSlots($slots);
             $this->_page->body = $layoutContent->toXmlString(true);
 
-            if(!($this->_versionId && !$this->_makeNew)) {
+            if(!($this->_isSpecificVersion && !$this->_makeNew)) {
                 $this->_page->title = $this->_node['title'];
             }
 
