@@ -46,16 +46,8 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
                 $delegate = $this->loadDelegate('slot-'.$slot->getId(), 'ContentSlot', '~/nightfire/')
                     ->isRequired(true)
                     ->setSlotDefinition($slot);
-
-                if($this->_content) {
-                    $delegate->setSlotContent($this->_content->getSlot($slot->getId()));
-                }
             }
         }
-    }
-
-    protected function _setDefaultValues() {
-
     }
 
     public function renderContainerContent(aura\html\widget\IContainerWidget $form) {

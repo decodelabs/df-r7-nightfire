@@ -44,6 +44,12 @@ class PageEdit extends PageAdd {
         $this->values->importFrom($this->_page, [
             'title', 'description', 'keywords'
         ]);
+
+        if($this->_layout && $this->_content) {
+            foreach($this->_layout->getSlots() as $slot) {
+                $this->getDelegate('slot-'.$slot->getId())->setSlotContent($this->_content->getSlot($slot->getId()));
+            }
+        }
     }
 
     public function getDefaultNodeValues() {
