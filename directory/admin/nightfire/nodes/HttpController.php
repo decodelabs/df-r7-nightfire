@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\fire;
     
 class HttpController extends arch\Controller {
 
@@ -32,8 +33,13 @@ class HttpController extends arch\Controller {
     public function versionsHtmlAction() {
         $view = $this->aura->getView('Versions.html');
         $this->_fetchNode($view);
+        $type = $view['node']->getType();
 
-        $view['versionList'] = $view['node']->getType()->getVersionList($view['node']);
+        if(!$type instanceof fire\type\IVersionedType) {
+            $this->throwError(403, 'Type not versioned');
+        }
+
+        $view['versionList'] = $type->getVersionList($view['node']);
 
         return $view;
     }

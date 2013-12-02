@@ -9,6 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
+use df\fire;
     
 class DetailHeaderBar extends arch\component\template\HeaderBar {
 
@@ -51,13 +52,17 @@ class DetailHeaderBar extends arch\component\template\HeaderBar {
             // Details
             $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Details'), true)
                 ->setAction('details')
-                ->setIcon('details'),
-
-            // Contacts
-            $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Versions'), true)
-                ->setAction('versions')
-                ->setIcon('list')
-                ->setNote($this->format->counterNote($this->_record['versionCount']))
+                ->setIcon('details')
         );
+
+        if($this->_record->getType() instanceof fire\type\IVersionedType) {
+            $menu->addLinks(
+                // Versions
+                $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Versions'), true)
+                    ->setAction('versions')
+                    ->setIcon('list')
+                    ->setNote($this->format->counterNote($this->_record['versionCount']))
+            );
+        }
     }
 }

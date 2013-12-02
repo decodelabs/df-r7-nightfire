@@ -16,7 +16,7 @@ class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
 
 
     protected function _setDefaultValues() {
-
+        $this->values->url = $this->_node['typeData'];
     }
 
     public function renderContainerContent(aura\html\widget\IContainerWidget $form) {
@@ -30,10 +30,14 @@ class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
     }
 
     public function validate() {
-        core\stub();
+        $this->data->newValidator()
+            ->addField('url', 'text')
+                ->isRequired(true)
+                ->setRecordName('typeData')
+                ->end()
+            ->validate($this->values)
+            ->applyTo($this->_node);
     }
 
-    public function apply() {
-        core\stub();
-    }
+    public function apply() {}
 }

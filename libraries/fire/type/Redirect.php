@@ -9,10 +9,17 @@ use df;
 use df\core;
 use df\fire;
 use df\arch;
+use df\aura;
     
 class Redirect extends Base {
 
     public function createResponse(arch\IContext $context, INode $node, $versionId=null) {
-        core\stub();
+        return $context->http->redirect($context->normalizeOutputUrl($node['typeData']));
+    }
+
+    public function renderPreview(aura\view\IView $view, INode $node, $version=null) {
+        return $view->html->link($view->uri->to($node['typeData']))
+            ->setIcon('link')
+            ->setTarget('_blank');
     }
 }
