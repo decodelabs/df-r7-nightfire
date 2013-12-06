@@ -73,6 +73,15 @@ class Unit extends axis\unit\table\Base {
             $context->throwError(404, 'Node "'.$slug.'" is not live');
         }
 
+        if($node['defaultAccess'] != 'all') {
+            $request = clone $context->request;
+            $request->setDefaultAccess($node->getDefaultAccessValue());
+
+            if(!$context->user->canAccess($request)) {
+                $context->throwError(401, 'Cannot access node');
+            }
+        }
+
         $type = $node->getType();
         return $type->createResponse($context, $node);
     }
