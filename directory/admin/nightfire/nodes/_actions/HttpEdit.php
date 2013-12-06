@@ -36,7 +36,9 @@ class HttpEdit extends HttpAdd {
     }
 
     protected function _setupDelegates() {
-        $this->_type->loadEditFormDelegate($this, 'type', $this->_node, $this->_versionId, $this->_versionId ? true : false);
+        if($this->_type) {
+            $this->_type->loadEditFormDelegate($this, 'type', $this->_node, $this->_versionId, $this->_versionId ? true : false);
+        }
     }
 
     protected function _setDefaultValues() {
