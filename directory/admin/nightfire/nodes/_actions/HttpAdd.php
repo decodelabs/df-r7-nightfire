@@ -158,6 +158,7 @@ class HttpAdd extends arch\form\Action {
             ->addField('slug', 'slug')
                 ->setDefaultValueField('title')
                 ->allowPathFormat(true)
+                ->allowAreaMarker(true)
                 ->setSanitizer(function($value) {
                     if(!strlen($value)) {
                         return $value;
