@@ -15,9 +15,13 @@ use df\aura;
 class Page extends Base implements fire\type\IVersionedType {
 
     public function createResponse(arch\IContext $context, INode $node, $versionId=null) {
+        if($versionId === null) {
+            $versionId = $node['typeId'];
+        }
+
         $page = $this->_getUnit()->fetch()
             ->where('node', '=', $node)
-            ->where('id', '=', $node['typeId'])
+            ->where('id', '=', $versionId)
             ->toRow();
 
         $content = fire\layout\Content::fromXmlString($page['body']);

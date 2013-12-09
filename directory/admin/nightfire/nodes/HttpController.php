@@ -50,4 +50,16 @@ class HttpController extends arch\Controller {
             $this->request->query['node']
         );
     }
+
+
+    public function previewAction() {
+        $node = $this->data->fetchForAction(
+            'axis://nightfire/Node',
+            $this->request->query['node']
+        );
+
+        $context = $this->context->spawnInstance($node['slug']);
+        $type = $node->getType();
+        return $type->createResponse($context, $node, $this->request->query['version']);
+    }
 }

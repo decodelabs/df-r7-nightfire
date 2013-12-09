@@ -63,6 +63,15 @@ class VersionList extends arch\component\template\CollectionList {
             $isActive = $version->isActive($node);
 
             return [
+                // Preview
+                $this->html->link(
+                        $this->uri->request('~admin/nightfire/nodes/preview?node='.$node->getId().'&version='.$version->getId()),
+                        $this->_('Preview')
+                    )
+                    ->setIcon('preview')
+                    ->setDisposition('transitive')
+                    ->setTarget('_blank'),
+
                 // Activate
                 $this->html->link(
                         $this->uri->request('~admin/nightfire/nodes/activate-version?node='.$node->getId().'&version='.$version->getId(), true), 

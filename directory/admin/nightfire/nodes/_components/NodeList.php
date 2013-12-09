@@ -84,6 +84,14 @@ class NodeList extends arch\component\template\CollectionList {
     public function addActionsField($list) {
         $list->addField('actions', function($node) {
             return [
+                // Preview
+                $this->import->component('NodeLink', '~admin/nightfire/nodes/', $node, $this->_('Preview'))
+                    ->setAction('preview')
+                    ->setDisposition('transitive')
+                    ->setIcon('preview')
+                    ->render()
+                        ->setAttribute('target', '_blank'),
+
                 // Edit
                 $this->import->component('NodeLink', '~admin/nightfire/nodes/', $node, $this->_('Edit'))
                     ->setAction('edit'),

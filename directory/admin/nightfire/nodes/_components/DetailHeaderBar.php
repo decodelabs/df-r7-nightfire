@@ -21,6 +21,14 @@ class DetailHeaderBar extends arch\component\template\HeaderBar {
 
     protected function _addOperativeLinks($menu) {
         $menu->addLinks(
+            // Preview
+            $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Preview'))
+                ->setAction('preview')
+                ->setDisposition('transitive')
+                ->setIcon('preview')
+                ->render()
+                    ->setAttribute('target', '_blank'),
+
             // Edit
             $this->import->component('NodeLink', '~admin/nightfire/nodes/', $this->_record, $this->_('Edit node'))
                 ->setAction('edit'),
