@@ -81,5 +81,9 @@ class HttpActivateVersion extends arch\form\template\Confirm {
             $validator['deleteUnused'],
             $validator['keepCurrent']
         );
+
+        $this->_node->versionCount = $this->_type->countVersions($this->_node);
+        $this->_node->currentVersion = $this->_type->getVersionNumber($this->_node);
+        $this->_node->save();
     }
 }

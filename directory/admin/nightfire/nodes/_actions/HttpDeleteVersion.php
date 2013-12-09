@@ -68,5 +68,11 @@ class HttpDeleteVersion extends arch\form\template\Delete {
 
     protected function _deleteItem() {
         $this->_type->deleteVersion($this->_node, $this->_version);
+
+        if($this->_type instanceof fire\type\IVersionedType) {
+            $this->_node->versionCount = $this->_type->countVersions($this->_node);
+            $this->_node->currentVersion = $this->_type->getVersionNumber($this->_node);
+            $this->_node->save();
+        }
     }
 }
