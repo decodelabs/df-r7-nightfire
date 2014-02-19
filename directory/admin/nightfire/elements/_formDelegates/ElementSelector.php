@@ -15,6 +15,7 @@ class ElementSelector extends arch\form\template\SearchSelectorDelegate {
     protected function _fetchResultList(array $ids) {
         return $this->data->nightfire->element->fetch()
             ->where('slug', 'in', $ids)
+            ->chain([$this, 'applyDependencies'])
             ->orderBy('name');
     }
 
@@ -25,6 +26,7 @@ class ElementSelector extends arch\form\template\SearchSelectorDelegate {
                 ->orWhere('slug', 'matches', $search)
                 ->endClause()
             ->where('slug', '!in', $selected)
+            ->chain([$this, 'applyDependencies'])
             ->toList('slug');
     }
 
