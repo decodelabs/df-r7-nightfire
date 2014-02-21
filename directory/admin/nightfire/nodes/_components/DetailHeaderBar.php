@@ -13,6 +13,8 @@ use df\fire;
     
 class DetailHeaderBar extends arch\component\template\HeaderBar {
 
+    protected $_icon = 'node';
+
     protected function _getDefaultTitle() {
         return $this->_('Node: %n%', [
             '%n%' => $this->_record['title']
