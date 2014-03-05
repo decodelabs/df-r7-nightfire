@@ -16,7 +16,7 @@ class HttpController extends arch\Controller {
         $view = $this->aura->getView('Index.html');
 
         $view['elementList'] = $this->data->nightfire->element->fetch()
-            ->populate('owner')
+            ->populateSelect('owner', 'id', 'fullName')
             ->paginateWith($this->request->query);
 
         return $view;
