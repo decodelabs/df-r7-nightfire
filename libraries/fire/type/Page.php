@@ -71,7 +71,7 @@ class Page extends Base implements fire\type\IVersionedType {
 
     public function getVersionList(INode $node) {
         return $this->_getUnit()->fetch()
-            ->populateSelect('owner', 'id', 'fullName')
+            ->importRelationBlock('owner', 'link')
             ->where('node', '=', $node)
             ->orderBy('date DESC')
             ->toArray();
