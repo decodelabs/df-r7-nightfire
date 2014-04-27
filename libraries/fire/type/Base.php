@@ -16,13 +16,7 @@ abstract class Base implements IType {
     public static function loadAll() {
         $output = array();
         
-        foreach(df\Launchpad::$loader->lookupFileList('fire/type', ['php']) as $baseName => $path) {
-            $name = substr($baseName, 0, -4);
-            
-            if($name === 'Base' || $name === '_manifest') {
-                continue;
-            }
-            
+        foreach(df\Launchpad::$loader->lookupClassList('fire/type') as $name => $class) {
             try {
                 $type = self::factory($name);
             } catch(\Exception $e) {
