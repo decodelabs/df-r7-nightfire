@@ -14,7 +14,7 @@ use df\aura;
 abstract class Base implements IType {
 
     public static function loadAll() {
-        $output = array();
+        $output = [];
         
         foreach(df\Launchpad::$loader->lookupClassList('fire/type') as $name => $class) {
             try {
