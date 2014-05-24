@@ -92,13 +92,6 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
 
 // Fields
-    public function defineOwnerField($list) {
-        $list->addField('owner', function($node) {
-            return $this->import->component('UserLink', '~admin/users/clients/', $node['owner'])
-                ->setDisposition('transitive');
-        });
-    }
-
     public function defineCurrentVersionField($list, $mode) {
         $list->addField('currentVersion', $this->_('Version'), function($node) {
             if(!$node['versionCount']) {
