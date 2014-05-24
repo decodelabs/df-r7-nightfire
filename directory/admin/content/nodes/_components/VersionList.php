@@ -21,6 +21,17 @@ class VersionList extends arch\component\template\CollectionList {
         'isActive' => true,
         'actions' => true
     ];
+
+    protected $_node;
+
+    public function setNode($node) {
+        $this->_node = $node;
+        return $this;
+    }
+
+    public function getNode() {
+        return $this->_node;
+    }
     
 
 // Numver
@@ -48,8 +59,12 @@ class VersionList extends arch\component\template\CollectionList {
 // Is active
     public function addIsActiveField($list) {
         $list->addField('isActive', $this->_('Active'), function($version, $context) {
-            if(!($isActive = $version->isActive($this->getView()['node']))) {
-                $context->getRowTag()->addClass('state-disabled');
+            if($this->_node) {
+                if(!($isActive = $version->isActive($this->_node))) {
+                    $context->getRowTag()->addClass('state-disabled');
+                }
+            } else {
+                $isActive = true;
             }
 
             return $this->html->booleanIcon($isActive);
@@ -58,14 +73,17 @@ class VersionList extends arch\component\template\CollectionList {
 
 // Actions
     public function addActionsField($list) {
+        if(!$this->_node) {
+            return;
+        }
+
         $list->addField('actions', function($version) {
-            $node = $this->getView()['node'];
-            $isActive = $version->isActive($node);
+            $isActive = $version->isActive($this->_node);
 
             return [
                 // Preview
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/preview?node='.$node->getId().'&version='.$version->getId()),
+                        $this->uri->request('~admin/content/nodes/preview?node='.$this->_node->getId().'&version='.$version->getId()),
                         $this->_('Preview')
                     )
                     ->setIcon('preview')
@@ -74,7 +92,7 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Activate
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/activate-version?node='.$node->getId().'&version='.$version->getId(), true), 
+                        $this->uri->request('~admin/content/nodes/activate-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Activate')
                     )
                     ->setIcon('accept')
@@ -83,7 +101,7 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Copy
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/edit?node='.$node->getId().'&version='.$version->getId(), true), 
+                        $this->uri->request('~admin/content/nodes/edit?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Copy')
                     )
                     ->setIcon('clipboard')
@@ -91,14 +109,14 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Edit
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/edit-version?node='.$node->getId().'&version='.$version->getId(), true), 
+                        $this->uri->request('~admin/content/nodes/edit-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Edit')
                     )
                     ->setIcon('edit'),
 
                 // Delete
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/delete-version?node='.$node->getId().'&version='.$version->getId(), true), 
+                        $this->uri->request('~admin/content/nodes/delete-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Delete')
                     )
                     ->setIcon('delete')
