@@ -21,7 +21,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
     protected function _init() {
         $layout = $this->getStore('layout');
-        $this->_config = fire\Config::getInstance($this->application);
+        $this->_config = fire\Config::getInstance();
 
         if(!$layout) {
             $list = $this->_config->getLayoutList();

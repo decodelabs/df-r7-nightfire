@@ -22,7 +22,7 @@ class PageEdit extends PageAdd {
             'edit'
         );
 
-        $this->_config = fire\Config::getInstance($this->application);
+        $this->_config = fire\Config::getInstance();
         $this->_content = fire\layout\Content::fromXmlString($this->_page['body']);
 
         if(!$this->hasStore('layout')) {
