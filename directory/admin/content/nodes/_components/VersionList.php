@@ -61,7 +61,7 @@ class VersionList extends arch\component\template\CollectionList {
         $list->addField('isActive', $this->_('Active'), function($version, $context) {
             if($this->_node) {
                 if(!($isActive = $version->isActive($this->_node))) {
-                    $context->getRowTag()->addClass('state-disabled');
+                    $context->getRowTag()->addClass('disabled');
                 }
             } else {
                 $isActive = true;
