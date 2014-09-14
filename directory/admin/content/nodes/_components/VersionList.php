@@ -44,7 +44,7 @@ class VersionList extends arch\component\template\CollectionList {
 // Owner
     public function addOwnerField($list) {
         $list->addField('owner', function($version) {
-            return $this->import->component('UserLink', '~admin/users/clients/', $version->getOwner())
+            return $this->import->component('~admin/users/clients/UserLink', $version->getOwner())
                 ->setDisposition('transitive');
         });
     }
