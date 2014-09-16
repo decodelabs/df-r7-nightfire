@@ -43,7 +43,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
     protected function _setupDelegates() {
         if($this->_layout) {
             foreach($this->_layout->getSlots() as $slot) {
-                $delegate = $this->loadDelegate('slot-'.$slot->getId(), 'ContentSlot', '~/nightfire/')
+                $delegate = $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot')
                     ->isRequired(true)
                     ->setSlotDefinition($slot);
             }

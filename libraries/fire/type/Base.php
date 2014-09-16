@@ -55,7 +55,7 @@ abstract class Base implements IType {
     public function renderPreview(aura\view\IView $view, INode $node, $versionId=null) {}
 
     public function loadAddFormDelegate(arch\form\IAction $form, $delegateId, INode $node) {
-        $form->loadDelegate($delegateId, 'types/'.$this->getName().'Add', '~/nightfire/')
+        $form->loadDelegate($delegateId, '~/nightfire/*/types/'.$this->getName().'Add')
             ->setNode($node);
 
         return $this;
@@ -69,7 +69,7 @@ abstract class Base implements IType {
             $specific = false;
         }
 
-        $form->loadDelegate($delegateId, 'types/'.$this->getName().'Edit', '~/nightfire/')
+        $form->loadDelegate($delegateId, '~/nightfire/*/types/'.$this->getName().'Edit')
             ->setNode($node)
             ->setVersionId($versionId)
             ->shouldMakeNew($makeNew)
@@ -80,7 +80,7 @@ abstract class Base implements IType {
 
     public function loadDeleteFormDelegate(arch\form\IAction $form, $delegateId, INode $node) {
         try {
-            $form->loadDelegate($delegateId, 'types/'.$this->getName().'Delete', '~/nightfire/')
+            $form->loadDelegate($delegateId, '~/nightfire/*/types/'.$this->getName().'Delete')
                 ->setNode($node);
         } catch(arch\form\DelegateException $e) {}
 
