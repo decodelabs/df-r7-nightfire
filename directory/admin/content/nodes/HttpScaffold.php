@@ -69,7 +69,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return [
             parent::renderDetailsSectionBody($node),
 
-            $this->html->element('h3', $this->_('Preview')),
+            $this->html('h3', $this->_('Preview')),
             $node->getType()->renderPreview($this->view, $node)
         ];
     }
