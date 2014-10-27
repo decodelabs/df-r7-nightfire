@@ -83,7 +83,7 @@ class VersionList extends arch\component\template\CollectionList {
             return [
                 // Preview
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/preview?node='.$this->_node->getId().'&version='.$version->getId()),
+                        $this->uri('~admin/content/nodes/preview?node='.$this->_node->getId().'&version='.$version->getId()),
                         $this->_('Preview')
                     )
                     ->setIcon('preview')
@@ -92,7 +92,7 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Activate
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/activate-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('~admin/content/nodes/activate-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Activate')
                     )
                     ->setIcon('accept')
@@ -101,7 +101,7 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Copy
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/edit?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('~admin/content/nodes/edit?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Copy')
                     )
                     ->setIcon('clipboard')
@@ -109,14 +109,14 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Edit
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/edit-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('~admin/content/nodes/edit-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Edit')
                     )
                     ->setIcon('edit'),
 
                 // Delete
                 $this->html->link(
-                        $this->uri->request('~admin/content/nodes/delete-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('~admin/content/nodes/delete-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
                         $this->_('Delete')
                     )
                     ->setIcon('delete')
