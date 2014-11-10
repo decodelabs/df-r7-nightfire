@@ -131,10 +131,8 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         $validator = $this->data->newValidator()
 
             // Layout
-            ->addField('layout', 'Enum')
+            ->addRequiredField('layout', 'Enum')
                 ->setOptions(array_keys($this->_config->getLayoutList()))
-                ->isRequired(true)
-                ->end()
 
             ->validate($this->values);
 
@@ -163,16 +161,13 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
             // Title
             ->chainIf($this->_isSpecificVersion && !$this->_makeNew, function($validator) {
-                $validator->addField('title', 'text')
-                    ->isRequired(true)
-                    ->setMaxLength(255)
-                    ->end();
+                $validator->addRequiredField('title', 'text')
+                    ->setMaxLength(255);
             })
 
             // Description
             ->addField('description', 'text')
                 ->setMaxLength(255)
-                ->end()
 
             // Keywords
             ->addField('keywords', 'text')
@@ -184,7 +179,6 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
                     $value = core\string\Util::parseDelimited($value);
                     return implode(',', $value);
                 })
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_page);

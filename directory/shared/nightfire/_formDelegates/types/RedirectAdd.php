@@ -31,10 +31,8 @@ class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
 
     public function validate() {
         $this->data->newValidator()
-            ->addField('url', 'text')
-                ->isRequired(true)
+            ->addRequiredField('url', 'text')
                 ->setRecordName('typeData')
-                ->end()
             ->validate($this->values)
             ->applyTo($this->_node);
     }

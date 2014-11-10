@@ -129,10 +129,8 @@ class HttpAdd extends arch\form\Action {
     protected function _onSelectTypeEvent() {
         $validator = $this->data->newValidator()
             // Type
-            ->addField('type', 'enum')
+            ->addRequiredField('type', 'enum')
                 ->setOptions(array_keys($this->data->nightfire->node->getTypeOptionList()))
-                ->isRequired(true)
-                ->end()
 
             ->validate($this->values);
 
@@ -150,12 +148,10 @@ class HttpAdd extends arch\form\Action {
         $validator = $this->data->newValidator()
 
             // Title
-            ->addField('title', 'text')
-                ->isRequired(true)
-                ->end()
+            ->addRequiredField('title', 'text')
 
             // Slug
-            ->addField('slug', 'slug')
+            ->addRequiredField('slug', 'slug')
                 ->setDefaultValueField('title')
                 ->allowPathFormat(true)
                 ->allowAreaMarker(true)
@@ -167,27 +163,20 @@ class HttpAdd extends arch\form\Action {
                     $value = new arch\Request($value);
                     return $value->toSlug();
                 })
-                ->isRequired(true)
-                ->end()
 
             // Default access
-            ->addField('defaultAccess', 'enum')
+            ->addRequiredField('defaultAccess', 'enum')
                 ->setOptions($this->data->nightfire->node->getDefaultAccessOptions())
-                ->isRequired(true)
-                ->end()
 
             // Is live
             ->addField('isLive', 'boolean')
-                ->end()
 
             // Is mappable
             ->addField('isMappable', 'boolean')
-                ->end()
 
             // Notes
             ->addField('notes', 'text')
                 ->setMaxLength(400)
-                ->end()
 
             ->validate($this->values)
             ->applyTo($this->_node);
