@@ -24,7 +24,7 @@ abstract class NightfireAction extends arch\Action {
         }
     }
 
-    protected function _dispatchRootDefaultAction() {
+    protected function _dispatchRootAction() {
         return null;
     }
 }

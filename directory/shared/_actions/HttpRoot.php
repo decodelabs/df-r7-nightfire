@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
     
-class HttpDefault extends arch\Action {
+class HttpRoot extends arch\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
     const CHECK_ACCESS = false;
