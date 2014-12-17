@@ -27,12 +27,12 @@ class HttpEdit extends HttpAdd {
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function _onSessionCreate() {
+    protected function _onSessionReady() {
         if(!$this->hasStore('nodeType')) {
             $this->setStore('nodeType', $this->_node['type']);  
         }
 
-        parent::_onSessionCreate();
+        parent::_onSessionReady();
     }
 
     protected function _setupDelegates() {

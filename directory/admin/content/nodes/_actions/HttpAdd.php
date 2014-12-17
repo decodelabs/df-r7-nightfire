@@ -22,7 +22,7 @@ class HttpAdd extends arch\form\Action {
         $this->_node = $this->data->newRecord('axis://nightfire/Node');
     }
 
-    protected function _onSessionCreate() {
+    protected function _onSessionReady() {
         $type = $this->getStore('nodeType');
 
         if($type) {
