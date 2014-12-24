@@ -17,7 +17,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     const DIRECTORY_TITLE = 'Nodes';
     const DIRECTORY_ICON = 'node';
     const RECORD_ADAPTER = 'axis://nightfire/Node';
-    const RECORD_NAME_KEY = 'slug';
+    const RECORD_NAME_FIELD = 'slug';
 
     protected $_sections = [
         'details',
