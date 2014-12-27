@@ -25,7 +25,7 @@ class Page extends Base implements fire\type\IVersionedType {
             ->toRow();
 
         $content = fire\layout\Content::fromXmlString($page['body']);
-        $view = $context->aura->getBarebonesView('Html');
+        $view = $context->apex->newView('Html');
         $view->setContentProvider(new aura\view\content\NightfireLayoutContentProvider($context, $content));
         $view->setTitle($page['title']);
         $view->setKeywords($page['keywords']);
