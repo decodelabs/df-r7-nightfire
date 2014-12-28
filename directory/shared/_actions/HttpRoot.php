@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpRoot extends arch\Action {
 
     const DEFAULT_ACCESS = arch\IAccess::ALL;
