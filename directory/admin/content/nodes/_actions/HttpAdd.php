@@ -121,7 +121,7 @@ class HttpAdd extends arch\form\Action {
         }
 
         // Buttons
-        $form->push($this->html->defaultButtonGroup());
+        $form->addDefaultButtonGroup();
     }
 
 
