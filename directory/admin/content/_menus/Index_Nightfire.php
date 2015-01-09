@@ -14,7 +14,7 @@ class Index_Nightfire extends arch\navigation\menu\Base {
 
     protected function _createEntries(arch\navigation\IEntryList $entryList) {
         $entryList->addEntries(
-            $entryList->newLink('~admin/content/nodes/', 'Nodes')
+            $entryList->newLink('./nodes/', 'Nodes')
                 ->setId('nodes')
                 ->setDescription('Create full content pages, redirects and more, update versions and control access')
                 ->setIcon('node')

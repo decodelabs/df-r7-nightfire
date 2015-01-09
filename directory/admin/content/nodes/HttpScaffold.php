@@ -52,7 +52,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     public function getRecordOperativeLinks($node, $mode) {
         return [
             // Preview
-            $this->apex->component('~admin/content/nodes/NodeLink', $node, $this->_('Preview'))
+            $this->apex->component('NodeLink', $node, $this->_('Preview'))
                 ->setAction('preview')
                 ->setDisposition('transitive')
                 ->setIcon('preview')
@@ -85,7 +85,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
         $versionList = $type->getVersionList($node);
         
-        return $this->apex->component('~admin/content/nodes/VersionList')
+        return $this->apex->component('VersionList')
             ->setNode($node)
             ->setCollection($versionList);
     }
