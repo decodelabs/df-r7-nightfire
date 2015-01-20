@@ -63,7 +63,7 @@ class HttpDelete extends arch\form\template\Delete {
             ;
 
         if($this->hasDelegate('type')) {
-            $this->getDelegate('type')->renderContainerContent($container);
+            $container->push($this->getDelegate('type'));
         }
     }
 

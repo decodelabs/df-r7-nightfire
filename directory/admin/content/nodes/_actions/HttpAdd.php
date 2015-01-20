@@ -117,7 +117,7 @@ class HttpAdd extends arch\form\Action {
 
         // Type
         if($this->_type) {
-            $this->getDelegate('type')->renderContainerContent($form);
+            $form->push($this->getDelegate('type'));
         }
 
         // Buttons

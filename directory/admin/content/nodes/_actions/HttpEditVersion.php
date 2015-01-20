@@ -52,7 +52,7 @@ class HttpEditVersion extends arch\form\Action {
         $form = $this->content->addForm();
 
         // Type
-        $this->getDelegate('type')->renderContainerContent($form);
+        $form->push($this->getDelegate('type'));
 
         // Buttons
         $form->addDefaultButtonGroup();
