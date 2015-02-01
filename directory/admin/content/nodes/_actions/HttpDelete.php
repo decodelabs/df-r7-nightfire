@@ -38,8 +38,7 @@ class HttpDelete extends arch\form\template\Delete {
             ->addField('slug')
             ->addField('type')
             ->addField('owner', function($node) {
-                return $this->apex->component('~admin/users/clients/UserLink', $node['owner'])
-                    ->setDisposition('transitive');
+                return $this->apex->component('~admin/users/clients/UserLink', $node['owner']);
             })
             ->addField('isLive', function($node) {
                 return $this->html->booleanIcon($node['isLive']);

@@ -54,8 +54,7 @@ class HttpDeleteVersion extends arch\form\template\Delete {
                 return $this->_node['type'];
             })
             ->addField('owner', function($version) {
-                return $this->apex->component('~admin/users/clients/UserLink', $version['owner'])
-                    ->setDisposition('transitive');
+                return $this->apex->component('~admin/users/clients/UserLink', $version['owner']);
             })
             ->addField('date', $this->_('Created'), function($version) {
                 return $this->html->timeSince($version['date']);
