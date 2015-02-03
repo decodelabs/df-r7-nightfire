@@ -66,11 +66,13 @@ class Unit extends axis\unit\table\Base {
         $slug = $context->request->toSlug();
 
         if(!$node = $this->fetchBySlug($slug)) {
-            $context->throwError(404, 'Node "'.$slug.'" not found');
+            //$context->throwError(404, 'Node "'.$slug.'" not found');
+            return null;
         }
 
         if(!$node['isLive']) {
-            $context->throwError(404, 'Node "'.$slug.'" is not live');
+            //$context->throwError(404, 'Node "'.$slug.'" is not live');
+            return null;
         }
 
         if($node['defaultAccess'] != 'all') {
@@ -84,6 +86,13 @@ class Unit extends axis\unit\table\Base {
 
         $type = $node->getType();
         return $type->createResponse($context, $node);
+    }
+
+    public function exists(arch\IContext $context) {
+        return (bool)$this->select('id')
+            ->where('slug', '=', $context->request->toSlug())
+            ->where('isLive', '=', true)
+            ->count();
     }
 
     public function fetchBySlug($slug) {

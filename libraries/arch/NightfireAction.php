@@ -13,18 +13,12 @@ use df\fire;
 abstract class NightfireAction extends arch\Action {
 
     public function dispatch() {
-        try {
-            return $this->data->nightfire->node->load($this->context);
-        } catch(\Exception $e) {
-            if($e->getCode() == 404) {
-                return parent::dispatch();
-            }
+        $response = $this->data->nightfire->node->load($this->context);
 
-            throw $e;
+        if($response === null) {
+            return parent::dispatch();
         }
-    }
 
-    protected function _dispatchRootAction() {
-        return null;
+        return $response;
     }
 }
