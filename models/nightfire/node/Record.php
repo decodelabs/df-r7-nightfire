@@ -89,4 +89,8 @@ class Record extends opal\record\Base implements fire\type\INode {
             case 'dev': return arch\IAccess::DEV;
         }
     }
+
+    public function createResponse(arch\IContext $context) {
+        return $this->getType()->createResponse($context, $this);
+    }
 }

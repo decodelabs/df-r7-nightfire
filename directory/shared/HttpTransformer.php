@@ -13,15 +13,17 @@ use df\arch;
 class HttpTransformer extends arch\Transformer {
     
     public function execute() {
-        $response = $this->data->nightfire->node->load($this->context);
+        $node = $this->data->nightfire->node->load($this->context->request);
 
-        if($response === null) {
+        if($node === null) {
             return null;
         }
 
-        return new arch\Action($this->context, function() use($response) {
-            return $response;
-        });
+        return (new arch\Action($this->context, function($action) use($node) {
+                return $node->createResponse($action->context);
+            }))
+            ->shouldCheckAccess(true)
+            ->setDefaultAccess($node->getDefaultAccessValue());
     }
 
     public function canDeliver() {

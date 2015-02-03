@@ -62,44 +62,27 @@ class Unit extends axis\unit\table\Base {
         return $this;
     }
 
-    public function load(arch\IContext $context) {
-        $slug = $context->request->toSlug();
-
-        if(!$node = $this->fetchBySlug($slug)) {
-            //$context->throwError(404, 'Node "'.$slug.'" not found');
-            return null;
-        }
-
-        if(!$node['isLive']) {
-            //$context->throwError(404, 'Node "'.$slug.'" is not live');
-            return null;
-        }
-
-        if($node['defaultAccess'] != 'all') {
-            $request = clone $context->request;
-            $request->setDefaultAccess($node->getDefaultAccessValue());
-
-            if(!$context->user->canAccess($request)) {
-                $context->throwError(401, 'Cannot access node');
-            }
-        }
-
-        $type = $node->getType();
-        return $type->createResponse($context, $node);
+    public function load(arch\IRequest $request) {
+        return $this->fetch()
+            ->where('slug', '=', $request->toSlug())
+            ->where('isLive', '=', true)
+            ->toRow();
     }
 
-    public function exists(arch\IContext $context) {
+    public function exists(arch\IRequest $request) {
         return (bool)$this->select('id')
-            ->where('slug', '=', $context->request->toSlug())
+            ->where('slug', '=', $request->toSlug())
             ->where('isLive', '=', true)
             ->count();
     }
 
+    /*
     public function fetchBySlug($slug) {
         return $this->fetch()
             ->where('slug', '=', $slug)
             ->toRow();
     }
+    */
 
     public function getTypeOptionList() {
         $output = [];
