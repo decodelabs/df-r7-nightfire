@@ -19,7 +19,7 @@ class HttpTransformer extends arch\Transformer {
             return null;
         }
 
-        return new arch\Action($this->context, null, function() use($response) {
+        return new arch\Action($this->context, function() use($response) {
             return $response;
         });
     }
