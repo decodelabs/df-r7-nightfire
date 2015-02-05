@@ -27,6 +27,6 @@ class HttpTransformer extends arch\Transformer {
     }
 
     public function canDeliver() {
-        return $this->data->nightfire->node->exists($this->context);
+        return $this->data->nightfire->node->exists($this->context->request);
     }
 }
