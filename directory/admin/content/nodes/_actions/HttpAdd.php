@@ -211,12 +211,7 @@ class HttpAdd extends arch\form\Action {
             }
 
             $this->_node->save();
-
-            $this->comms->flash(
-                'node.save',
-                $this->_('The content node has been successfully saved'),
-                'success'
-            );
+            $this->comms->flashSaveSuccess('content node');
 
             return $this->complete();
         }
