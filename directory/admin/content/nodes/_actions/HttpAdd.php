@@ -19,7 +19,7 @@ class HttpAdd extends arch\form\Action {
     protected $_versionId;
 
     protected function _init() {
-        $this->_node = $this->data->newRecord('axis://nightfire/Node');
+        $this->_node = $this->scaffold->newRecord();
     }
 
     protected function _onSessionReady() {
