@@ -20,12 +20,7 @@ class HttpDeleteVersion extends arch\form\template\Delete {
     protected $_version;
 
     protected function _init() {
-        $this->_node = $this->data->fetchForAction(
-            'axis://nightfire/Node',
-            $this->request->query['node'],
-            'delete'
-        );
-
+        $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
 
         if(!$this->_type instanceof fire\type\IVersionedType) {

@@ -19,12 +19,7 @@ class HttpEditVersion extends arch\form\Action {
     protected $_versionId;
 
     protected function _init() {
-        $this->_node = $this->data->fetchForAction(
-            'axis://nightfire/Node',
-            $this->request->query['node'],
-            'edit'
-        );
-
+        $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
 
         if(!$this->_type instanceof fire\type\IVersionedType) {

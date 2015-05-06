@@ -14,12 +14,7 @@ use df\fire;
 class HttpEdit extends HttpAdd {
 
     protected function _init() {
-        $this->_node = $this->data->fetchForAction(
-            'axis://nightfire/Node',
-            $this->request->query['node'],
-            'edit'
-        );
-
+        $this->_node = $this->scaffold->getRecord();
         $this->_versionId = $this->request->query['version'];
     }
 

@@ -17,11 +17,7 @@ class HttpDelete extends arch\form\template\Delete {
     protected $_node;
 
     protected function _init() {
-        $this->_node = $this->data->fetchForAction(
-            'axis://nightfire/Node',
-            $this->request->query['node'],
-            'delete'
-        );
+        $this->_node = $this->scaffold->getRecord();
     }
 
     protected function _getDataId() {
