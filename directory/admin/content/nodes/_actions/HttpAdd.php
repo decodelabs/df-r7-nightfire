@@ -79,12 +79,10 @@ class HttpAdd extends arch\form\Action {
         );
 
         // Slug
-        $fs->addFieldArea($this->_('Slug'))->setDescription($this->_(
-            'Leave empty to generate from title'
-        ))->push(
+        $fs->addFieldArea($this->_('Slug'))->push(
             $this->html->textbox('slug', $this->values->slug)
                 ->setMaxLength(255)
-                ->setPlaceholder('eg. about/clients')
+                ->setPlaceholder($this->_('Auto-generate from title'))
         );
 
         // Default access
@@ -151,7 +149,7 @@ class HttpAdd extends arch\form\Action {
             ->addRequiredField('title', 'text')
 
             // Slug
-            ->addRequiredField('slug', 'slug')
+            ->addRequiredField('slug')
                 ->setDefaultValueField('title')
                 ->allowPathFormat(true)
                 ->allowRoot(true)
