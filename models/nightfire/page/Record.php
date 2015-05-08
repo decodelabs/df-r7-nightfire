@@ -23,7 +23,7 @@ class Record extends opal\record\Base implements fire\type\IVersion {
     }
 
     public function getOwnerId() {
-        return $this->getRawId('owner');
+        return $this['#owner'];
     }
 
     public function getOwner() {
@@ -35,7 +35,7 @@ class Record extends opal\record\Base implements fire\type\IVersion {
     }
 
     public function isActive(fire\type\INode $node) {
-        return $this->getRawId('node') == $node->getId()
+        return $this['#node'] == $node->getId()
             && $this['id'] == $node->getTypeId();
     }
 }

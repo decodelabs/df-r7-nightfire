@@ -28,7 +28,7 @@ class Record extends opal\record\Base implements fire\type\INode {
     }
 
     public function getOwnerId() {
-        return $this->getRawId('owner');
+        return $this['#owner'];
     }
 
     public function getOwner() {
