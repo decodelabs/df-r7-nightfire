@@ -10,10 +10,16 @@ use df\core;
 use df\apex;
 use df\axis;
 use df\arch;
-use df\opal;
 use df\fire;
 
 class Unit extends axis\unit\table\Base {
+
+    protected $_defaultOrderableFields = [
+        'slug', 'title', 'type', 'creationDate', 'lastEditDate',
+        'owner', 'currentVersion', 'versionCount', 'defaultAccess', 'isMappable', 'isLive'
+    ];
+
+    protected $_defaultOrder = 'slug ASC';
 
     protected function _onCreate(axis\schema\ISchema $schema) {
         $schema->addField('id', 'AutoId', 8);
@@ -49,17 +55,6 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('isMappable', 'Boolean')
             ->setDefaultValue(true);
         $schema->addField('isLive', 'Boolean');
-    }
-
-    public function applyPagination(opal\query\IPaginator $paginator) {
-        $paginator
-            ->setOrderableFields(
-                'slug', 'title', 'type', 'creationDate', 'lastEditDate',
-                'owner', 'currentVersion', 'versionCount', 'defaultAccess', 'isMappable', 'isLive'
-            )
-            ->setDefaultOrder('slug ASC');
-
-        return $this;
     }
 
     public function load(arch\IRequest $request) {
