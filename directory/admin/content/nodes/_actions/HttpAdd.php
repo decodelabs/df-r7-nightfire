@@ -154,6 +154,8 @@ class HttpAdd extends arch\form\Action {
                 ->allowPathFormat(true)
                 ->allowRoot(true)
                 ->allowAreaMarker(true)
+                ->setRecord($this->_node)
+                ->shouldRenameOnConflict(false)
                 ->setSanitizer(function($value) {
                     if(!strlen($value)) {
                         return $value;
