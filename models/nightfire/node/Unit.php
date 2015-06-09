@@ -22,14 +22,14 @@ class Unit extends axis\unit\table\Base {
     protected $_defaultOrder = 'slug ASC';
 
     protected function _onCreate(axis\schema\ISchema $schema) {
-        $schema->addField('id', 'AutoId', 8);
+        $schema->addPrimaryField('id', 'Guid');
         $schema->addField('slug', 'Slug')
             ->allowPathFormat(true);
 
         $schema->addField('title', 'String', 255);
 
         $schema->addField('type', 'String', 64);
-        $schema->addField('typeId', 'Integer', 8)
+        $schema->addField('typeId', 'Guid')
             ->isNullable(true);
         $schema->addField('typeData', 'String', 1024)
             ->isNullable(true);

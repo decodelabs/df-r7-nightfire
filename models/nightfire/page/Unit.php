@@ -14,7 +14,7 @@ use df\opal;
 class Unit extends axis\unit\table\Base {
 
     protected function _onCreate(axis\schema\ISchema $schema) {
-        $schema->addPrimaryField('id', 'AutoId', 8);
+        $schema->addPrimaryField('id', 'Guid');
         $schema->addField('node', 'One', 'node');
         $schema->addField('owner', 'One', 'user/client');
 
