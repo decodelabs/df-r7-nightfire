@@ -14,6 +14,11 @@ use df\fire;
 
 class Unit extends axis\unit\table\Base {
 
+    protected $_defaultSearchFields = [
+        'slug' => 3,
+        'title' => 1
+    ];
+
     protected $_defaultOrderableFields = [
         'slug', 'title', 'type', 'creationDate', 'lastEditDate',
         'owner', 'currentVersion', 'versionCount', 'defaultAccess', 'isMappable', 'isLive'
