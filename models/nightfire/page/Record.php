@@ -14,6 +14,8 @@ use df\opal;
 
 class Record extends opal\record\Base implements fire\type\IVersion {
 
+    const BROADCAST_HOOK_EVENTS = true;
+    
     public function getId() {
         return $this['id'];
     }

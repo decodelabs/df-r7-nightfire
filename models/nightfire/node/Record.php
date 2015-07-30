@@ -15,6 +15,8 @@ use df\arch;
 
 class Record extends opal\record\Base implements fire\type\INode {
 
+    const BROADCAST_HOOK_EVENTS = true;
+
     public function getId() {
         return $this['id'];
     }
