@@ -13,6 +13,18 @@ use df\arch;
 class HttpTransformer extends arch\Transformer {
     
     public function execute() {
+        // See if the url just needs a /
+        $url = $this->context->http->getRequest()->getUrl();
+
+        if($url->path->shouldAddTrailingSlash()) {
+            $testUrl = clone $url;
+            $testUrl->path->shouldAddTrailingSlash(false);
+            $context = clone $this->context;
+            $context->location = $context->request = $this->context->http->getRouter()->urlToRequest($testUrl);
+            
+            return $context->http->redirect($context->request)->isPermanent(true);
+        }
+
         $node = $this->data->nightfire->node->load($this->context->request);
 
         if($node === null) {
