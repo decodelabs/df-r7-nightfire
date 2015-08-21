@@ -59,12 +59,10 @@ class HttpEditVersion extends arch\form\Action {
         $delegate = $this->getDelegate('type');
         $delegate->validate();
 
-        if($this->isValid()) {
+        return $this->complete(function() use($delegate) {
             $delegate->apply();
             $this->_node->save();
             $this->comms->flashSaveSuccess('content node version');
-
-            return $this->complete();
-        }
+        });
     }
 }

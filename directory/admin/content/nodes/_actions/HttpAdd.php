@@ -195,7 +195,7 @@ class HttpAdd extends arch\form\Action {
         $delegate = $this->getDelegate('type');
         $delegate->validate();
 
-        if($this->isValid()) {
+        return $this->complete(function() use($delegate) {
             if($this->_node->isNew()) {
                 $this->_node->owner = $this->user->client->getId();
             } else {
@@ -212,8 +212,6 @@ class HttpAdd extends arch\form\Action {
 
             $this->_node->save();
             $this->comms->flashSaveSuccess('content node');
-
-            return $this->complete();
-        }
+        });
     }
 }
