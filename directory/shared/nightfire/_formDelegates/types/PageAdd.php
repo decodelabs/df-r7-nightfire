@@ -19,7 +19,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
     protected $_page;
     protected $_content;
 
-    protected function _init() {
+    protected function init() {
         $layout = $this->getStore('layout');
         $this->_config = fire\Config::getInstance();
 
@@ -40,7 +40,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         $this->_page = $this->data->newRecord('axis://nightfire/Page');
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         if($this->_layout) {
             foreach($this->_layout->getSlots() as $slot) {
                 $delegate = $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot')
@@ -129,7 +129,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
 
 // Events
-    protected function _onSelectLayoutEvent() {
+    protected function onSelectLayoutEvent() {
         $validator = $this->data->newValidator()
 
             // Layout
@@ -143,7 +143,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         }
     }
 
-    protected function _onResetLayoutEvent() {
+    protected function onResetLayoutEvent() {
         $this->setStore('layout', false);
     }
 

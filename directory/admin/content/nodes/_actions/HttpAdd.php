@@ -16,13 +16,12 @@ class HttpAdd extends arch\form\Action {
 
     protected $_node;
     protected $_type;
-    protected $_versionId;
 
-    protected function _init() {
+    protected function init() {
         $this->_node = $this->scaffold->newRecord();
     }
 
-    protected function _onSessionReady() {
+    protected function initWithSession() {
         $type = $this->getStore('nodeType');
 
         if($type) {
@@ -30,22 +29,26 @@ class HttpAdd extends arch\form\Action {
         }
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         if($this->_type) {
             $this->_type->loadAddFormDelegate($this, 'type', $this->_node);
         }
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->type = 'Page';
         $this->values->defaultAccess = 'all';
         $this->values->isLive = true;
         $this->values->isMappable = true;
     }
 
+    protected function afterReset() {
+        $this->_type = null;
+    }
+
 
 // Ui
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Node details'));
 
@@ -124,7 +127,7 @@ class HttpAdd extends arch\form\Action {
 
 
 // Events
-    protected function _onSelectTypeEvent() {
+    protected function onSelectTypeEvent() {
         $validator = $this->data->newValidator()
             // Type
             ->addRequiredField('type', 'enum')
@@ -137,12 +140,12 @@ class HttpAdd extends arch\form\Action {
         }
     }
 
-    protected function _onResetTypeEvent() {
+    protected function onResetTypeEvent() {
         $this->setStore('nodeType', false);
     }
 
 
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $validator = $this->data->newValidator()
 
             // Title

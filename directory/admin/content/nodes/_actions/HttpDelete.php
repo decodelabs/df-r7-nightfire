@@ -16,19 +16,19 @@ class HttpDelete extends arch\form\template\Delete {
 
     protected $_node;
 
-    protected function _init() {
+    protected function init() {
         $this->_node = $this->scaffold->getRecord();
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_node['id'];
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->_node->getType()->loadDeleteFormDelegate($this, 'type', $this->_node);
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_node)
             ->addField('title')
             ->addField('slug')
@@ -62,7 +62,7 @@ class HttpDelete extends arch\form\template\Delete {
         }
     }
 
-    protected function _deleteItem() {
+    protected function apply() {
         if($this->hasDelegate('type')) {
             $delegate = $this->getDelegate('type');
             $delegate->validate();

@@ -17,7 +17,7 @@ class HttpActivateVersion extends arch\form\template\Confirm {
     protected $_type;
     protected $_versionId;
 
-    protected function _init() {
+    protected function init() {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
 
@@ -32,19 +32,19 @@ class HttpActivateVersion extends arch\form\template\Confirm {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->keepCurrent = true;
     }
 
-    protected function _getMainMessage($itemName) {
+    protected function getMainMessage() {
         return $this->_('Are you sure you want to activate this version?');
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addFieldArea()->push(
             $this->html->checkbox('deleteUnused', $this->values->deleteUnused, $this->_(
                 'Delete unused versions'
@@ -58,11 +58,11 @@ class HttpActivateVersion extends arch\form\template\Confirm {
         );
     }
 
-    protected function _getMainButtonText() {
-        return $this->_('Activate');
+    protected function customizeMainButton($button) {
+        $button->setBody($this->_('Activate'));
     }
 
-    protected function _apply() {
+    protected function apply() {
         $validator = $this->data->newValidator()
             ->addField('deleteUnused', 'boolean')
             ->addField('keepCurrent', 'boolean')

@@ -18,7 +18,7 @@ class HttpEditVersion extends arch\form\Action {
     protected $_type;
     protected $_versionId;
 
-    protected function _init() {
+    protected function init() {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
 
@@ -33,17 +33,17 @@ class HttpEditVersion extends arch\form\Action {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         $this->_type->loadEditFormDelegate($this, 'type', $this->_node, $this->_versionId, false);
     }
 
 
 // Ui
-    protected function _createUi() {
+    protected function createUi() {
         $form = $this->content->addForm();
 
         // Type
@@ -55,7 +55,7 @@ class HttpEditVersion extends arch\form\Action {
 
 
 // Events
-    protected function _onSaveEvent() {
+    protected function onSaveEvent() {
         $delegate = $this->getDelegate('type');
         $delegate->validate();
 

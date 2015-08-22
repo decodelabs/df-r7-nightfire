@@ -13,36 +13,38 @@ use df\fire;
     
 class HttpEdit extends HttpAdd {
 
-    protected function _init() {
+    protected $_versionId;
+    
+    protected function init() {
         $this->_node = $this->scaffold->getRecord();
         $this->_versionId = $this->request->query['version'];
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function _onSessionReady() {
+    protected function initWithSession() {
         if(!$this->hasStore('nodeType')) {
             $this->setStore('nodeType', $this->_node['type']);  
         }
 
-        parent::_onSessionReady();
+        parent::initWithSession();
     }
 
-    protected function _setupDelegates() {
+    protected function loadDelegates() {
         if($this->_type) {
             $this->_type->loadEditFormDelegate($this, 'type', $this->_node, $this->_versionId, $this->_versionId ? true : false);
         }
     }
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->importFrom($this->_node, [
             'title', 'slug', 'defaultAccess', 'notes', 'isLive', 'isMappable'
         ]);
     }
 
-    protected function _onInitComplete() {
+    protected function afterInit() {
         if($this->isNew()) {
             $values = $this->getDelegate('type')->getDefaultNodeValues();
 

@@ -19,7 +19,7 @@ class HttpDeleteVersion extends arch\form\template\Delete {
     protected $_type;
     protected $_version;
 
-    protected function _init() {
+    protected function init() {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
 
@@ -38,11 +38,11 @@ class HttpDeleteVersion extends arch\form\template\Delete {
         }
     }
 
-    protected function _getDataId() {
+    protected function getInstanceId() {
         return $this->_node['id'].':'.$this->_version['id'];
     }
 
-    protected function _renderItemDetails($container) {
+    protected function createItemUi($container) {
         $container->addAttributeList($this->_version)
             ->addField('title')
             ->addField('type', function($version) {
@@ -60,7 +60,7 @@ class HttpDeleteVersion extends arch\form\template\Delete {
             ;
     }
 
-    protected function _deleteItem() {
+    protected function apply() {
         $this->_type->deleteVersion($this->_node, $this->_version);
 
         if($this->_type instanceof fire\type\IVersionedType) {

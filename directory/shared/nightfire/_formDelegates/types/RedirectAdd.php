@@ -15,7 +15,7 @@ use df\aura;
 class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
 
 
-    protected function _setDefaultValues() {
+    protected function setDefaultValues() {
         $this->values->url = $this->_node['typeData'];
     }
 
