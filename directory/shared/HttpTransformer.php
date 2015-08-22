@@ -22,7 +22,10 @@ class HttpTransformer extends arch\Transformer {
             $context = clone $this->context;
             $context->location = $context->request = $this->context->http->getRouter()->urlToRequest($testUrl);
             
-            return $context->http->redirect($context->request)->isPermanent(true);
+            return (new arch\Action($context, function($action) {
+                return $action->context->http->redirect($action->context->request)
+                    ->isPermanent(true);
+            }));
         }
 
         $node = $this->data->nightfire->node->load($this->context->request);
