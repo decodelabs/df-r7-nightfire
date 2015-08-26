@@ -17,6 +17,73 @@ class Record extends opal\record\Base implements fire\type\INode {
 
     const BROADCAST_HOOK_EVENTS = true;
 
+    protected function _onPreSave($taskSet, $task) {
+        $this->_writeHistory($taskSet, $task);
+    }
+
+    protected function _writeHistory($taskSet, $task) {
+        $isNew = $this->isNew();
+
+        if(!$isNew && !$this->hasChanged()) {
+            return $this;
+        }
+
+        if($isNew) {
+            $description = 'Created node: '.$this['title'];
+        } else {
+            $lines = [];
+
+            foreach($this->getChangedValues() as $field => $value) {
+                switch($field) {
+                    case 'slug':
+                        $lines[] = 'Moved to '.$value;
+                        break;
+
+                    case 'title':
+                        $lines[] = 'Updated title to "'.$value.'"';
+                        break;
+
+                    case 'type':
+                        $lines[] = 'Changed type to '.$value;
+                        break;
+
+                    case 'owner':
+                        if(is_object($value)) {
+                            $lines[] = 'Set owner to '.$value['fullName'];
+                        } else if(!empty($value)) {
+                            $lines[] = 'Set new owner';
+                        } else {
+                            $lines[] = 'Removed owner';
+                        }
+
+                        break;
+
+                    case 'defaultAccess':
+                        $lines[] = 'Set default access to '.$value;
+                        break;
+
+                    case 'notes':
+                        $lines[] = 'Updated notes';
+                        break;
+
+                    case 'isLive':
+                        $lines[] = 'Set node '.($value ? 'active' : 'inactive');
+                        break;
+                }
+            }
+
+            if(empty($lines)) {
+                return $this;
+            }
+
+            $description = implode("\n", $lines);
+        }
+
+        $this->getRecordAdapter()->context->data->nightfire->history->createRecordEntry(
+            $this, $taskSet, $task, $description
+        );
+    }
+
     public function getId() {
         return $this['id'];
     }

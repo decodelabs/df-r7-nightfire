@@ -21,7 +21,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected $_sections = [
         'details',
-        'versions' => 'list'
+        'versions' => 'list',
+        'history' => 'history'
     ];
 
     protected $_recordListFields = [
@@ -41,7 +42,8 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
 
     protected function _fetchSectionItemCounts() {
         return [
-            'versions' => $this->_record['versionCount']
+            'versions' => $this->_record['versionCount'],
+            'history' => $this->data->nightfire->history->countFor($this->_record)
         ];
     }
 
@@ -85,6 +87,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         return $this->apex->component('VersionList')
             ->setNode($node)
             ->setCollection($versionList);
+    }
+
+    public function renderHistorySectionBody($task) {
+        $historyList = $this->data->nightfire->history->fetchFor($task)
+            ->paginateWith($this->request->query);
+
+        return $this->apex->component('~admin/history/HistoryList')
+            ->setCollection($historyList);
     }
 
 
