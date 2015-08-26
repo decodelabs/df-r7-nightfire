@@ -17,6 +17,13 @@ class Record extends opal\record\Base implements fire\type\INode {
 
     const BROADCAST_HOOK_EVENTS = true;
 
+    protected $_typeHistory = [];
+
+    public function setTypeHistory(array $history) {
+        $this->_typeHistory = $history;
+        return $this;
+    }
+
     protected function _onPreSave($taskSet, $task) {
         $this->_writeHistory($taskSet, $task);
     }
@@ -31,7 +38,7 @@ class Record extends opal\record\Base implements fire\type\INode {
         if($isNew) {
             $description = 'Created node: '.$this['title'];
         } else {
-            $lines = [];
+            $lines = $this->_typeHistory;
 
             foreach($this->getChangedValues() as $field => $value) {
                 switch($field) {

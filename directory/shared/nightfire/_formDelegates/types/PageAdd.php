@@ -212,6 +212,8 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
                     $this->_node->title = $this->_page['title'];
                 }
             }
+
+            return $this->_page->getHistory();
         }
     }
 

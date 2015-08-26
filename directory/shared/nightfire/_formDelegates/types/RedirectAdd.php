@@ -35,6 +35,10 @@ class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
                 ->setRecordName('typeData')
             ->validate($this->values)
             ->applyTo($this->_node);
+
+        if($this->_node->hasChanged('typeData')) {
+            return ['Updated url to '.$this->values['url']];
+        }
     }
 
     public function apply() {}

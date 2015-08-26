@@ -40,4 +40,28 @@ class Record extends opal\record\Base implements fire\type\IVersion {
         return $this['#node'] == $node->getId()
             && $this['id'] == $node->getTypeId();
     }
+
+    public function getHistory() {
+        $output = [];
+
+        if(!$this->isNew()) {
+            foreach($this->getChangedValues() as $field => $value) {
+                switch($field) {
+                    case 'description':
+                        $output[] = 'Updated description';
+                        break;
+
+                    case 'keywords':
+                        $output[] = 'Updated keywords';
+                        break;
+
+                    case 'body':
+                        $output[] = 'Updated body content';
+                        break;
+                }
+            }
+        }
+
+        return $output;
+    }
 }

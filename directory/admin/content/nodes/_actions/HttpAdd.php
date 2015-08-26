@@ -196,9 +196,15 @@ class HttpAdd extends arch\form\Action {
 
         $this->_node->type = $this->_type->getName();
         $delegate = $this->getDelegate('type');
-        $delegate->validate();
+        $typeHistory = $delegate->validate();
 
-        return $this->complete(function() use($delegate) {
+        if(!is_array($typeHistory)) {
+            $typeHistory = [];
+        }
+
+        return $this->complete(function() use($delegate, $typeHistory) {
+            $this->_node->setTypeHistory($typeHistory);
+            
             if($this->_node->isNew()) {
                 $this->_node->owner = $this->user->client->getId();
             } else {
