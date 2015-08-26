@@ -26,7 +26,7 @@ class Unit extends axis\unit\table\Base {
 
     protected $_defaultOrder = 'slug ASC';
 
-    protected function _onCreate(axis\schema\ISchema $schema) {
+    protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'Guid');
         $schema->addField('slug', 'Slug')
             ->allowPathFormat(true);

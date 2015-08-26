@@ -13,7 +13,7 @@ use df\opal;
 
 class Unit extends axis\unit\table\Base {
 
-    protected function _onCreate(axis\schema\ISchema $schema) {
+    protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'Guid');
         $schema->addField('node', 'One', 'node');
         $schema->addField('owner', 'One', 'user/client');
