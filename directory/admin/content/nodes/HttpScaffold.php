@@ -36,14 +36,14 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     ];
 
 // Record data
-    protected function _prepareRecordListQuery(opal\query\ISelectQuery $query, $mode) {
+    protected function prepareRecordList($query, $mode) {
         $query->importRelationBlock('owner', 'link');
     }
 
-    protected function _fetchSectionItemCounts() {
+    protected function countSectionItems($record) {
         return [
-            'versions' => $this->_record['versionCount'],
-            'history' => $this->data->nightfire->history->countFor($this->_record)
+            'versions' => $record['versionCount'],
+            'history' => $this->data->nightfire->history->countFor($record)
         ];
     }
 
