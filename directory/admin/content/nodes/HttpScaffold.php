@@ -43,7 +43,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     protected function countSectionItems($record) {
         return [
             'versions' => $record['versionCount'],
-            'history' => $this->data->nightfire->history->countFor($record)
+            'history' => $this->data->content->history->countFor($record)
         ];
     }
 
@@ -90,10 +90,10 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
     }
 
     public function renderHistorySectionBody($task) {
-        $historyList = $this->data->nightfire->history->fetchFor($task)
+        $historyList = $this->data->content->history->fetchFor($task)
             ->paginateWith($this->request->query);
 
-        return $this->apex->component('~admin/history/HistoryList')
+        return $this->apex->component('~admin/content/history/HistoryList')
             ->setCollection($historyList);
     }
 

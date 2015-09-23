@@ -86,7 +86,7 @@ class Record extends opal\record\Base implements fire\type\INode {
             $description = implode("\n", $lines);
         }
 
-        $this->getRecordAdapter()->context->data->nightfire->history->createRecordEntry(
+        $this->getRecordAdapter()->context->data->content->history->createRecordEntry(
             $this, $taskSet, $task, $description
         );
     }
