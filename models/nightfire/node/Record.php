@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -12,6 +12,7 @@ use df\axis;
 use df\fire;
 use df\opal;
 use df\arch;
+use df\flex;
 
 class Record extends opal\record\Base implements fire\type\INode {
 
@@ -123,7 +124,7 @@ class Record extends opal\record\Base implements fire\type\INode {
         $keywords = $this['keywords'];
 
         if($keywords !== null) {
-            return core\string\Util::parseDelimited($keywords);
+            return flex\Delimited::parse($keywords);
         }
 
         return null;
@@ -155,13 +156,13 @@ class Record extends opal\record\Base implements fire\type\INode {
         switch($this['defaultAccess']) {
             case 'all': return arch\IAccess::ALL;
             case 'none': return arch\IAccess::NONE;
-            
+
             case 'deactivated': return arch\IAccess::DEACTIVATED;
             case 'guest': return arch\IAccess::GUEST;
             case 'pending': return arch\IAccess::PENDING;
             case 'bound': return arch\IAccess::BOUND;
             case 'confirmed': return arch\IAccess::CONFIRMED;
-            
+
             case 'dev': return arch\IAccess::DEV;
         }
     }

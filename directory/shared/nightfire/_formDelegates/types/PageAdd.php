@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,8 @@ use df\apex;
 use df\arch;
 use df\fire;
 use df\aura;
-    
+use df\flex;
+
 class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
     protected $_layout;
@@ -154,7 +155,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         if(!$this->_layout) {
             $this->values->layout->addError('required', $this->_(
                 'Please select a layout'
-            ));   
+            ));
 
             return;
         }
@@ -178,7 +179,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
                         return $value;
                     }
 
-                    $value = core\string\Util::parseDelimited($value);
+                    $value = flex\Delimited::parse($value);
                     return implode(',', $value);
                 })
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,22 +10,23 @@ use df\core;
 use df\fire;
 use df\arch;
 use df\aura;
-    
+use df\flex;
+
 abstract class Base implements IType {
 
     public static function loadAll() {
         $output = [];
-        
+
         foreach(df\Launchpad::$loader->lookupClassList('fire/type') as $name => $class) {
             try {
                 $type = self::factory($name);
             } catch(\Exception $e) {
                 continue;
             }
-            
+
             $output[$type->getName()] = $type;
         }
-        
+
         ksort($output);
         return $output;
     }
@@ -49,7 +50,7 @@ abstract class Base implements IType {
     }
 
     public function getDisplayName() {
-        return core\string\Manipulator::formatName($this->getName());
+        return flex\Text::formatName($this->getName());
     }
 
     public function renderPreview(aura\view\IView $view, INode $node, $versionId=null) {}
