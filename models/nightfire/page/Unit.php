@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -18,15 +18,15 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('node', 'One', 'node');
         $schema->addField('owner', 'One', 'user/client');
 
-        $schema->addField('title', 'String', 255);
+        $schema->addField('title', 'Text', 255);
 
-        $schema->addField('description', 'String', 255)
+        $schema->addField('description', 'Text', 255)
             ->isNullable(true);
-        $schema->addField('keywords', 'String', 255)
+        $schema->addField('keywords', 'Text', 255)
             ->isNullable(true);
 
         $schema->addField('date', 'Timestamp');
 
-        $schema->addField('body', 'BigString', 'huge');
+        $schema->addField('body', 'BigText', 'huge');
     }
 }

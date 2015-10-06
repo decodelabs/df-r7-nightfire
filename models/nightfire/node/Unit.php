@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -31,12 +31,12 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('slug', 'Slug')
             ->allowPathFormat(true);
 
-        $schema->addField('title', 'String', 255);
+        $schema->addField('title', 'Text', 255);
 
-        $schema->addField('type', 'String', 64);
+        $schema->addField('type', 'Text', 64);
         $schema->addField('typeId', 'Guid')
             ->isNullable(true);
-        $schema->addField('typeData', 'String', 1024)
+        $schema->addField('typeData', 'Text', 1024)
             ->isNullable(true);
 
         $schema->addField('creationDate', 'Timestamp');
@@ -54,7 +54,7 @@ class Unit extends axis\unit\table\Base {
             ->setOptions(['all', 'none', 'deactivated', 'guest', 'pending', 'bound', 'confirmed', 'dev'])
             ->setDefaultValue('all');
 
-        $schema->addField('notes', 'String', 400)
+        $schema->addField('notes', 'Text', 400)
             ->isNullable(true);
 
         $schema->addField('isMappable', 'Boolean')
@@ -98,13 +98,13 @@ class Unit extends axis\unit\table\Base {
         return [
             'all' => $this->context->_('Everyone'),
             'none' => $this->context->_('No one (requires access keys)'),
-            
+
             'deactivated' => $this->context->_('Only deactivated users'),
             'guest' => $this->context->_('Only guests'),
             'pending' => $this->context->_('Only pending users'),
             'bound' => $this->context->_('Only logged in users'),
             'confirmed' => $this->context->_('Only logged in and password-confirmed users'),
-            
+
             'dev' => $this->context->_('Development mode users')
         ];
     }
