@@ -27,6 +27,6 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('date', 'Timestamp');
 
-        $schema->addField('body', 'BigText', 'huge');
+        $schema->addField('body', 'Text', 'huge');
     }
 }
