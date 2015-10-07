@@ -40,7 +40,7 @@ class Unit extends axis\unit\table\Base {
             ->isNullable(true);
 
         $schema->addField('creationDate', 'Timestamp');
-        $schema->addField('lastEditDate', 'DateTime')
+        $schema->addField('lastEditDate', 'Date:Time')
             ->isNullable(true);
 
         $schema->addField('owner', 'One', 'user/client');
