@@ -45,9 +45,9 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('owner', 'One', 'user/client');
 
-        $schema->addField('versionCount', 'Integer', 2)
+        $schema->addField('versionCount', 'Number', 2)
             ->isNullable(true);
-        $schema->addField('currentVersion', 'Integer', 2)
+        $schema->addField('currentVersion', 'Number', 2)
             ->isNullable(true);
 
         $schema->addField('defaultAccess', 'Enum')
