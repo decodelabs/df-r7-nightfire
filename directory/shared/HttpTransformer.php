@@ -11,8 +11,10 @@ use df\apex;
 use df\arch;
 
 class HttpTransformer extends arch\Transformer {
-    
+
     public function execute() {
+
+        /*
         // See if the url just needs a /
         $url = $this->context->http->getRequest()->getUrl();
 
@@ -21,12 +23,13 @@ class HttpTransformer extends arch\Transformer {
             $testUrl->path->shouldAddTrailingSlash(false);
             $context = clone $this->context;
             $context->location = $context->request = $this->context->http->getRouter()->urlToRequest($testUrl);
-            
+
             return (new arch\Action($context, function($action) {
                 return $action->context->http->redirect($action->context->request)
                     ->isPermanent(true);
             }));
         }
+        */
 
         $node = $this->data->nightfire->node->load($this->context->request);
 
