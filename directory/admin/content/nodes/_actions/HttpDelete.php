@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@ use df;
 use df\core;
 use df\apex;
 use df\arch;
-    
+
 class HttpDelete extends arch\form\template\Delete {
 
     const ITEM_NAME = 'node';
@@ -58,13 +58,13 @@ class HttpDelete extends arch\form\template\Delete {
             ;
 
         if($this->hasDelegate('type')) {
-            $container->push($this->getDelegate('type'));
+            $container->push($this['type']);
         }
     }
 
     protected function apply() {
         if($this->hasDelegate('type')) {
-            $delegate = $this->getDelegate('type');
+            $delegate = $this['type'];
             $delegate->validate();
             $delegate->apply();
         }

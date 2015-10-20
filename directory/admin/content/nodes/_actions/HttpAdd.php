@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 use df\opal;
-    
+
 class HttpAdd extends arch\form\Action {
 
     protected $_node;
@@ -118,7 +118,7 @@ class HttpAdd extends arch\form\Action {
 
         // Type
         if($this->_type) {
-            $form->push($this->getDelegate('type'));
+            $form->push($this['type']);
         }
 
         // Buttons
@@ -195,7 +195,7 @@ class HttpAdd extends arch\form\Action {
         }
 
         $this->_node->type = $this->_type->getName();
-        $delegate = $this->getDelegate('type');
+        $delegate = $this['type'];
         $typeHistory = $delegate->validate();
 
         if(!is_array($typeHistory)) {
@@ -204,7 +204,7 @@ class HttpAdd extends arch\form\Action {
 
         return $this->complete(function() use($delegate, $typeHistory) {
             $this->_node->setTypeHistory($typeHistory);
-            
+
             if($this->_node->isNew()) {
                 $this->_node->owner = $this->user->client->getId();
             } else {

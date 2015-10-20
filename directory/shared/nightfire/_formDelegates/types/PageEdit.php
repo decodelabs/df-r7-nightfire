@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\fire;
-    
+
 class PageEdit extends PageAdd {
 
     protected $_content;
@@ -47,7 +47,9 @@ class PageEdit extends PageAdd {
 
         if($this->_layout && $this->_content) {
             foreach($this->_layout->getSlots() as $slot) {
-                $this->getDelegate('slot-'.$slot->getId())->setSlotContent($this->_content->getSlot($slot->getId()));
+                $this['slot-'.$slot->getId()]->setSlotContent(
+                    $this->_content->getSlot($slot->getId())
+                );
             }
         }
     }

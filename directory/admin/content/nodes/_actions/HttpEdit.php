@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,11 +10,11 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\fire;
-    
+
 class HttpEdit extends HttpAdd {
 
     protected $_versionId;
-    
+
     protected function init() {
         $this->_node = $this->scaffold->getRecord();
         $this->_versionId = $this->request->query['version'];
@@ -26,7 +26,7 @@ class HttpEdit extends HttpAdd {
 
     protected function initWithSession() {
         if(!$this->hasStore('nodeType')) {
-            $this->setStore('nodeType', $this->_node['type']);  
+            $this->setStore('nodeType', $this->_node['type']);
         }
 
         parent::initWithSession();
@@ -46,7 +46,7 @@ class HttpEdit extends HttpAdd {
 
     protected function afterInit() {
         if($this->isNew()) {
-            $values = $this->getDelegate('type')->getDefaultNodeValues();
+            $values = $this['type']->getDefaultNodeValues();
 
             if(is_array($values) && !empty($values)) {
                 $this->values->import($values);

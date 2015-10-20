@@ -108,7 +108,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
         foreach($this->_layout->getSlots() as $slot) {
             $form->addFieldSet($slot->getName())->push(
-                $this->getDelegate('slot-'.$slot->getId())
+                $this['slot-'.$slot->getId()]
             );
         }
     }
@@ -189,7 +189,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         $slots = [];
 
         foreach($this->_layout->getSlots() as $slot) {
-            $slots[$slot->getId()] = $this->getDelegate('slot-'.$slot->getId())->apply();
+            $slots[$slot->getId()] = $this['slot-'.$slot->getId()]->apply();
         }
 
         if($this->isValid()) {

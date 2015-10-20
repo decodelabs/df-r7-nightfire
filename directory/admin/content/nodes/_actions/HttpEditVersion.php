@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 use df\opal;
-    
+
 class HttpEditVersion extends arch\form\Action {
 
     protected $_node;
@@ -25,7 +25,7 @@ class HttpEditVersion extends arch\form\Action {
         if(!$this->_type instanceof fire\type\IVersionedType) {
             $this->throwError(403, 'Type is not versioned');
         }
-        
+
         $this->_versionId = $this->request->query['version'];
 
         if(!$this->_versionId) {
@@ -47,7 +47,7 @@ class HttpEditVersion extends arch\form\Action {
         $form = $this->content->addForm();
 
         // Type
-        $form->push($this->getDelegate('type'));
+        $form->push($this['type']);
 
         // Buttons
         $form->addDefaultButtonGroup();
@@ -56,7 +56,7 @@ class HttpEditVersion extends arch\form\Action {
 
 // Events
     protected function onSaveEvent() {
-        $delegate = $this->getDelegate('type');
+        $delegate = $this['type'];
         $delegate->validate();
 
         return $this->complete(function() use($delegate) {
