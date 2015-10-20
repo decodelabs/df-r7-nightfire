@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\fire;
-    
+
 class HttpDeleteVersion extends arch\form\template\Delete {
 
     const ITEM_NAME = 'version';
@@ -27,7 +27,7 @@ class HttpDeleteVersion extends arch\form\template\Delete {
             $this->throwError(403, 'Type is not versioned');
         }
 
-        $this->_version = $this->_type->getVersion($this->_node, $this->request->query['version']);
+        $this->_version = $this->_type->getVersion($this->_node, $this->request['version']);
 
         if(!$this->_version) {
             $this->throwError(404, 'Version not found');

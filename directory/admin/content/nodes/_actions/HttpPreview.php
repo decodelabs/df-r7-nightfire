@@ -11,12 +11,12 @@ use df\apex;
 use df\arch;
 
 class HttpPreview extends arch\Action {
-    
+
     public function execute() {
         $node = $this->scaffold->getRecord();
         $context = $this->context->spawnInstance($node['slug']);
         $type = $node->getType();
-        
-        return $type->createResponse($context, $node, $this->request->query['version']);
+
+        return $type->createResponse($context, $node, $this->request['version']);
     }
 }

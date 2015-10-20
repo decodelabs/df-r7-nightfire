@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 use df\fire;
-    
+
 class HttpActivateVersion extends arch\form\template\Confirm {
 
     protected $_node;
@@ -25,7 +25,7 @@ class HttpActivateVersion extends arch\form\template\Confirm {
             $this->throwError(403, 'Type is not versioned');
         }
 
-        $this->_versionId = $this->request->query['version'];
+        $this->_versionId = $this->request['version'];
 
         if($this->_node->getTypeId() == $this->_versionId) {
             $this->throwError(403, 'Version is already active');
@@ -69,7 +69,7 @@ class HttpActivateVersion extends arch\form\template\Confirm {
             ->validate($this->values);
 
         $this->_type->applyVersion(
-            $this->_node, 
+            $this->_node,
             $this->_versionId,
             $validator['deleteUnused'],
             $validator['keepCurrent']

@@ -26,7 +26,7 @@ class HttpEditVersion extends arch\form\Action {
             $this->throwError(403, 'Type is not versioned');
         }
 
-        $this->_versionId = $this->request->query['version'];
+        $this->_versionId = $this->request['version'];
 
         if(!$this->_versionId) {
             $this->throwError(404, 'Version not found');

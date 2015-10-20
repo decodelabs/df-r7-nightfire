@@ -17,7 +17,7 @@ class HttpEdit extends HttpAdd {
 
     protected function init() {
         $this->_node = $this->scaffold->getRecord();
-        $this->_versionId = $this->request->query['version'];
+        $this->_versionId = $this->request['version'];
     }
 
     protected function getInstanceId() {
