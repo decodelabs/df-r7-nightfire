@@ -45,13 +45,13 @@ class HttpActivateVersion extends arch\form\template\Confirm {
     }
 
     protected function createItemUi($container) {
-        $container->addFieldArea()->push(
+        $container->addField()->push(
             $this->html->checkbox('deleteUnused', $this->values->deleteUnused, $this->_(
                 'Delete unused versions'
             ))
         );
 
-        $container->addFieldArea()->push(
+        $container->addField()->push(
             $this->html->checkbox('keepCurrent', $this->values->keepCurrent, $this->_(
                 'Keep current active version'
             ))

@@ -59,7 +59,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         $fs = $form->addFieldSet($this->_('Page details'));
 
         // Layout
-        $fa = $fs->addFieldArea($this->_('Layout'))->setErrorContainer($this->values->layout)->push(
+        $fa = $fs->addField($this->_('Layout'))->setErrorContainer($this->values->layout)->push(
             $this->html->textbox('layout', $this->_layout->getName())
                 ->isDisabled(true)
         );
@@ -76,7 +76,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
         // Title
         if($this->_isSpecificVersion && !$this->_makeNew) {
-            $fs->addFieldArea($this->_('Title'))->push(
+            $fs->addField($this->_('Title'))->push(
                 $this->html->textbox($this->fieldName('title'), $this->values->title)
                     ->setMaxLength(255)
                     ->isRequired(true)
@@ -84,13 +84,13 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         }
 
         // Description
-        $fs->addFieldArea($this->_('Description'))->push(
+        $fs->addField($this->_('Description'))->push(
             $this->html->textbox($this->fieldName('description'), $this->values->description)
                 ->setMaxLength(255)
         );
 
         // Keywords
-        $fs->addFieldArea($this->_('Keywords'))->setDescription($this->_(
+        $fs->addField($this->_('Keywords'))->setDescription($this->_(
             'Separate by commas'
         ))->push(
             $this->html->textbox($this->fieldName('keywords'), $this->values->keywords)
@@ -99,7 +99,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
 
         if(!$this->_page->isNew() && !$this->_isSpecificVersion) {
             // New version
-            $fs->addFieldArea()->push(
+            $fs->addField()->push(
                 $this->html->checkbox($this->fieldName('makeNew'), $this->values->makeNew, $this->_(
                     'Turn any changes into a new version'
                 ))
@@ -117,7 +117,7 @@ class PageAdd extends arch\form\template\NightfireTypeDelegate {
         $fs = $form->addFieldSet($this->_('Page details'));
 
         // Layout
-        $fs->addFieldArea($this->_('Layout'))->push(
+        $fs->addField($this->_('Layout'))->push(
             $this->html->selectList($this->fieldName('layout'), $this->values->layout, $this->_config->getLayoutList())
                 ->isRequired(true)
                 ->setNoSelectionLabel($this->_('Select layout...')),

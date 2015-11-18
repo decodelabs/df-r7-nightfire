@@ -54,7 +54,7 @@ class HttpAdd extends arch\form\Action {
 
         // Type
         if($this->_type) {
-            $fs->addFieldArea($this->_('Type'))->setErrorContainer($this->values->type)->push(
+            $fs->addField($this->_('Type'))->setErrorContainer($this->values->type)->push(
                 $this->html->textbox('type', $this->_type->getName())
                     ->isDisabled(true),
 
@@ -63,7 +63,7 @@ class HttpAdd extends arch\form\Action {
                     ->shouldValidate(false)
             );
         } else {
-            $fs->addFieldArea($this->_('Type'))->push(
+            $fs->addField($this->_('Type'))->push(
                 $this->html->selectList('type', $this->values->type, $this->data->nightfire->node->getTypeOptionList())
                     ->isRequired(true)
                     ->setNoSelectionLabel($this->_('Select node type...')),
@@ -75,34 +75,34 @@ class HttpAdd extends arch\form\Action {
         }
 
         // Title
-        $fs->addFieldArea($this->_('Title'))->push(
+        $fs->addField($this->_('Title'))->push(
             $this->html->textbox('title', $this->values->title)
                 ->setMaxLength(255)
                 ->isRequired(true)
         );
 
         // Slug
-        $fs->addFieldArea($this->_('Slug'))->push(
+        $fs->addField($this->_('Slug'))->push(
             $this->html->textbox('slug', $this->values->slug)
                 ->setMaxLength(255)
                 ->setPlaceholder($this->_('Auto-generate from title'))
         );
 
         // Default access
-        $fs->addFieldArea($this->_('Default access'))->push(
+        $fs->addField($this->_('Default access'))->push(
             $this->html->selectList('defaultAccess', $this->values->defaultAccess, $this->data->nightfire->node->getDefaultAccessOptionList())
                 ->isRequired(true)
         );
 
         // Is live
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('isLive', $this->values->isLive, $this->_(
                 'This node is live and viewable in the front end'
             ))
         );
 
         // Mappable
-        $fs->addFieldArea()->push(
+        $fs->addField()->push(
             $this->html->checkbox('isMappable', $this->values->isMappable, $this->_(
                 'This node should appear in site maps and auto-generated navigation'
             ))
@@ -110,7 +110,7 @@ class HttpAdd extends arch\form\Action {
 
 
         // Notes
-        $fs->addFieldArea($this->_('Notes'))->push(
+        $fs->addField($this->_('Notes'))->push(
             $this->html->textarea('notes', $this->values->notes)
                 ->setMaxLength(400)
         );

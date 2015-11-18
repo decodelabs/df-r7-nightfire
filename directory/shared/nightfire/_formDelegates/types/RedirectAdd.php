@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 use df\aura;
-    
+
 class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
 
 
@@ -23,10 +23,10 @@ class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
         $fs = $form->addFieldSet($this->_('Redirect details'));
 
         // Url
-        $fs->addFieldArea($this->_('Url'))->push(
+        $fs->addField($this->_('Url'))->push(
             $this->html->textbox($this->fieldName('url'), $this->values->url)
                 ->isRequired(true)
-        );  
+        );
     }
 
     public function validate() {
