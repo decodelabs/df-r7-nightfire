@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,11 +11,11 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-class VersionList extends arch\component\template\CollectionList {
+class VersionList extends arch\component\CollectionList {
 
     protected $_fields = [
         'number' => true,
-        'title' => true, 
+        'title' => true,
         'owner' => true,
         'date' => true,
         'isActive' => true,
@@ -32,7 +32,7 @@ class VersionList extends arch\component\template\CollectionList {
     public function getNode() {
         return $this->_node;
     }
-    
+
 
 // Numver
     public function addNumberField($list) {
@@ -91,7 +91,7 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Activate
                 $this->html->link(
-                        $this->uri('./activate-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('./activate-version?node='.$this->_node->getId().'&version='.$version->getId(), true),
                         $this->_('Activate')
                     )
                     ->setIcon('accept')
@@ -100,7 +100,7 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Copy
                 $this->html->link(
-                        $this->uri('./edit?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('./edit?node='.$this->_node->getId().'&version='.$version->getId(), true),
                         $this->_('Copy')
                     )
                     ->setIcon('clipboard')
@@ -108,14 +108,14 @@ class VersionList extends arch\component\template\CollectionList {
 
                 // Edit
                 $this->html->link(
-                        $this->uri('./edit-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('./edit-version?node='.$this->_node->getId().'&version='.$version->getId(), true),
                         $this->_('Edit')
                     )
                     ->setIcon('edit'),
 
                 // Delete
                 $this->html->link(
-                        $this->uri('./delete-version?node='.$this->_node->getId().'&version='.$version->getId(), true), 
+                        $this->uri('./delete-version?node='.$this->_node->getId().'&version='.$version->getId(), true),
                         $this->_('Delete')
                     )
                     ->setIcon('delete')

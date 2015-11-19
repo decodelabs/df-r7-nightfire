@@ -12,8 +12,8 @@ use df\arch;
 use df\opal;
 use df\fire;
 
-class HttpScaffold extends arch\scaffold\template\RecordAdmin {
-    
+class HttpScaffold extends arch\scaffold\RecordAdmin {
+
     const DIRECTORY_TITLE = 'Nodes';
     const DIRECTORY_ICON = 'node';
     const RECORD_ADAPTER = 'axis://nightfire/Node';
@@ -83,7 +83,7 @@ class HttpScaffold extends arch\scaffold\template\RecordAdmin {
         }
 
         $versionList = $type->getVersionList($node);
-        
+
         return $this->apex->component('VersionList')
             ->setNode($node)
             ->setCollection($versionList);
