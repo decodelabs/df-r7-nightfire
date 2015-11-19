@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\arch\form\template;
+namespace df\arch\action\form;
 
 use df;
 use df\core;
@@ -11,9 +11,9 @@ use df\arch;
 use df\fire;
 use df\aura;
 
-abstract class NightfireTypeDelegate extends arch\form\Delegate implements fire\type\IFormDelegate {
+abstract class NightfireTypeDelegate extends Delegate implements fire\type\IFormDelegate {
 
-    use arch\form\TForm_SelfContainedRenderableDelegate;
+    use arch\action\TForm_SelfContainedRenderableDelegate;
 
     protected $_node;
     protected $_versionId;

@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-class HttpActivateVersion extends arch\form\template\Confirm {
+class HttpActivateVersion extends arch\action\ConfirmForm {
 
     protected $_node;
     protected $_type;

@@ -12,7 +12,7 @@ use df\arch;
 use df\fire;
 use df\aura;
 
-class RedirectAdd extends arch\form\template\NightfireTypeDelegate {
+class RedirectAdd extends arch\action\form\NightfireTypeDelegate {
 
 
     protected function setDefaultValues() {

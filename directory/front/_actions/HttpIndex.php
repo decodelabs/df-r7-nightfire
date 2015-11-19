@@ -9,8 +9,8 @@ use df;
 use df\core;
 use df\arch;
 
-class HttpIndex extends arch\NightfireAction {
-    
+class HttpIndex extends arch\action\Nightfire {
+
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;
 

@@ -12,7 +12,7 @@ use df\arch;
 use df\fire;
 use df\opal;
 
-class HttpAdd extends arch\form\Action {
+class HttpAdd extends arch\action\Form {
 
     protected $_node;
     protected $_type;

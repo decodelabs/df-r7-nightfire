@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpPreview extends arch\Action {
+class HttpPreview extends arch\action\Base {
 
     public function execute() {
         $node = $this->scaffold->getRecord();

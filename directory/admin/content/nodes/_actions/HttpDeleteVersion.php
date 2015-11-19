@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-class HttpDeleteVersion extends arch\form\template\Delete {
+class HttpDeleteVersion extends arch\action\DeleteForm {
 
     const ITEM_NAME = 'version';
 

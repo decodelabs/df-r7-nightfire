@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,8 +11,8 @@ use df\apex;
 use df\arch;
 use df\fire;
 use df\aura;
-    
-class PageDelete extends arch\form\template\NightfireTypeDelegate {
+
+class PageDelete extends arch\action\form\NightfireTypeDelegate {
 
     public function apply() {
         $this->data->nightfire->page->delete()

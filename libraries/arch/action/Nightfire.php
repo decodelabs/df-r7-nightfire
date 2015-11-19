@@ -1,16 +1,16 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\arch;
+namespace df\arch\action;
 
 use df;
 use df\core;
 use df\arch;
 use df\fire;
-    
-abstract class NightfireAction extends arch\Action {
+
+abstract class Nightfire extends Base {
 
     public function dispatch() {
         $node = $this->data->nightfire->node->load($this->context->request);

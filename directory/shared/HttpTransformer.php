@@ -24,7 +24,7 @@ class HttpTransformer extends arch\Transformer {
             $context = clone $this->context;
             $context->location = $context->request = $this->context->http->getRouter()->urlToRequest($testUrl);
 
-            return (new arch\Action($context, function($action) {
+            return (new arch\action\Base($context, function($action) {
                 return $action->context->http->redirect($action->context->request)
                     ->isPermanent(true);
             }));
@@ -37,7 +37,7 @@ class HttpTransformer extends arch\Transformer {
             return null;
         }
 
-        return (new arch\Action($this->context, function($action) use($node) {
+        return (new arch\action\Base($this->context, function($action) use($node) {
                 return $node->createResponse($action->context);
             }))
             ->shouldCheckAccess(true)

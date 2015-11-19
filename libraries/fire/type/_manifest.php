@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -42,9 +42,9 @@ interface IType {
     public function createResponse(arch\IContext $context, INode $node, $versionId=null);
     public function renderPreview(aura\view\IView $view, INode $node, $version=null);
 
-    public function loadAddFormDelegate(arch\form\IAction $form, $delegateId, INode $node);
-    public function loadEditFormDelegate(arch\form\IAction $form, $delegateId, INode $node, $versionId=null);
-    public function loadDeleteFormDelegate(arch\form\IAction $form, $delegateId, INode $node);
+    public function loadAddFormDelegate(arch\action\IFormAction $form, $delegateId, INode $node);
+    public function loadEditFormDelegate(arch\action\IFormAction $form, $delegateId, INode $node, $versionId=null);
+    public function loadDeleteFormDelegate(arch\action\IFormAction $form, $delegateId, INode $node);
 }
 
 interface IVersionedType {
@@ -69,7 +69,7 @@ interface IVersion {
 }
 
 
-interface IFormDelegate extends arch\form\ISelfContainedRenderableDelegate {
+interface IFormDelegate extends arch\action\ISelfContainedRenderableDelegate {
     public function setNode(INode $node);
     public function getNode();
     public function setVersionId($versionId);
