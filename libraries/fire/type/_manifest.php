@@ -42,9 +42,9 @@ interface IType {
     public function createResponse(arch\IContext $context, INode $node, $versionId=null);
     public function renderPreview(aura\view\IView $view, INode $node, $version=null);
 
-    public function loadAddFormDelegate(arch\action\IFormAction $form, $delegateId, INode $node);
-    public function loadEditFormDelegate(arch\action\IFormAction $form, $delegateId, INode $node, $versionId=null);
-    public function loadDeleteFormDelegate(arch\action\IFormAction $form, $delegateId, INode $node);
+    public function loadAddFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node);
+    public function loadEditFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node, $versionId=null);
+    public function loadDeleteFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node);
 }
 
 interface IVersionedType {
@@ -69,7 +69,7 @@ interface IVersion {
 }
 
 
-interface IFormDelegate extends arch\action\ISelfContainedRenderableDelegate {
+interface IFormDelegate extends arch\node\ISelfContainedRenderableDelegate {
     public function setNode(INode $node);
     public function getNode();
     public function setVersionId($versionId);

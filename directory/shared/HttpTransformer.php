@@ -24,24 +24,24 @@ class HttpTransformer extends arch\Transformer {
             $context = clone $this->context;
             $context->location = $context->request = $this->context->http->getRouter()->urlToRequest($testUrl);
 
-            return (new arch\action\Base($context, function($action) {
-                return $action->context->http->redirect($action->context->request)
+            return (new arch\node\Base($context, function($node) {
+                return $node->context->http->redirect($node->context->request)
                     ->isPermanent(true);
             }));
         }
         */
 
-        $node = $this->data->nightfire->node->load($this->context->request);
+        $record = $this->data->nightfire->node->load($this->context->request);
 
-        if($node === null) {
+        if($record === null) {
             return null;
         }
 
-        return (new arch\action\Base($this->context, function($action) use($node) {
-                return $node->createResponse($action->context);
+        return (new arch\node\Base($this->context, function($node) use($record) {
+                return $record->createResponse($node->context);
             }))
             ->shouldCheckAccess(true)
-            ->setDefaultAccess($node->getDefaultAccessValue());
+            ->setDefaultAccess($record->getDefaultAccessValue());
     }
 
     public function canDeliver() {

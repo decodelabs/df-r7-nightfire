@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\arch\action;
+namespace df\arch\node;
 
 use df;
 use df\core;
@@ -13,14 +13,14 @@ use df\fire;
 abstract class Nightfire extends Base {
 
     public function dispatch() {
-        $node = $this->data->nightfire->node->load($this->context->request);
+        $record = $this->data->nightfire->node->load($this->context->request);
 
-        if($node !== null) {
+        if($record !== null) {
             $this
                 ->shouldCheckAccess(true)
-                ->setDefaultAccess($node->getDefaultAccessValue())
-                ->setCallback(function($action) use($node) {
-                    return $node->createResponse($this->context);
+                ->setDefaultAccess($record->getDefaultAccessValue())
+                ->setCallback(function($node) use($record) {
+                    return $record->createResponse($this->context);
                 });
         }
 

@@ -3,14 +3,14 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\admin\content\nodes\_actions;
+namespace df\apex\directory\admin\content\nodes\_nodes;
 
 use df;
 use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDelete extends arch\action\DeleteForm {
+class HttpDelete extends arch\node\DeleteForm {
 
     const ITEM_NAME = 'node';
 

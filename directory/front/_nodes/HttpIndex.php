@@ -3,13 +3,13 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\apex\directory\front\_actions;
+namespace df\apex\directory\front\_nodes;
 
 use df;
 use df\core;
 use df\arch;
 
-class HttpIndex extends arch\action\Nightfire {
+class HttpIndex extends arch\node\Nightfire {
 
     const CHECK_ACCESS = false;
     const DEFAULT_ACCESS = arch\IAccess::ALL;

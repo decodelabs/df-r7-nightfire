@@ -13,7 +13,7 @@ use df\fire;
 use df\aura;
 use df\flex;
 
-class PageAdd extends arch\action\form\NightfireTypeDelegate {
+class PageAdd extends arch\node\form\NightfireTypeDelegate {
 
     protected $_layout;
     protected $_config;

@@ -3,7 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
-namespace df\arch\action\form;
+namespace df\arch\node\form;
 
 use df;
 use df\core;
@@ -13,7 +13,7 @@ use df\aura;
 
 abstract class NightfireTypeDelegate extends Delegate implements fire\type\IFormDelegate {
 
-    use arch\action\TForm_SelfContainedRenderableDelegate;
+    use arch\node\TForm_SelfContainedRenderableDelegate;
 
     protected $_node;
     protected $_versionId;

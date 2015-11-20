@@ -53,7 +53,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
         return [
             // Preview
             $this->apex->component('NodeLink', $node, $this->_('Preview'))
-                ->setAction('preview')
+                ->setNode('preview')
                 ->setIcon('preview')
                 ->render()
                 ->setAttribute('target', '_blank'),

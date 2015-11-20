@@ -12,7 +12,7 @@ use df\arch;
 use df\fire;
 use df\aura;
 
-class PageDelete extends arch\action\form\NightfireTypeDelegate {
+class PageDelete extends arch\node\form\NightfireTypeDelegate {
 
     public function apply() {
         $this->data->nightfire->page->delete()
