@@ -25,7 +25,7 @@ class Record extends opal\record\Base implements fire\type\INode {
         return $this;
     }
 
-    protected function _onPreSave($taskSet, $task) {
+    protected function onPreSave($taskSet, $task) {
         $this->_writeHistory($taskSet, $task);
     }
 
