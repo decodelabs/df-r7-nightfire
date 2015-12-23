@@ -14,10 +14,10 @@ use df\fire;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin {
 
-    const DIRECTORY_TITLE = 'Nodes';
-    const DIRECTORY_ICON = 'node';
-    const RECORD_ADAPTER = 'axis://nightfire/Node';
-    const RECORD_NAME_FIELD = 'slug';
+    const TITLE = 'Nodes';
+    const ICON = 'node';
+    const ADAPTER = 'axis://nightfire/Node';
+    const NAME_FIELD = 'slug';
 
     protected $_sections = [
         'details',
