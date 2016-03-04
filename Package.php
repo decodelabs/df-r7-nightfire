@@ -8,10 +8,7 @@ namespace df\apex\packages\nightfire;
 use df\core;
 
 class Package extends core\Package {
-    
-    const PRIORITY = 3;
 
-    public static $dependencies = [
-        'webCore'
-    ];
+    const PRIORITY = 3;
+    const DEPENDENCIES = ['webCore'];
 }
