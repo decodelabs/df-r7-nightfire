@@ -19,18 +19,18 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
     const ADAPTER = 'axis://nightfire/Node';
     const NAME_FIELD = 'slug';
 
-    protected $_sections = [
+    const SECTIONS = [
         'details',
         'versions' => 'list',
         'history' => 'history'
     ];
 
-    protected $_recordListFields = [
+    const LIST_FIELDS = [
         'slug', 'title', 'type', 'owner', 'creationDate',
         'lastEditDate', 'currentVersion', 'isLive'
     ];
 
-    protected $_recordDetailsFields = [
+    const DETAILS_FIELDS = [
         'title', 'slug', 'type', 'owner', 'isLive',
         'creationDate', 'lastEditDate', 'currentVersion'
     ];
