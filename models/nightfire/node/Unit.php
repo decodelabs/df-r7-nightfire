@@ -14,17 +14,17 @@ use df\fire;
 
 class Unit extends axis\unit\table\Base {
 
-    protected $_defaultSearchFields = [
+    const SEARCH_FIELDS = [
         'slug' => 3,
         'title' => 1
     ];
 
-    protected $_defaultOrderableFields = [
+    const ORDERABLE_FIELDS = [
         'slug', 'title', 'type', 'creationDate', 'lastEditDate',
         'owner', 'currentVersion', 'versionCount', 'defaultAccess', 'isMappable', 'isLive'
     ];
 
-    protected $_defaultOrder = 'slug ASC';
+    const DEFAULT_ORDER = 'slug ASC';
 
     protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'Guid');
