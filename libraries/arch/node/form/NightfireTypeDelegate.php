@@ -38,18 +38,18 @@ abstract class NightfireTypeDelegate extends Delegate implements fire\type\IForm
         return $this->_versionId;
     }
 
-    public function shouldMakeNew($flag=null) {
+    public function shouldMakeNew(bool $flag=null) {
         if($flag !== null) {
-            $this->_makeNew = (bool)$flag;
+            $this->_makeNew = $flag;
             return $this;
         }
 
         return $this->_makeNew;
     }
 
-    public function isSpecificVersion($flag=null) {
+    public function isSpecificVersion(bool $flag=null) {
         if($flag !== null) {
-            $this->_isSpecificVersion = (bool)$flag;
+            $this->_isSpecificVersion = $flag;
             return $this;
         }
 
