@@ -41,7 +41,8 @@ class HttpTransformer extends arch\Transformer {
                 return $record->createResponse($node->context);
             }))
             ->shouldCheckAccess(true)
-            ->setDefaultAccess($record->getDefaultAccessValue());
+            ->setDefaultAccess($record->getNodeDefaultAccess())
+            ->setAccessSignifiers(...$record->getNodeAccessSignifiers());
     }
 
     public function canDeliver() {

@@ -27,6 +27,10 @@ interface INode {
     public function getTitle();
     public function getDescription();
     public function getKeywords();
+
+    public function getNodeDefaultAccess();
+    public function getNodeAccessSignifiers();
+
     public function isMappable();
 
     public function getTypeName();

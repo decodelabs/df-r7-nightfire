@@ -18,7 +18,8 @@ abstract class Nightfire extends Base {
         if($record !== null) {
             $this
                 ->shouldCheckAccess(true)
-                ->setDefaultAccess($record->getDefaultAccessValue())
+                ->setDefaultAccess($record->getNodeDefaultAccess())
+                ->setAccessSignifiers(...$record->getAccessSignifiers())
                 ->setCallback(function($node) use($record) {
                     return $record->createResponse($this->context);
                 });

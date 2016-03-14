@@ -53,6 +53,8 @@ class Unit extends axis\unit\table\Base {
         $schema->addField('defaultAccess', 'Enum')
             ->setOptions(['all', 'none', 'deactivated', 'guest', 'pending', 'bound', 'confirmed', 'dev'])
             ->setDefaultValue('all');
+        $schema->addField('accessSignifiers', 'Json', 'medium')
+            ->isNullable(true);
 
         $schema->addField('notes', 'Text', 400)
             ->isNullable(true);
@@ -92,24 +94,5 @@ class Unit extends axis\unit\table\Base {
         }
 
         return $output;
-    }
-
-    public function getDefaultAccessOptionList() {
-        return [
-            'all' => $this->context->_('Everyone'),
-            'none' => $this->context->_('No one (requires access keys)'),
-
-            'deactivated' => $this->context->_('Only deactivated users'),
-            'guest' => $this->context->_('Only guests'),
-            'pending' => $this->context->_('Only pending users'),
-            'bound' => $this->context->_('Only logged in users'),
-            'confirmed' => $this->context->_('Only logged in and password-confirmed users'),
-
-            'dev' => $this->context->_('Development mode users')
-        ];
-    }
-
-    public function getDefaultAccessOptions() {
-        return $this->getUnitSchema()->getField('defaultAccess')->getOptions();
     }
 }

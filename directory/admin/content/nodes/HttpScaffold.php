@@ -32,7 +32,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
 
     const DETAILS_FIELDS = [
         'title', 'slug', 'type', 'owner', 'isLive',
-        'creationDate', 'lastEditDate', 'currentVersion'
+        'creationDate', 'lastEditDate',
+        'defaultAccess', 'accessSignifiers',
+        'currentVersion'
     ];
 
 // Record data
@@ -109,6 +111,20 @@ class HttpScaffold extends arch\scaffold\RecordAdmin {
                 '%v%' => $node['currentVersion'],
                 '%c%' => $node['versionCount']
             ]);
+        });
+    }
+
+    public function defineDefaultAccessField($list, $mode) {
+        $list->addField('defaultAccess', function($node) {
+            return $this->data->nightfire->accessOptions->label($node['defaultAccess']);
+        });
+    }
+
+    public function defineAccessSignifiersField($list, $mode) {
+        $list->addField('accessSignifiers', function($node) {
+            if($node['accessSignifiers']) {
+                return implode(', ', $node['accessSignifiers']->toArray());
+            }
         });
     }
 }

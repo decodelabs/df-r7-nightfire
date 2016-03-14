@@ -42,6 +42,10 @@ class HttpEdit extends HttpAdd {
         $this->values->importFrom($this->_node, [
             'title', 'slug', 'defaultAccess', 'notes', 'isLive', 'isMappable'
         ]);
+
+        if($this->_node['accessSignifiers']) {
+            $this->values->accessSignifiers = implode(',', $this->_node['accessSignifiers']->toArray());
+        }
     }
 
     protected function afterInit() {

@@ -152,7 +152,7 @@ class Record extends opal\record\Base implements fire\type\INode {
     }
 
 
-    public function getDefaultAccessValue() {
+    public function getNodeDefaultAccess() {
         switch($this['defaultAccess']) {
             case 'all': return arch\IAccess::ALL;
             case 'none': return arch\IAccess::NONE;
@@ -164,6 +164,14 @@ class Record extends opal\record\Base implements fire\type\INode {
             case 'confirmed': return arch\IAccess::CONFIRMED;
 
             case 'dev': return arch\IAccess::DEV;
+        }
+    }
+
+    public function getNodeAccessSignifiers() {
+        if($sigs = $this['accessSignifiers']) {
+            return $sigs->toArray();
+        } else {
+            return [];
         }
     }
 

@@ -90,8 +90,16 @@ class HttpAdd extends arch\node\Form {
 
         // Default access
         $fs->addField($this->_('Default access'))->push(
-            $this->html->selectList('defaultAccess', $this->values->defaultAccess, $this->data->nightfire->node->getDefaultAccessOptionList())
+            $this->html->selectList('defaultAccess', $this->values->defaultAccess, $this->data->nightfire->accessOptions->getLabels())
                 ->isRequired(true)
+        );
+
+        // Signifiers
+        $fs->addField($this->_('Access signifiers'))->setDescription($this->_(
+            'Separate with commas; if set, user must have at least one of the signifiers entered in their keyring to access node'
+        ))->push(
+            $this->html->textbox('accessSignifiers', $this->values->accessSignifiers)
+                ->setPlaceholder('eg: admin,developer,moderator')
         );
 
         // Is live
@@ -170,7 +178,7 @@ class HttpAdd extends arch\node\Form {
 
             // Default access
             ->addRequiredField('defaultAccess', 'enum')
-                ->setOptions($this->data->nightfire->node->getDefaultAccessOptions())
+                ->setType('axis://nightfire/AccessOptions')
 
             // Is live
             ->addField('isLive', 'boolean')
@@ -184,6 +192,18 @@ class HttpAdd extends arch\node\Form {
 
             ->validate($this->values)
             ->applyTo($this->_node);
+
+        if(!empty($signifiers = $this->values['accessSignifiers'])) {
+            $signifiers = explode(',', $signifiers);
+
+            array_walk($signifiers, function(&$signifier) {
+                $signifier = trim($signifier);
+            });
+
+            $this->_node->accessSignifiers = $signifiers;
+        } else {
+            $this->_node->accessSignifiers = null;
+        }
 
 
         if(!$this->_type) {
