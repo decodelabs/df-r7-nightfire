@@ -48,4 +48,19 @@ class HttpTransformer extends arch\Transformer {
     public function canDeliver() {
         return $this->data->nightfire->node->exists($this->context->request);
     }
+
+
+    public function getSitemapEntries() {
+        $nodes = $this->data->nightfire->node->select('slug', 'creationDate', 'lastEditDate')
+            ->where('isLive', '=', true)
+            ->where('isMappable', '=', true);
+
+        foreach($nodes as $node) {
+            yield new arch\navigation\SitemapEntry(
+                $this->uri($node['slug']),
+                $node['lastEditDate'] ?? $node['creationDate'],
+                'weekly'
+            );
+        }
+    }
 }
