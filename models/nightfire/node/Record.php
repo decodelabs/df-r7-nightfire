@@ -25,11 +25,11 @@ class Record extends opal\record\Base implements fire\type\INode {
         return $this;
     }
 
-    protected function onPreSave($taskSet, $task) {
-        $this->_writeHistory($taskSet, $task);
+    protected function onPreSave($queue, $job) {
+        $this->_writeHistory($queue, $job);
     }
 
-    protected function _writeHistory($taskSet, $task) {
+    protected function _writeHistory($queue, $job) {
         $isNew = $this->isNew();
 
         if(!$isNew && !$this->hasChanged()) {
@@ -88,7 +88,7 @@ class Record extends opal\record\Base implements fire\type\INode {
         }
 
         $this->getAdapter()->context->data->content->history->createRecordEntry(
-            $this, $taskSet, $task, $description
+            $this, $queue, $job, $description
         );
     }
 
