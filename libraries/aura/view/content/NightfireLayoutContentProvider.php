@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -10,13 +10,13 @@ use df\core;
 use df\aura;
 use df\arch;
 use df\fire;
-    
+
 class NightfireLayoutContentProvider implements aura\view\IContentProvider {
 
     use core\TStringProvider;
     use core\TContextAware;
-    use aura\view\TDeferredRenderable;
-    
+    use aura\view\TView_DeferredRenderable;
+
     protected $_content;
 
     public function __construct(arch\IContext $context, fire\layout\IContent $content) {
@@ -27,7 +27,7 @@ class NightfireLayoutContentProvider implements aura\view\IContentProvider {
     public function getView() {
         return $this->getRenderTarget()->getView();
     }
-    
+
     public function toResponse() {
         return $this->getView();
     }
