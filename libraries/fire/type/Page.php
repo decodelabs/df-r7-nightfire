@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ use df\fire;
 use df\arch;
 use df\axis;
 use df\aura;
-    
+
 class Page extends Base implements fire\type\IVersionedType {
 
     public function createResponse(arch\IContext $context, INode $node, $versionId=null) {
@@ -30,7 +30,8 @@ class Page extends Base implements fire\type\IVersionedType {
         $view->setTitle($page['title']);
         $view->setKeywords($page['keywords']);
         $view->setMeta('description', $page['description']);
-        
+        $view->bodyTag->addClass('nightfire');
+
         return $view;
     }
 
