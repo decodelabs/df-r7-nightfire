@@ -59,7 +59,7 @@ class NightfireLayoutContentProvider implements aura\view\IContentProvider {
         return $output;
     }
 
-    public function toString() {
-        return $this->render();
+    public function toString(): string {
+        return (string)$this->render();
     }
 }
