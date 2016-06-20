@@ -181,10 +181,10 @@ class HttpAdd extends arch\node\Form {
                 ->setType('axis://nightfire/AccessOptions')
 
             // Is live
-            ->addField('isLive', 'boolean')
+            ->addRequiredField('isLive', 'boolean')
 
             // Is mappable
-            ->addField('isMappable', 'boolean')
+            ->addRequiredField('isMappable', 'boolean')
 
             // Notes
             ->addField('notes', 'text')

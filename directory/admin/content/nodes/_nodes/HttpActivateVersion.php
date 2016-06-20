@@ -64,8 +64,8 @@ class HttpActivateVersion extends arch\node\ConfirmForm {
 
     protected function apply() {
         $validator = $this->data->newValidator()
-            ->addField('deleteUnused', 'boolean')
-            ->addField('keepCurrent', 'boolean')
+            ->addRequiredField('deleteUnused', 'boolean')
+            ->addRequiredField('keepCurrent', 'boolean')
             ->validate($this->values);
 
         $this->_type->applyVersion(
