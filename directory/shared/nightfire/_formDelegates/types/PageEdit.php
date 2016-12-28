@@ -18,8 +18,7 @@ class PageEdit extends PageAdd {
     protected function init() {
         $this->_page = $this->data->fetchForAction(
             'axis://nightfire/Page',
-            $this->_versionId,
-            'edit'
+            $this->_versionId
         );
 
         $this->_config = fire\Config::getInstance();
