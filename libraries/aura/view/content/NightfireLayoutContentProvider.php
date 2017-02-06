@@ -39,6 +39,7 @@ class NightfireLayoutContentProvider implements aura\view\IContentProvider {
         $layout = $config->getLayoutDefinition($this->_content->getId());
 
         $view->setLayout($layout->getId());
+        $view->bodyTag->setDataAttribute('layout', $layout->getId());
         $layoutSlots = $layout->getSlots();
         $output = '';
 
