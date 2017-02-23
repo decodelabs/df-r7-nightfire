@@ -83,7 +83,7 @@ abstract class Base implements IType {
         try {
             $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Delete')
                 ->setNode($node);
-        } catch(arch\node\DelegateException $e) {}
+        } catch(arch\node\EDelegate $e) {}
 
         return $this;
     }
