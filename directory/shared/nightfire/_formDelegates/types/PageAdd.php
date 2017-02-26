@@ -106,8 +106,11 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
             );
         }
 
+        $i = 0;
+
         foreach($this->_layout->getSlots() as $slot) {
-            $form->addFieldSet($slot->getName())->push(
+            $form->addFieldSet($this->_('Slot %n%', ['%n%' => ++$i]))->addField()->push(
+                $this->html('h3', $slot->getName()),
                 $this['slot-'.$slot->getId()]
             );
         }
