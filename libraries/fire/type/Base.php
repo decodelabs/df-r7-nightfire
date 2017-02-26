@@ -20,7 +20,7 @@ abstract class Base implements IType {
         foreach(df\Launchpad::$loader->lookupClassList('fire/type') as $name => $class) {
             try {
                 $type = self::factory($name);
-            } catch(\Exception $e) {
+            } catch(\Throwable $e) {
                 continue;
             }
 
