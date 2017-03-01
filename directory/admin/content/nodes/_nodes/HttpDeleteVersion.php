@@ -24,7 +24,7 @@ class HttpDeleteVersion extends arch\node\DeleteForm {
         $this->_type = $this->_node->getType();
 
         if(!$this->_type instanceof fire\type\IVersionedType) {
-            throw core\Error::{'fire/type/EImplementation'}([
+            throw core\Error::{'fire/type/EImplementation,EForbidden'}([
                 'message' => 'Type is not versioned',
                 'http' => 403
             ]);
@@ -40,7 +40,7 @@ class HttpDeleteVersion extends arch\node\DeleteForm {
         }
 
         if($this->_version->isActive($this->_node)) {
-            throw core\Error::{'fire/type/EVersion,ELogic'}([
+            throw core\Error::{'fire/type/EVersion,EForbidden'}([
                 'message' => 'Version is active',
                 'http' => 403
             ]);
