@@ -23,13 +23,19 @@ class HttpEditVersion extends arch\node\Form {
         $this->_type = $this->_node->getType();
 
         if(!$this->_type instanceof fire\type\IVersionedType) {
-            $this->throwError(403, 'Type is not versioned');
+            throw core\Error::{'fire/type/EImplementation'}([
+                'message' => 'Type is not versioned',
+                'http' => 403
+            ]);
         }
 
         $this->_versionId = $this->request['version'];
 
         if(!$this->_versionId) {
-            $this->throwError(404, 'Version not found');
+            throw core\Error::{'fire/type/EVersion,ENotFound'}([
+                'message' => 'Version not found',
+                'http' => 404
+            ]);
         }
     }
 

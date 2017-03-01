@@ -22,13 +22,19 @@ class HttpActivateVersion extends arch\node\ConfirmForm {
         $this->_type = $this->_node->getType();
 
         if(!$this->_type instanceof fire\type\IVersionedType) {
-            $this->throwError(403, 'Type is not versioned');
+            throw core\Error::{'fire/type/EImplementation'}([
+                'message' => 'Type is not versioned',
+                'http' => 403
+            ]);
         }
 
         $this->_versionId = $this->request['version'];
 
         if($this->_node->getTypeId() == $this->_versionId) {
-            $this->throwError(403, 'Version is already active');
+            throw core\Error::{'fire/type/EVersion,ELogic'}([
+                'message' => 'Version is already active',
+                'http' => 403
+            ]);
         }
     }
 
