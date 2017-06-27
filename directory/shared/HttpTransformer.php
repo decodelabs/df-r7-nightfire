@@ -50,7 +50,7 @@ class HttpTransformer extends arch\Transformer {
     }
 
 
-    public function getSitemapEntries() {
+    public function getSitemapEntries(): iterable {
         $nodes = $this->data->nightfire->node->select('slug', 'creationDate', 'lastEditDate')
             ->where('isLive', '=', true)
             ->where('isMappable', '=', true);
