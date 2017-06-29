@@ -40,8 +40,8 @@ interface INode {
 }
 
 interface IType {
-    public function getName();
-    public function getDisplayName();
+    public function getName(): string;
+    public function getDisplayName(): string;
 
     public function createResponse(arch\IContext $context, INode $node, $versionId=null);
     public function renderPreview(aura\view\IView $view, INode $node, $version=null);

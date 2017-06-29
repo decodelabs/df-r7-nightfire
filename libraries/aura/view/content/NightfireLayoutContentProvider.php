@@ -19,7 +19,7 @@ class NightfireLayoutContentProvider implements aura\view\IContentProvider {
 
     protected $_content;
 
-    public function __construct(arch\IContext $context, fire\layout\IContent $content) {
+    public function __construct(arch\IContext $context, fire\ILayoutContent $content) {
         $this->context = $context;
         $this->_content = $content;
     }
