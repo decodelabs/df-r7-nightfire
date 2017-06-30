@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
@@ -15,7 +15,7 @@ use df\opal;
 class Record extends opal\record\Base implements fire\type\IVersion {
 
     const BROADCAST_HOOK_EVENTS = true;
-    
+
     public function getId() {
         return $this['id'];
     }
@@ -49,10 +49,6 @@ class Record extends opal\record\Base implements fire\type\IVersion {
                 switch($field) {
                     case 'description':
                         $output[] = 'Updated description';
-                        break;
-
-                    case 'keywords':
-                        $output[] = 'Updated keywords';
                         break;
 
                     case 'body':

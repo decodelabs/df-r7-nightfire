@@ -41,7 +41,7 @@ class PageEdit extends PageAdd {
 
     protected function setDefaultValues() {
         $this->values->importFrom($this->_page, [
-            'title', 'description', 'keywords'
+            'title', 'description'
         ]);
 
         if($this->_layout && $this->_content) {

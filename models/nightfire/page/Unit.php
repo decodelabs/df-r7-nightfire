@@ -22,8 +22,6 @@ class Unit extends axis\unit\table\Base {
 
         $schema->addField('description', 'Text', 255)
             ->isNullable(true);
-        $schema->addField('keywords', 'Text', 255)
-            ->isNullable(true);
 
         $schema->addField('date', 'Timestamp');
 

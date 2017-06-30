@@ -120,16 +120,6 @@ class Record extends opal\record\Base implements fire\type\INode {
         return $this['description'];
     }
 
-    public function getKeywords() {
-        $keywords = $this['keywords'];
-
-        if($keywords !== null) {
-            return flex\Delimited::parse($keywords);
-        }
-
-        return null;
-    }
-
     public function isMappable() {
         return $this['isMappable'];
     }

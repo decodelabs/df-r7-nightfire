@@ -26,7 +26,6 @@ interface INode {
     public function getOwner();
     public function getTitle();
     public function getDescription();
-    public function getKeywords();
 
     public function getNodeDefaultAccess();
     public function getNodeAccessSignifiers();

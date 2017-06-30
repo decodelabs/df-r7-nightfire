@@ -28,7 +28,6 @@ class Page extends Base implements fire\type\IVersionedType {
         $view = $context->apex->newView('Html');
         $view->setContentProvider(new aura\view\content\NightfireLayoutContentProvider($context, $content));
         $view->setTitle($page['title']);
-        $view->setKeywords($page['keywords']);
         $view->setMeta('description', $page['description']);
         $view->bodyTag->addClass('nightfire');
 

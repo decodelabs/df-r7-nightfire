@@ -89,14 +89,6 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
                 ->setMaxLength(255)
         );
 
-        // Keywords
-        $fs->addField($this->_('Keywords'))->setDescription($this->_(
-            'Separate by commas'
-        ))->push(
-            $this->html->textbox($this->fieldName('keywords'), $this->values->keywords)
-                ->setPlaceholder($this->_('eg. about us, clients, work, company info'))
-        );
-
         if(!$this->_page->isNew() && !$this->_isSpecificVersion) {
             // New version
             $fs->addField()->push(
@@ -174,17 +166,6 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
             // Description
             ->addField('description', 'text')
                 ->setMaxLength(255)
-
-            // Keywords
-            ->addField('keywords', 'text')
-                ->setSanitizer(function($value) {
-                    if(!strlen($value)) {
-                        return $value;
-                    }
-
-                    $value = flex\Delimited::parse($value);
-                    return implode(',', $value);
-                })
 
             ->validate($this->values)
             ->applyTo($this->_page);
