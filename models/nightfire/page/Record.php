@@ -16,7 +16,7 @@ class Record extends opal\record\Base implements fire\type\IVersion {
 
     const BROADCAST_HOOK_EVENTS = true;
 
-    public function getId() {
+    public function getId(): ?string {
         return $this['id'];
     }
 
@@ -32,7 +32,7 @@ class Record extends opal\record\Base implements fire\type\IVersion {
         return $this['owner'];
     }
 
-    public function getTitle() {
+    public function getTitle(): ?string {
         return $this['title'];
     }
 

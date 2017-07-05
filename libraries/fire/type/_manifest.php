@@ -19,12 +19,12 @@ class InvalidArgumentException extends \InvalidArgumentException implements IExc
 
 // Interfaces
 interface INode {
-    public function getId();
+    public function getId(): ?string;
     public function getSlug();
     public function getDate();
     public function getOwnerId();
     public function getOwner();
-    public function getTitle();
+    public function getTitle(): ?string;
     public function getDescription();
 
     public function getNodeDefaultAccess();
@@ -63,11 +63,11 @@ interface IVersionedType {
 }
 
 interface IVersion {
-    public function getId();
+    public function getId(): ?string;
     public function getDate();
     public function getOwnerId();
     public function getOwner();
-    public function getTitle();
+    public function getTitle(): ?string;
     public function isActive(INode $node);
 }
 

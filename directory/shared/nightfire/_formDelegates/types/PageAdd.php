@@ -113,7 +113,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
 
         // Layout
         $fs->addField($this->_('Layout'))->push(
-            $this->html->selectList($this->fieldName('layout'), $this->values->layout, $this->_config->getLayoutList())
+            $this->html->select($this->fieldName('layout'), $this->values->layout, $this->_config->getLayoutList())
                 ->isRequired(true)
                 ->setNoSelectionLabel($this->_('Select layout...')),
 

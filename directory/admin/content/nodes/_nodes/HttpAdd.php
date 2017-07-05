@@ -64,7 +64,7 @@ class HttpAdd extends arch\node\Form {
             );
         } else {
             $fs->addField($this->_('Type'))->push(
-                $this->html->selectList('type', $this->values->type, $this->data->nightfire->node->getTypeOptionList())
+                $this->html->select('type', $this->values->type, $this->data->nightfire->node->getTypeOptionList())
                     ->isRequired(true)
                     ->setNoSelectionLabel($this->_('Select node type...')),
 
@@ -90,7 +90,7 @@ class HttpAdd extends arch\node\Form {
 
         // Default access
         $fs->addField($this->_('Default access'))->push(
-            $this->html->selectList('defaultAccess', $this->values->defaultAccess, $this->data->nightfire->accessOptions->getLabels())
+            $this->html->select('defaultAccess', $this->values->defaultAccess, $this->data->nightfire->accessOptions->getLabels())
                 ->isRequired(true)
         );
 
