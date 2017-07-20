@@ -12,7 +12,7 @@ use df\axis;
 use df\arch;
 use df\fire;
 
-class Unit extends axis\unit\table\Base {
+class Unit extends axis\unit\Table {
 
     const SEARCH_FIELDS = [
         'slug' => 3,

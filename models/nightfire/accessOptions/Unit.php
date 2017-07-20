@@ -10,7 +10,7 @@ use df\core;
 use df\apex;
 use df\axis;
 
-class Unit extends axis\unit\enum\Base {
+class Unit extends axis\unit\Enum {
 
     const ALL = 'Everyone';
     const NONE = 'No one (requires access key)';

@@ -11,7 +11,7 @@ use df\apex;
 use df\axis;
 use df\opal;
 
-class Unit extends axis\unit\table\Base {
+class Unit extends axis\unit\Table {
 
     protected function createSchema($schema) {
         $schema->addPrimaryField('id', 'Guid');
