@@ -1,0 +1,20 @@
+{
+    "name": "df-r7/nightfire",
+    "description": "DF r7 nightfire",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Wright",
+            "email": "tom@inflatablecookie.com"
+        }
+    ],
+    "require": {
+        "df-r7/base": "dev-develop"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.x-dev"
+        }
+    }
+}
