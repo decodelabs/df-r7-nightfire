@@ -10,15 +10,23 @@ use df\core;
 use df\fire;
 use df\arch;
 use df\aura;
+use df\opal;
 
 // Exceptions
-interface IException {}
-class RuntimeException extends \RuntimeException implements IException {}
-class InvalidArgumentException extends \InvalidArgumentException implements IException {}
+interface IException
+{
+}
+class RuntimeException extends \RuntimeException implements IException
+{
+}
+class InvalidArgumentException extends \InvalidArgumentException implements IException
+{
+}
 
 
 // Interfaces
-interface INode {
+interface INode extends opal\record\IRecord
+{
     public function getId(): ?string;
     public function getSlug();
     public function getDate();
@@ -38,7 +46,8 @@ interface INode {
     public function getTypeData();
 }
 
-interface IType {
+interface IType
+{
     public function getName(): string;
     public function getDisplayName(): string;
 
@@ -50,7 +59,8 @@ interface IType {
     public function loadDeleteFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node);
 }
 
-interface IVersionedType {
+interface IVersionedType
+{
     public function countVersions(INode $node);
     public function isValidVersionId($id);
     public function getVersion(INode $node, $versionId=null);
@@ -62,7 +72,8 @@ interface IVersionedType {
     public function deleteVersion(INode $node, $version);
 }
 
-interface IVersion {
+interface IVersion
+{
     public function getId(): ?string;
     public function getDate();
     public function getOwnerId();
@@ -72,7 +83,8 @@ interface IVersion {
 }
 
 
-interface IFormDelegate extends arch\node\ISelfContainedRenderableDelegate {
+interface IFormDelegate extends arch\node\ISelfContainedRenderableDelegate
+{
     public function setNode(INode $node);
     public function getNode();
     public function setVersionId($versionId);
