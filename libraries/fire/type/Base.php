@@ -12,15 +12,18 @@ use df\arch;
 use df\aura;
 use df\flex;
 
-abstract class Base implements IType {
+use DecodeLabs\Glitch;
 
-    public static function loadAll() {
+abstract class Base implements IType
+{
+    public static function loadAll()
+    {
         $output = [];
 
-        foreach(df\Launchpad::$loader->lookupClassList('fire/type') as $name => $class) {
+        foreach (df\Launchpad::$loader->lookupClassList('fire/type') as $name => $class) {
             try {
                 $type = self::factory($name);
-            } catch(\Throwable $e) {
+            } catch (\Throwable $e) {
                 continue;
             }
 
@@ -32,11 +35,12 @@ abstract class Base implements IType {
     }
 
 
-    public static function factory($name) {
+    public static function factory($name)
+    {
         $class = 'df\\fire\\type\\'.ucfirst($name);
 
-        if(!class_exists($class)) {
-            throw new RuntimeException(
+        if (!class_exists($class)) {
+            throw Glitch::ERuntime(
                 'Nightfire node type '.$name.' could not be found'
             );
         }
@@ -44,28 +48,34 @@ abstract class Base implements IType {
         return new $class();
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
         $parts = explode('\\', get_class($this));
         return array_pop($parts);
     }
 
-    public function getDisplayName(): string {
+    public function getDisplayName(): string
+    {
         return flex\Text::formatName($this->getName());
     }
 
-    public function renderPreview(aura\view\IView $view, INode $node, $versionId=null) {}
+    public function renderPreview(aura\view\IView $view, INode $node, $versionId=null)
+    {
+    }
 
-    public function loadAddFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node) {
+    public function loadAddFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node)
+    {
         $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Add')
             ->setNode($node);
 
         return $this;
     }
 
-    public function loadEditFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node, $versionId=null, $makeNew=false) {
+    public function loadEditFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node, $versionId=null, $makeNew=false)
+    {
         $specific = true;
 
-        if($versionId === null) {
+        if ($versionId === null) {
             $versionId = $node->getTypeId();
             $specific = false;
         }
@@ -79,18 +89,21 @@ abstract class Base implements IType {
         return $this;
     }
 
-    public function loadDeleteFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node) {
+    public function loadDeleteFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node)
+    {
         try {
             $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Delete')
                 ->setNode($node);
-        } catch(arch\node\EDelegate $e) {}
+        } catch (arch\node\EDelegate $e) {
+        }
 
         return $this;
     }
 
 
 
-    public function getCurrentVersionId(INode $node) {
+    public function getCurrentVersionId(INode $node)
+    {
         return $node['typeId'];
     }
 }
