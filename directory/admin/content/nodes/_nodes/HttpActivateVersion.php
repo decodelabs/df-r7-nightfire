@@ -11,18 +11,21 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-class HttpActivateVersion extends arch\node\ConfirmForm {
+use DecodeLabs\Glitch;
 
+class HttpActivateVersion extends arch\node\ConfirmForm
+{
     protected $_node;
     protected $_type;
     protected $_versionId;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
 
-        if(!$this->_type instanceof fire\type\IVersionedType) {
-            throw core\Error::{'fire/type/EImplementation,EForbidden'}([
+        if (!$this->_type instanceof fire\type\IVersionedType) {
+            throw Glitch::{'df/fire/type/EImplementation,EForbidden'}([
                 'message' => 'Type is not versioned',
                 'http' => 403
             ]);
@@ -30,27 +33,31 @@ class HttpActivateVersion extends arch\node\ConfirmForm {
 
         $this->_versionId = $this->request['version'];
 
-        if($this->_node->getTypeId() == $this->_versionId) {
-            throw core\Error::{'fire/type/EVersion,EForbidden'}([
+        if ($this->_node->getTypeId() == $this->_versionId) {
+            throw Glitch::{'df/fire/type/EVersion,EForbidden'}([
                 'message' => 'Version is already active',
                 'http' => 403
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->keepCurrent = true;
     }
 
-    protected function getMainMessage() {
+    protected function getMainMessage()
+    {
         return $this->_('Are you sure you want to activate this version?');
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addField()->push(
             $this->html->checkbox('deleteUnused', $this->values->deleteUnused, $this->_(
                 'Delete unused versions'
@@ -64,11 +71,13 @@ class HttpActivateVersion extends arch\node\ConfirmForm {
         );
     }
 
-    protected function customizeMainButton($button) {
+    protected function customizeMainButton($button)
+    {
         $button->setBody($this->_('Activate'));
     }
 
-    protected function apply() {
+    protected function apply()
+    {
         $validator = $this->data->newValidator()
             ->addRequiredField('deleteUnused', 'boolean')
             ->addRequiredField('keepCurrent', 'boolean')

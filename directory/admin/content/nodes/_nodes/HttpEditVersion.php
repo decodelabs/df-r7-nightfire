@@ -12,18 +12,21 @@ use df\arch;
 use df\fire;
 use df\opal;
 
-class HttpEditVersion extends arch\node\Form {
+use DecodeLabs\Glitch;
 
+class HttpEditVersion extends arch\node\Form
+{
     protected $_node;
     protected $_type;
     protected $_versionId;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
 
-        if(!$this->_type instanceof fire\type\IVersionedType) {
-            throw core\Error::{'fire/type/EImplementation,EForbidden'}([
+        if (!$this->_type instanceof fire\type\IVersionedType) {
+            throw Glitch::{'df/fire/type/EImplementation,EForbidden'}([
                 'message' => 'Type is not versioned',
                 'http' => 403
             ]);
@@ -31,25 +34,28 @@ class HttpEditVersion extends arch\node\Form {
 
         $this->_versionId = $this->request['version'];
 
-        if(!$this->_versionId) {
-            throw core\Error::{'fire/type/EVersion,ENotFound'}([
+        if (!$this->_versionId) {
+            throw Glitch::{'df/fire/type/EVersion,ENotFound'}([
                 'message' => 'Version not found',
                 'http' => 404
             ]);
         }
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->_type->loadEditFormDelegate($this, 'type', $this->_node, $this->_versionId, false);
     }
 
 
-// Ui
-    protected function createUi() {
+    // Ui
+    protected function createUi()
+    {
         $form = $this->content->addForm();
 
         // Type
@@ -60,12 +66,13 @@ class HttpEditVersion extends arch\node\Form {
     }
 
 
-// Events
-    protected function onSaveEvent() {
+    // Events
+    protected function onSaveEvent()
+    {
         $delegate = $this['type'];
         $delegate->validate();
 
-        return $this->complete(function() use($delegate) {
+        return $this->complete(function () use ($delegate) {
             $delegate->apply();
             $this->_node->save();
             $this->comms->flashSaveSuccess('content node version');

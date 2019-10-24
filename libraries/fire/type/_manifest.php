@@ -12,19 +12,6 @@ use df\arch;
 use df\aura;
 use df\opal;
 
-// Exceptions
-interface IException
-{
-}
-class RuntimeException extends \RuntimeException implements IException
-{
-}
-class InvalidArgumentException extends \InvalidArgumentException implements IException
-{
-}
-
-
-// Interfaces
 interface INode extends opal\record\IRecord
 {
     public function getId(): ?string;
