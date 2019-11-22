@@ -13,37 +13,41 @@ use df\fire;
 use df\aura;
 use df\flex;
 
-class PageAdd extends arch\node\form\NightfireTypeDelegate {
+use DecodeLabs\Tagged\Html;
 
+class PageAdd extends arch\node\form\NightfireTypeDelegate
+{
     protected $_layout;
     protected $_config;
     protected $_page;
     protected $_content;
 
-    protected function init() {
+    protected function init()
+    {
         $layout = $this->getStore('layout');
         $this->_config = fire\Config::getInstance();
 
-        if(!$layout) {
+        if (!$layout) {
             $list = $this->_config->getLayoutList();
 
-            if(count($list) == 1) {
+            if (count($list) == 1) {
                 reset($list);
                 $layout = key($list);
                 $this->setStore('layout', $layout);
             }
         }
 
-        if($layout) {
+        if ($layout) {
             $this->_layout = $this->_config->getLayoutDefinition($layout);
         }
 
         $this->_page = $this->data->newRecord('axis://nightfire/Page');
     }
 
-    protected function loadDelegates() {
-        if($this->_layout) {
-            foreach($this->_layout->getSlots() as $slot) {
+    protected function loadDelegates()
+    {
+        if ($this->_layout) {
+            foreach ($this->_layout->getSlots() as $slot) {
                 $delegate = $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot')
                     ->isRequired($slot->getMinBlocks() > 0 || $slot->getId() == 'primary')
                     ->setSlotDefinition($slot);
@@ -51,8 +55,9 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
         }
     }
 
-    public function renderContainerContent(aura\html\widget\IContainerWidget $form) {
-        if(!$this->_layout) {
+    public function renderContainerContent(aura\html\widget\IContainerWidget $form)
+    {
+        if (!$this->_layout) {
             return $this->_renderLayoutSelector($form);
         }
 
@@ -66,7 +71,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
 
         $list = $this->_config->getLayoutList();
 
-        if(count($list) > 1) {
+        if (count($list) > 1) {
             $fa->push(
                 $this->html->eventButton($this->eventName('resetLayout'), $this->_('Change layout'))
                     ->setIcon('edit')
@@ -75,7 +80,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
         }
 
         // Title
-        if($this->_isSpecificVersion && !$this->_makeNew) {
+        if ($this->_isSpecificVersion && !$this->_makeNew) {
             $fs->addField($this->_('Title'))->push(
                 $this->html->textbox($this->fieldName('title'), $this->values->title)
                     ->setMaxLength(255)
@@ -89,7 +94,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
                 ->setMaxLength(255)
         );
 
-        if(!$this->_page->isNew() && !$this->_isSpecificVersion) {
+        if (!$this->_page->isNew() && !$this->_isSpecificVersion) {
             // New version
             $fs->addField()->push(
                 $this->html->checkbox($this->fieldName('makeNew'), $this->values->makeNew, $this->_(
@@ -100,15 +105,16 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
 
         $i = 0;
 
-        foreach($this->_layout->getSlots() as $slot) {
+        foreach ($this->_layout->getSlots() as $slot) {
             $form->addFieldSet($this->_('Slot %n%', ['%n%' => ++$i]))->addField()->push(
-                $this->html('h3', $slot->getName()),
+                Html::{'h3'}($slot->getName()),
                 $this['slot-'.$slot->getId()]
             );
         }
     }
 
-    protected function _renderLayoutSelector(aura\html\widget\IContainerWidget $form) {
+    protected function _renderLayoutSelector(aura\html\widget\IContainerWidget $form)
+    {
         $fs = $form->addFieldSet($this->_('Page details'));
 
         // Layout
@@ -124,8 +130,9 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
     }
 
 
-// Events
-    protected function onSelectLayoutEvent() {
+    // Events
+    protected function onSelectLayoutEvent()
+    {
         $validator = $this->data->newValidator()
 
             // Layout
@@ -134,20 +141,22 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
 
             ->validate($this->values);
 
-        if($this->isValid()) {
+        if ($this->isValid()) {
             $this->setStore('layout', $validator['layout']);
         }
     }
 
-    protected function onResetLayoutEvent() {
+    protected function onResetLayoutEvent()
+    {
         $this->setStore('layout', false);
     }
 
 
 
-// IO
-    public function validate() {
-        if(!$this->_layout) {
+    // IO
+    public function validate()
+    {
+        if (!$this->_layout) {
             $this->values->layout->addError('required', $this->_(
                 'Please select a layout'
             ));
@@ -158,7 +167,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
         $validator = $this->data->newValidator()
 
             // Title
-            ->chainIf($this->_isSpecificVersion && !$this->_makeNew, function($validator) {
+            ->chainIf($this->_isSpecificVersion && !$this->_makeNew, function ($validator) {
                 $validator->addRequiredField('title', 'text')
                     ->setMaxLength(255);
             })
@@ -172,28 +181,28 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
 
         $slots = [];
 
-        foreach($this->_layout->getSlots() as $slot) {
+        foreach ($this->_layout->getSlots() as $slot) {
             $slots[$slot->getId()] = $this['slot-'.$slot->getId()]->apply();
         }
 
-        if($this->isValid()) {
+        if ($this->isValid()) {
             $layoutContent = new fire\layout\Content($this->_layout->getId());
             $layoutContent->addSlots($slots);
             $this->_page->body = $layoutContent->toXmlString(true);
 
-            if(!($this->_isSpecificVersion && !$this->_makeNew)) {
+            if (!($this->_isSpecificVersion && !$this->_makeNew)) {
                 $this->_page->title = $this->_node['title'];
             }
 
-            if($this->_page->isNew()) {
+            if ($this->_page->isNew()) {
                 $this->_page->owner = $this->user->client->getId();
                 $this->_page->node = $this->_node;
             } else {
-                if(($this->_makeNew || $this->values['makeNew']) && $this->_page->hasChanged()) {
+                if (($this->_makeNew || $this->values['makeNew']) && $this->_page->hasChanged()) {
                     $this->_page->makeNew([
                         'date' => null
                     ]);
-                } else if($this->_page['id'] == $this->_node['typeId']) {
+                } elseif ($this->_page['id'] == $this->_node['typeId']) {
                     $this->_node->title = $this->_page['title'];
                 }
             }
@@ -202,7 +211,8 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate {
         }
     }
 
-    public function apply() {
+    public function apply()
+    {
         $this->_page->save();
         return $this->_page['id'];
     }
