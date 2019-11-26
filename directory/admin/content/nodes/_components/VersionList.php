@@ -11,8 +11,10 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-class VersionList extends arch\component\CollectionList {
+use DecodeLabs\Tagged\Html;
 
+class VersionList extends arch\component\CollectionList
+{
     protected $_fields = [
         'number' => true,
         'title' => true,
@@ -24,42 +26,48 @@ class VersionList extends arch\component\CollectionList {
 
     protected $_node;
 
-    public function setNode($node) {
+    public function setNode($node)
+    {
         $this->_node = $node;
         return $this;
     }
 
-    public function getNode() {
+    public function getNode()
+    {
         return $this->_node;
     }
 
 
-// Numver
-    public function addNumberField($list) {
-        $list->addField('number', '#', function($version, $context) {
+    // Numver
+    public function addNumberField($list)
+    {
+        $list->addField('number', '#', function ($version, $context) {
             return count($this->_collection) - $context->getCounter();
         });
     }
 
-// Owner
-    public function addOwnerField($list) {
-        $list->addField('owner', function($version) {
+    // Owner
+    public function addOwnerField($list)
+    {
+        $list->addField('owner', function ($version) {
             return $this->apex->component('~admin/users/clients/UserLink', $version->getOwner());
         });
     }
 
-// Date
-    public function addDateField($list) {
-        $list->addField('date', $this->_('Created'), function($version) {
-            return $this->html->timeSince($version->getDate());
+    // Date
+    public function addDateField($list)
+    {
+        $list->addField('date', $this->_('Created'), function ($version) {
+            return Html::$time->since($version->getDate());
         });
     }
 
-// Is active
-    public function addIsActiveField($list) {
-        $list->addField('isActive', $this->_('Active'), function($version, $context) {
-            if($this->_node) {
-                if(!($isActive = $version->isActive($this->_node))) {
+    // Is active
+    public function addIsActiveField($list)
+    {
+        $list->addField('isActive', $this->_('Active'), function ($version, $context) {
+            if ($this->_node) {
+                if (!($isActive = $version->isActive($this->_node))) {
                     $context->getRowTag()->addClass('disabled');
                 }
             } else {
@@ -70,13 +78,14 @@ class VersionList extends arch\component\CollectionList {
         });
     }
 
-// Actions
-    public function addActionsField($list) {
-        if(!$this->_node) {
+    // Actions
+    public function addActionsField($list)
+    {
+        if (!$this->_node) {
             return;
         }
 
-        $list->addField('actions', function($version) {
+        $list->addField('actions', function ($version) {
             $isActive = $version->isActive($this->_node);
 
             return [

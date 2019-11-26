@@ -11,6 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 
+use DecodeLabs\Tagged\Html;
 use DecodeLabs\Glitch;
 
 class HttpDeleteVersion extends arch\node\DeleteForm
@@ -66,7 +67,7 @@ class HttpDeleteVersion extends arch\node\DeleteForm
                 return $this->apex->component('~admin/users/clients/UserLink', $version['owner']);
             })
             ->addField('date', $this->_('Created'), function ($version) {
-                return $this->html->timeSince($version['date']);
+                return Html::$time->since($version['date']);
             })
             ->addField('preview', function ($version) {
                 return $this->_type->renderPreview($this->view, $this->_node, $version);

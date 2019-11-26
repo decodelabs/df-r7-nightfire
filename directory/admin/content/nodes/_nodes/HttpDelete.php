@@ -10,40 +10,46 @@ use df\core;
 use df\apex;
 use df\arch;
 
-class HttpDelete extends arch\node\DeleteForm {
+use DecodeLabs\Tagged\Html;
 
+class HttpDelete extends arch\node\DeleteForm
+{
     const ITEM_NAME = 'node';
 
     protected $_node;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_node = $this->scaffold->getRecord();
     }
 
-    protected function getInstanceId() {
+    protected function getInstanceId()
+    {
         return $this->_node['id'];
     }
 
-    protected function loadDelegates() {
+    protected function loadDelegates()
+    {
         $this->_node->getType()->loadDeleteFormDelegate($this, 'type', $this->_node);
     }
 
-    protected function createItemUi($container) {
+    protected function createItemUi($container)
+    {
         $container->addAttributeList($this->_node)
             ->addField('title')
             ->addField('slug')
             ->addField('type')
-            ->addField('owner', function($node) {
+            ->addField('owner', function ($node) {
                 return $this->apex->component('~admin/users/clients/UserLink', $node['owner']);
             })
-            ->addField('isLive', function($node) {
+            ->addField('isLive', function ($node) {
                 return $this->html->booleanIcon($node['isLive']);
             })
-            ->addField('creationDate', $this->_('Created'), function($node) {
-                return $this->html->timeSince($node['creationDate']);
+            ->addField('creationDate', $this->_('Created'), function ($node) {
+                return Html::$time->since($node['creationDate']);
             })
-            ->addField('currentVersion', $this->_('Version'), function($node) {
-                if(!$node['versionCount']) {
+            ->addField('currentVersion', $this->_('Version'), function ($node) {
+                if (!$node['versionCount']) {
                     return;
                 }
 
@@ -52,18 +58,19 @@ class HttpDelete extends arch\node\DeleteForm {
                     '%c%' => $node['versionCount']
                 ]);
             })
-            ->addField('preview', function($node) {
+            ->addField('preview', function ($node) {
                 return $node->getType()->renderPreview($this->view, $node);
             })
             ;
 
-        if($this->hasDelegate('type')) {
+        if ($this->hasDelegate('type')) {
             $container->push($this['type']);
         }
     }
 
-    protected function apply() {
-        if($this->hasDelegate('type')) {
+    protected function apply()
+    {
+        if ($this->hasDelegate('type')) {
             $delegate = $this['type'];
             $delegate->validate();
             $delegate->apply();
