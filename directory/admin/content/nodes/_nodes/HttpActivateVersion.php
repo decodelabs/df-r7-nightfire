@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpActivateVersion extends arch\node\ConfirmForm
 {
@@ -25,7 +25,7 @@ class HttpActivateVersion extends arch\node\ConfirmForm
         $this->_type = $this->_node->getType();
 
         if (!$this->_type instanceof fire\type\IVersionedType) {
-            throw Glitch::{'df/fire/type/EImplementation,EForbidden'}([
+            throw Exceptional::{'df/fire/type/Implementation,Forbidden'}([
                 'message' => 'Type is not versioned',
                 'http' => 403
             ]);
@@ -34,7 +34,7 @@ class HttpActivateVersion extends arch\node\ConfirmForm
         $this->_versionId = $this->request['version'];
 
         if ($this->_node->getTypeId() == $this->_versionId) {
-            throw Glitch::{'df/fire/type/EVersion,EForbidden'}([
+            throw Exceptional::{'df/fire/type/Version,Forbidden'}([
                 'message' => 'Version is already active',
                 'http' => 403
             ]);

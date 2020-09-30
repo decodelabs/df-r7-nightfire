@@ -12,7 +12,7 @@ use df\arch;
 use df\fire;
 use df\opal;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpEditVersion extends arch\node\Form
 {
@@ -26,7 +26,7 @@ class HttpEditVersion extends arch\node\Form
         $this->_type = $this->_node->getType();
 
         if (!$this->_type instanceof fire\type\IVersionedType) {
-            throw Glitch::{'df/fire/type/EImplementation,EForbidden'}([
+            throw Exceptional::{'df/fire/type/Implementation,Forbidden'}([
                 'message' => 'Type is not versioned',
                 'http' => 403
             ]);
@@ -35,7 +35,7 @@ class HttpEditVersion extends arch\node\Form
         $this->_versionId = $this->request['version'];
 
         if (!$this->_versionId) {
-            throw Glitch::{'df/fire/type/EVersion,ENotFound'}([
+            throw Exceptional::{'df/fire/type/Version,NotFound'}([
                 'message' => 'Version not found',
                 'http' => 404
             ]);

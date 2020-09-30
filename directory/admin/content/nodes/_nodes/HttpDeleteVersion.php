@@ -12,7 +12,7 @@ use df\arch;
 use df\fire;
 
 use DecodeLabs\Tagged\Html;
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 class HttpDeleteVersion extends arch\node\DeleteForm
 {
@@ -28,7 +28,7 @@ class HttpDeleteVersion extends arch\node\DeleteForm
         $this->_type = $this->_node->getType();
 
         if (!$this->_type instanceof fire\type\IVersionedType) {
-            throw Glitch::{'df/fire/type/EImplementation,EForbidden'}([
+            throw Exceptional::{'df/fire/type/Implementation,Forbidden'}([
                 'message' => 'Type is not versioned',
                 'http' => 403
             ]);
@@ -37,14 +37,14 @@ class HttpDeleteVersion extends arch\node\DeleteForm
         $this->_version = $this->_type->getVersion($this->_node, $this->request['version']);
 
         if (!$this->_version) {
-            throw Glitch::{'df/fire/type/EVersion,ENotFound'}([
+            throw Exceptional::{'df/fire/type/Version,NotFound'}([
                 'message' => 'Version not found',
                 'http' => 404
             ]);
         }
 
         if ($this->_version->isActive($this->_node)) {
-            throw Glitch::{'df/fire/type/EVersion,EForbidden'}([
+            throw Exceptional::{'df/fire/type/Version,Forbidden'}([
                 'message' => 'Version is active',
                 'http' => 403
             ]);

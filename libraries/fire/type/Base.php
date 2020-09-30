@@ -12,7 +12,7 @@ use df\arch;
 use df\aura;
 use df\flex;
 
-use DecodeLabs\Glitch;
+use DecodeLabs\Exceptional;
 
 abstract class Base implements IType
 {
@@ -40,7 +40,7 @@ abstract class Base implements IType
         $class = 'df\\fire\\type\\'.ucfirst($name);
 
         if (!class_exists($class)) {
-            throw Glitch::ERuntime(
+            throw Exceptional::Runtime(
                 'Nightfire node type '.$name.' could not be found'
             );
         }
@@ -94,7 +94,7 @@ abstract class Base implements IType
         try {
             $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Delete')
                 ->setNode($node);
-        } catch (arch\node\EDelegate $e) {
+        } catch (arch\node\DelegateException $e) {
         }
 
         return $this;
