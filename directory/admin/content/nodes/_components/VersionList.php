@@ -15,7 +15,7 @@ use DecodeLabs\Tagged\Html;
 
 class VersionList extends arch\component\CollectionList
 {
-    protected $_fields = [
+    protected $fields = [
         'number' => true,
         'title' => true,
         'owner' => true,
@@ -24,17 +24,17 @@ class VersionList extends arch\component\CollectionList
         'actions' => true
     ];
 
-    protected $_node;
+    protected $node;
 
     public function setNode($node)
     {
-        $this->_node = $node;
+        $this->node = $node;
         return $this;
     }
 
     public function getNode()
     {
-        return $this->_node;
+        return $this->node;
     }
 
 
@@ -42,7 +42,7 @@ class VersionList extends arch\component\CollectionList
     public function addNumberField($list)
     {
         $list->addField('number', '#', function ($version, $context) {
-            return count($this->_collection) - $context->getCounter();
+            return count($this->collection) - $context->getCounter();
         });
     }
 
@@ -66,8 +66,8 @@ class VersionList extends arch\component\CollectionList
     public function addIsActiveField($list)
     {
         $list->addField('isActive', $this->_('Active'), function ($version, $context) {
-            if ($this->_node) {
-                if (!($isActive = $version->isActive($this->_node))) {
+            if ($this->node) {
+                if (!($isActive = $version->isActive($this->node))) {
                     $context->getRowTag()->addClass('disabled');
                 }
             } else {
@@ -81,17 +81,17 @@ class VersionList extends arch\component\CollectionList
     // Actions
     public function addActionsField($list)
     {
-        if (!$this->_node) {
+        if (!$this->node) {
             return;
         }
 
         $list->addField('actions', function ($version) {
-            $isActive = $version->isActive($this->_node);
+            $isActive = $version->isActive($this->node);
 
             return [
                 // Preview
                 $this->html->link(
-                        $this->uri('./preview?node='.$this->_node->getId().'&version='.$version->getId()),
+                        $this->uri('./preview?node='.$this->node->getId().'&version='.$version->getId()),
                         $this->_('Preview')
                     )
                     ->setIcon('preview')
@@ -100,7 +100,7 @@ class VersionList extends arch\component\CollectionList
 
                 // Activate
                 $this->html->link(
-                        $this->uri('./activate-version?node='.$this->_node->getId().'&version='.$version->getId(), true),
+                        $this->uri('./activate-version?node='.$this->node->getId().'&version='.$version->getId(), true),
                         $this->_('Activate')
                     )
                     ->setIcon('accept')
@@ -109,7 +109,7 @@ class VersionList extends arch\component\CollectionList
 
                 // Copy
                 $this->html->link(
-                        $this->uri('./edit?node='.$this->_node->getId().'&version='.$version->getId(), true),
+                        $this->uri('./edit?node='.$this->node->getId().'&version='.$version->getId(), true),
                         $this->_('Copy')
                     )
                     ->setIcon('clipboard')
@@ -117,14 +117,14 @@ class VersionList extends arch\component\CollectionList
 
                 // Edit
                 $this->html->link(
-                        $this->uri('./edit-version?node='.$this->_node->getId().'&version='.$version->getId(), true),
+                        $this->uri('./edit-version?node='.$this->node->getId().'&version='.$version->getId(), true),
                         $this->_('Edit')
                     )
                     ->setIcon('edit'),
 
                 // Delete
                 $this->html->link(
-                        $this->uri('./delete-version?node='.$this->_node->getId().'&version='.$version->getId(), true),
+                        $this->uri('./delete-version?node='.$this->node->getId().'&version='.$version->getId(), true),
                         $this->_('Delete')
                     )
                     ->setIcon('delete')
