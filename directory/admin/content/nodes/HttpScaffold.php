@@ -39,7 +39,7 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
         'currentVersion'
     ];
 
-    const CONFIRM_DELETE = true;
+    const CAN_PREVIEW = true;
 
     // Record data
     protected function prepareRecordList($query, $mode)
@@ -57,18 +57,9 @@ class HttpScaffold extends arch\scaffold\RecordAdmin
 
 
     // Components
-    public function getRecordOperativeLinks($node, $mode)
+    protected function getRecordPreviewUriString(array $node): ?string
     {
-        return [
-            // Preview
-            $this->apex->component('NodeLink', $node, $this->_('Preview'))
-                ->setNode('preview')
-                ->setIcon('preview')
-                ->render()
-                ->setAttribute('target', '_blank'),
-
-            parent::getRecordOperativeLinks($node, $mode)
-        ];
+        return (string)$this->getRecordUri($node, 'preview');
     }
 
 
