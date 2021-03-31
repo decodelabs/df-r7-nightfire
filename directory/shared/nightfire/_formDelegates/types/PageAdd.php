@@ -13,7 +13,7 @@ use df\fire;
 use df\aura;
 use df\flex;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 class PageAdd extends arch\node\form\NightfireTypeDelegate
 {

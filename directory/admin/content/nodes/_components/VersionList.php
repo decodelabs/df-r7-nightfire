@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\neon;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 
 class VersionList extends arch\component\CollectionList
 {

@@ -11,7 +11,7 @@ use df\apex;
 use df\arch;
 use df\fire;
 
-use DecodeLabs\Tagged\Html;
+use DecodeLabs\Tagged as Html;
 use DecodeLabs\Exceptional;
 
 class HttpDeleteVersion extends arch\node\DeleteForm
