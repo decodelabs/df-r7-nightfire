@@ -12,6 +12,7 @@ use df\arch;
 use df\aura;
 use df\flex;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Exceptional;
 
 abstract class Base implements IType
@@ -56,7 +57,7 @@ abstract class Base implements IType
 
     public function getDisplayName(): string
     {
-        return flex\Text::formatName($this->getName());
+        return Dictum::name($this->getName());
     }
 
     public function renderPreview(aura\view\IView $view, INode $node, $versionId=null)
