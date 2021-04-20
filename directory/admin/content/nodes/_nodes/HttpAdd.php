@@ -12,48 +12,56 @@ use df\arch;
 use df\fire;
 use df\opal;
 
-class HttpAdd extends arch\node\Form {
+use DecodeLabs\Disciple;
 
+class HttpAdd extends arch\node\Form
+{
     protected $_node;
     protected $_type;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_node = $this->scaffold->newRecord();
     }
 
-    protected function initWithSession() {
+    protected function initWithSession()
+    {
         $type = $this->getStore('nodeType');
 
-        if($type) {
+        if ($type) {
             $this->_type = fire\type\Base::factory($type);
         }
     }
 
-    protected function loadDelegates() {
-        if($this->_type) {
+    protected function loadDelegates()
+    {
+        if ($this->_type) {
             $this->_type->loadAddFormDelegate($this, 'type', $this->_node);
         }
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues()
+    {
         $this->values->type = 'Page';
         $this->values->defaultAccess = 'all';
         $this->values->isLive = true;
         $this->values->isMappable = true;
     }
 
-    protected function afterReset() {
+    protected function afterReset()
+    {
         $this->_type = null;
     }
 
 
-// Ui
-    protected function createUi() {
+    // Ui
+    protected function createUi()
+    {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Node details'));
 
         // Type
-        if($this->_type) {
+        if ($this->_type) {
             $fs->addField($this->_('Type'))->setErrorContainer($this->values->type)->push(
                 $this->html->textbox('type', $this->_type->getName())
                     ->isDisabled(true),
@@ -125,7 +133,7 @@ class HttpAdd extends arch\node\Form {
 
 
         // Type
-        if($this->_type) {
+        if ($this->_type) {
             $form->push($this['type']);
         }
 
@@ -134,8 +142,9 @@ class HttpAdd extends arch\node\Form {
     }
 
 
-// Events
-    protected function onSelectTypeEvent() {
+    // Events
+    protected function onSelectTypeEvent()
+    {
         $validator = $this->data->newValidator()
             // Type
             ->addRequiredField('type', 'enum')
@@ -143,17 +152,19 @@ class HttpAdd extends arch\node\Form {
 
             ->validate($this->values);
 
-        if($this->isValid()) {
+        if ($this->isValid()) {
             $this->setStore('nodeType', $validator['type']);
         }
     }
 
-    protected function onResetTypeEvent() {
+    protected function onResetTypeEvent()
+    {
         $this->setStore('nodeType', false);
     }
 
 
-    protected function onSaveEvent() {
+    protected function onSaveEvent()
+    {
         $validator = $this->data->newValidator()
 
             // Title
@@ -167,8 +178,8 @@ class HttpAdd extends arch\node\Form {
                 ->allowAreaMarker(true)
                 ->setRecord($this->_node)
                 ->shouldRenameOnConflict(false)
-                ->setSanitizer(function($value) {
-                    if(!strlen($value)) {
+                ->setSanitizer(function ($value) {
+                    if (!strlen($value)) {
                         return $value;
                     }
 
@@ -193,10 +204,10 @@ class HttpAdd extends arch\node\Form {
             ->validate($this->values)
             ->applyTo($this->_node);
 
-        if(!empty($signifiers = $this->values['accessSignifiers'])) {
+        if (!empty($signifiers = $this->values['accessSignifiers'])) {
             $signifiers = explode(',', $signifiers);
 
-            array_walk($signifiers, function(&$signifier) {
+            array_walk($signifiers, function (&$signifier) {
                 $signifier = trim($signifier);
             });
 
@@ -206,7 +217,7 @@ class HttpAdd extends arch\node\Form {
         }
 
 
-        if(!$this->_type) {
+        if (!$this->_type) {
             $this->values->type->addError('required', $this->_(
                 'Please select a node type'
             ));
@@ -218,15 +229,15 @@ class HttpAdd extends arch\node\Form {
         $delegate = $this['type'];
         $typeHistory = $delegate->validate();
 
-        if(!is_array($typeHistory)) {
+        if (!is_array($typeHistory)) {
             $typeHistory = [];
         }
 
-        return $this->complete(function() use($delegate, $typeHistory) {
+        return $this->complete(function () use ($delegate, $typeHistory) {
             $this->_node->setTypeHistory($typeHistory);
 
-            if($this->_node->isNew()) {
-                $this->_node->owner = $this->user->client->getId();
+            if ($this->_node->isNew()) {
+                $this->_node->owner = Disciple::getId();
             } else {
                 $this->_node->lastEditDate = 'now';
             }
@@ -234,7 +245,7 @@ class HttpAdd extends arch\node\Form {
             $this->_node->save();
             $this->_node->typeId = $delegate->apply();
 
-            if($this->_type instanceof fire\type\IVersionedType) {
+            if ($this->_type instanceof fire\type\IVersionedType) {
                 $this->_node->versionCount = $this->_type->countVersions($this->_node);
                 $this->_node->currentVersion = $this->_type->getVersionNumber($this->_node);
             }

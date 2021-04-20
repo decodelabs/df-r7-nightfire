@@ -13,6 +13,7 @@ use df\fire;
 use df\aura;
 use df\flex;
 
+use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
 
 class PageAdd extends arch\node\form\NightfireTypeDelegate
@@ -195,7 +196,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
             }
 
             if ($this->_page->isNew()) {
-                $this->_page->owner = $this->user->client->getId();
+                $this->_page->owner = Disciple::getId();
                 $this->_page->node = $this->_node;
             } else {
                 if (($this->_makeNew || $this->values['makeNew']) && $this->_page->hasChanged()) {
