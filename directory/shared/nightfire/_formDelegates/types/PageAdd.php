@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
 use df;
@@ -49,7 +50,12 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
     {
         if ($this->_layout) {
             foreach ($this->_layout->getSlots() as $slot) {
-                $delegate = $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot')
+                /**
+                 * Slot
+                 * @var  apex\directory\shared\nightfire\_formDelegates\ContentSlot $delegate
+                 */
+                $delegate = $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot');
+                $delegate
                     ->isRequired($slot->getMinBlocks() > 0 || $slot->getId() == 'primary')
                     ->setSlotDefinition($slot);
             }

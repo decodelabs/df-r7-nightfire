@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\fire\type;
 
 use df;
@@ -66,7 +67,12 @@ abstract class Base implements IType
 
     public function loadAddFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node)
     {
-        $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Add')
+        /**
+         * Delegate
+         * @var  arch\node\form\NightfireTypeDelegate $delegate
+         */
+        $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Add');
+        $delegate
             ->setNode($node);
 
         return $this;
@@ -81,7 +87,12 @@ abstract class Base implements IType
             $specific = false;
         }
 
-        $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Edit')
+        /**
+         * Delegate
+         * @var  arch\node\form\NightfireTypeDelegate $delegate
+         */
+        $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Edit');
+        $delegate
             ->setNode($node)
             ->setVersionId($versionId)
             ->shouldMakeNew($makeNew)
@@ -93,7 +104,12 @@ abstract class Base implements IType
     public function loadDeleteFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node)
     {
         try {
-            $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Delete')
+            /**
+             * Delegate
+             * @var  arch\node\form\NightfireTypeDelegate $delegate
+             */
+            $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Delete');
+            $delegate
                 ->setNode($node);
         } catch (arch\node\DelegateException $e) {
         }
