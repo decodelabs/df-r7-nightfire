@@ -15,6 +15,7 @@ use df\flex;
 
 use DecodeLabs\Dictum;
 use DecodeLabs\Exceptional;
+use DecodeLabs\R7\Legacy;
 
 abstract class Base implements IType
 {
@@ -22,7 +23,7 @@ abstract class Base implements IType
     {
         $output = [];
 
-        foreach (df\Launchpad::$loader->lookupClassList('fire/type') as $name => $class) {
+        foreach (Legacy::getLoader()->lookupClassList('fire/type') as $name => $class) {
             try {
                 $type = self::factory($name);
             } catch (\Throwable $e) {
