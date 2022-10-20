@@ -3,14 +3,12 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\fire;
-use df\opal;
+use df\arch\node\form\NightfireTypeDelegate;
 
 use DecodeLabs\Disciple;
 
@@ -33,14 +31,14 @@ class HttpAdd extends arch\node\Form
         }
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
         if ($this->_type) {
             $this->_type->loadAddFormDelegate($this, 'type', $this->_node);
         }
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->type = 'Page';
         $this->values->defaultAccess = 'all';
@@ -226,7 +224,7 @@ class HttpAdd extends arch\node\Form
         }
 
         $this->_node->type = $this->_type->getName();
-        $delegate = $this['type'];
+        $delegate = $this['type']->as(NightfireTypeDelegate::class);
         $typeHistory = $delegate->validate();
 
         if (!is_array($typeHistory)) {

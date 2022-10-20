@@ -6,13 +6,11 @@
 
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\fire;
 use df\aura;
-use df\flex;
+
+use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
 
 use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
@@ -46,16 +44,12 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
         $this->_page = $this->data->newRecord('axis://nightfire/Page');
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
         if ($this->_layout) {
             foreach ($this->_layout->getSlots() as $slot) {
-                /**
-                 * Slot
-                 * @var  apex\directory\shared\nightfire\_formDelegates\ContentSlot $delegate
-                 */
-                $delegate = $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot');
-                $delegate
+                $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot')
+                    ->as(ContentSlot::class)
                     ->isRequired($slot->getMinBlocks() > 0 || $slot->getId() == 'primary')
                     ->setSlotDefinition($slot);
             }
@@ -189,7 +183,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
         $slots = [];
 
         foreach ($this->_layout->getSlots() as $slot) {
-            $slots[$slot->getId()] = $this['slot-'.$slot->getId()]->apply();
+            $slots[$slot->getId()] = $this['slot-'.$slot->getId()]->as(ContentSlot::class)->apply();
         }
 
         if ($this->isValid()) {

@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
 use df;
@@ -46,7 +47,7 @@ class HttpActivateVersion extends arch\node\ConfirmForm
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function setDefaultValues()
+    protected function setDefaultValues(): void
     {
         $this->values->keepCurrent = true;
     }

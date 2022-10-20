@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
 use df;
@@ -12,14 +13,15 @@ use df\arch;
 use df\fire;
 use df\aura;
 
-class RedirectAdd extends arch\node\form\NightfireTypeDelegate {
-
-
-    protected function setDefaultValues() {
+class RedirectAdd extends arch\node\form\NightfireTypeDelegate
+{
+    protected function setDefaultValues(): void
+    {
         $this->values->url = $this->_node['typeData'];
     }
 
-    public function renderContainerContent(aura\html\widget\IContainerWidget $form) {
+    public function renderContainerContent(aura\html\widget\IContainerWidget $form)
+    {
         $fs = $form->addFieldSet($this->_('Redirect details'));
 
         // Url
@@ -29,17 +31,20 @@ class RedirectAdd extends arch\node\form\NightfireTypeDelegate {
         );
     }
 
-    public function validate() {
+    public function validate()
+    {
         $this->data->newValidator()
             ->addRequiredField('url', 'text')
                 ->setRecordName('typeData')
             ->validate($this->values)
             ->applyTo($this->_node);
 
-        if($this->_node->hasChanged('typeData')) {
+        if ($this->_node->hasChanged('typeData')) {
             return ['Updated url to '.$this->values['url']];
         }
     }
 
-    public function apply() {}
+    public function apply()
+    {
+    }
 }

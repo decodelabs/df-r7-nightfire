@@ -3,19 +3,19 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
 use df\fire;
 
-class PageEdit extends PageAdd {
+use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
 
+class PageEdit extends PageAdd
+{
     protected $_content;
 
-    protected function init() {
+    protected function init()
+    {
         $this->_page = $this->data->fetchForAction(
             'axis://nightfire/Page',
             $this->_versionId
@@ -24,14 +24,14 @@ class PageEdit extends PageAdd {
         $this->_config = fire\Config::getInstance();
         $this->_content = fire\layout\Content::fromXmlString($this->_page['body']);
 
-        if(!$this->hasStore('layout')) {
+        if (!$this->hasStore('layout')) {
             $this->setStore('layout', $this->_content->getId());
         }
 
         $layout = $this->getStore('layout');
 
-        if($layout) {
-            if($layout != $this->_content->getId()) {
+        if ($layout) {
+            if ($layout != $this->_content->getId()) {
                 $this->_content = null;
             }
 
@@ -39,21 +39,24 @@ class PageEdit extends PageAdd {
         }
     }
 
-    protected function setDefaultValues() {
+    protected function setDefaultValues(): void
+    {
         $this->values->importFrom($this->_page, [
             'title', 'description'
         ]);
 
-        if($this->_layout && $this->_content) {
-            foreach($this->_layout->getSlots() as $slot) {
-                $this['slot-'.$slot->getId()]->setSlotContent(
-                    $this->_content->getSlot($slot->getId())
-                );
+        if ($this->_layout && $this->_content) {
+            foreach ($this->_layout->getSlots() as $slot) {
+                $this['slot-'.$slot->getId()]->as(ContentSlot::class)
+                    ->setSlotContent(
+                        $this->_content->getSlot($slot->getId())
+                    );
             }
         }
     }
 
-    public function getDefaultNodeValues() {
+    public function getDefaultNodeValues()
+    {
         return ['title' => $this->_page['title']];
     }
 }

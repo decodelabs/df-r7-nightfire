@@ -3,14 +3,12 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 use df\fire;
-use df\opal;
+use df\arch\node\form\NightfireTypeDelegate;
 
 use DecodeLabs\Exceptional;
 
@@ -47,7 +45,7 @@ class HttpEditVersion extends arch\node\Form
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function loadDelegates()
+    protected function loadDelegates(): void
     {
         $this->_type->loadEditFormDelegate($this, 'type', $this->_node, $this->_versionId, false);
     }
@@ -69,7 +67,7 @@ class HttpEditVersion extends arch\node\Form
     // Events
     protected function onSaveEvent()
     {
-        $delegate = $this['type'];
+        $delegate = $this['type']->as(NightfireTypeDelegate::class);
         $delegate->validate();
 
         return $this->complete(function () use ($delegate) {
