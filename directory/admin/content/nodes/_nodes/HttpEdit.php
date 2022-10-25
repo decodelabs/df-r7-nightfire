@@ -12,18 +12,18 @@ class HttpEdit extends HttpAdd
 {
     protected $_versionId;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_node = $this->scaffold->getRecord();
         $this->_versionId = $this->request['version'];
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_node['id'].':'.$this->_versionId;
     }
 
-    protected function initWithSession()
+    protected function initWithSession(): void
     {
         if (!$this->hasStore('nodeType')) {
             $this->setStore('nodeType', $this->_node['type']);

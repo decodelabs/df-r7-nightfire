@@ -14,7 +14,7 @@ class PageEdit extends PageAdd
 {
     protected $_content;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_page = $this->data->fetchForAction(
             'axis://nightfire/Page',

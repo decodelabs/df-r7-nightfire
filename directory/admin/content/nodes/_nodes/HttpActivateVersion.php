@@ -20,7 +20,7 @@ class HttpActivateVersion extends arch\node\ConfirmForm
     protected $_type;
     protected $_versionId;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
@@ -42,7 +42,7 @@ class HttpActivateVersion extends arch\node\ConfirmForm
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_node['id'].':'.$this->_versionId;
     }

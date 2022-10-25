@@ -18,7 +18,7 @@ class HttpEditVersion extends arch\node\Form
     protected $_type;
     protected $_versionId;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
@@ -40,7 +40,7 @@ class HttpEditVersion extends arch\node\Form
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_node['id'].':'.$this->_versionId;
     }
@@ -52,7 +52,7 @@ class HttpEditVersion extends arch\node\Form
 
 
     // Ui
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
 

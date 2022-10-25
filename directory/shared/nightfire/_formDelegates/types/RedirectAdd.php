@@ -44,7 +44,8 @@ class RedirectAdd extends arch\node\form\NightfireTypeDelegate
         }
     }
 
-    public function apply()
+    public function apply(): mixed
     {
+        return null;
     }
 }

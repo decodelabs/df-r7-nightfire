@@ -17,12 +17,12 @@ class HttpAdd extends arch\node\Form
     protected $_node;
     protected $_type;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_node = $this->scaffold->newRecord();
     }
 
-    protected function initWithSession()
+    protected function initWithSession(): void
     {
         $type = $this->getStore('nodeType');
 
@@ -46,14 +46,14 @@ class HttpAdd extends arch\node\Form
         $this->values->isMappable = true;
     }
 
-    protected function afterReset()
+    protected function afterReset(): void
     {
         $this->_type = null;
     }
 
 
     // Ui
-    protected function createUi()
+    protected function createUi(): void
     {
         $form = $this->content->addForm();
         $fs = $form->addFieldSet($this->_('Node details'));

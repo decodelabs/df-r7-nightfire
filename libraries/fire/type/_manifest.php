@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\fire\type;
 
 use df;
@@ -80,5 +81,5 @@ interface IFormDelegate extends arch\node\ISelfContainedRenderableDelegate
     public function isSpecificVersion(bool $flag=null);
     public function getDefaultNodeValues();
     public function validate();
-    public function apply();
+    public function apply(): mixed;
 }

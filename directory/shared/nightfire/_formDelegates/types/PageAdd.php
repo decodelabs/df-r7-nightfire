@@ -22,7 +22,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
     protected $_page;
     protected $_content;
 
-    protected function init()
+    protected function init(): void
     {
         $layout = $this->getStore('layout');
         $this->_config = fire\Config::getInstance();
@@ -212,9 +212,9 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
         }
     }
 
-    public function apply()
+    public function apply(): string
     {
         $this->_page->save();
-        return $this->_page['id'];
+        return (string)$this->_page['id'];
     }
 }

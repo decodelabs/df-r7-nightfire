@@ -3,6 +3,7 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
 use df;
@@ -16,13 +17,13 @@ use DecodeLabs\Exceptional;
 
 class HttpDeleteVersion extends arch\node\DeleteForm
 {
-    const ITEM_NAME = 'version';
+    public const ITEM_NAME = 'version';
 
     protected $_node;
     protected $_type;
     protected $_version;
 
-    protected function init()
+    protected function init(): void
     {
         $this->_node = $this->scaffold->getRecord();
         $this->_type = $this->_node->getType();
@@ -51,7 +52,7 @@ class HttpDeleteVersion extends arch\node\DeleteForm
         }
     }
 
-    protected function getInstanceId()
+    protected function getInstanceId(): ?string
     {
         return $this->_node['id'].':'.$this->_version['id'];
     }
