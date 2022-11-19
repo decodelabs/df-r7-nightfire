@@ -6,18 +6,14 @@
 
 namespace df\apex\directory\shared;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-
 use DecodeLabs\R7\Legacy;
+
+use df\arch;
 
 class HttpTransformer extends arch\Transformer
 {
     public function execute()
     {
-
         /*
         // See if the url just needs a /
         $url = Legacy::$http->getRequest()->getUrl();

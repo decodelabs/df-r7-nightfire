@@ -5,41 +5,37 @@
  */
 namespace df\apex\directory\admin\content\nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\opal;
-use df\fire;
-
 use DecodeLabs\Tagged as Html;
+use df\arch;
+
+use df\fire;
 
 class HttpScaffold extends arch\scaffold\RecordAdmin
 {
-    const TITLE = 'Nodes';
-    const ICON = 'node';
-    const ADAPTER = 'axis://nightfire/Node';
-    const NAME_FIELD = 'slug';
+    public const TITLE = 'Nodes';
+    public const ICON = 'node';
+    public const ADAPTER = 'axis://nightfire/Node';
+    public const NAME_FIELD = 'slug';
 
-    const SECTIONS = [
+    public const SECTIONS = [
         'details',
         'versions' => 'list',
         'history' => 'history'
     ];
 
-    const LIST_FIELDS = [
+    public const LIST_FIELDS = [
         'slug', 'title', 'type', 'owner', 'creationDate',
         'lastEditDate', 'currentVersion', 'isLive'
     ];
 
-    const DETAILS_FIELDS = [
+    public const DETAILS_FIELDS = [
         'title', 'slug', 'type', 'owner', 'isLive',
         'creationDate', 'lastEditDate',
         'defaultAccess', 'accessSignifiers',
         'currentVersion'
     ];
 
-    const CAN_PREVIEW = true;
+    public const CAN_PREVIEW = true;
 
     // Record data
     protected function prepareRecordList($query, $mode)

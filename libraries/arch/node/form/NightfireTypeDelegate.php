@@ -5,14 +5,12 @@
  */
 namespace df\arch\node\form;
 
-use df;
-use df\core;
 use df\arch;
-use df\fire;
 use df\aura;
+use df\fire;
 
-abstract class NightfireTypeDelegate extends Delegate implements fire\type\IFormDelegate {
-
+abstract class NightfireTypeDelegate extends Delegate implements fire\type\IFormDelegate
+{
     use arch\node\TForm_SelfContainedRenderableDelegate;
 
     protected $_node;
@@ -20,26 +18,31 @@ abstract class NightfireTypeDelegate extends Delegate implements fire\type\IForm
     protected $_makeNew = false;
     protected $_isSpecificVersion = false;
 
-    public function setNode(fire\type\INode $node) {
+    public function setNode(fire\type\INode $node)
+    {
         $this->_node = $node;
         return $this;
     }
 
-    public function getNode() {
+    public function getNode()
+    {
         return $this->_node;
     }
 
-    public function setVersionId($versionId) {
+    public function setVersionId($versionId)
+    {
         $this->_versionId = $versionId;
         return $this;
     }
 
-    public function getVersionId() {
+    public function getVersionId()
+    {
         return $this->_versionId;
     }
 
-    public function shouldMakeNew(bool $flag=null) {
-        if($flag !== null) {
+    public function shouldMakeNew(bool $flag = null)
+    {
+        if ($flag !== null) {
             $this->_makeNew = $flag;
             return $this;
         }
@@ -47,8 +50,9 @@ abstract class NightfireTypeDelegate extends Delegate implements fire\type\IForm
         return $this->_makeNew;
     }
 
-    public function isSpecificVersion(bool $flag=null) {
-        if($flag !== null) {
+    public function isSpecificVersion(bool $flag = null)
+    {
+        if ($flag !== null) {
             $this->_isSpecificVersion = $flag;
             return $this;
         }
@@ -56,10 +60,15 @@ abstract class NightfireTypeDelegate extends Delegate implements fire\type\IForm
         return $this->_isSpecificVersion;
     }
 
-    public function getDefaultNodeValues() {
+    public function getDefaultNodeValues()
+    {
         return null;
     }
 
-    public function renderContainerContent(aura\html\widget\IContainerWidget $container) {}
-    public function validate() {}
+    public function renderContainerContent(aura\html\widget\IContainerWidget $container)
+    {
+    }
+    public function validate()
+    {
+    }
 }

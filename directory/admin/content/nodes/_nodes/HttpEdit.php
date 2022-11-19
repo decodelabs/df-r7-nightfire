@@ -20,7 +20,7 @@ class HttpEdit extends HttpAdd
 
     protected function getInstanceId(): ?string
     {
-        return $this->_node['id'].':'.$this->_versionId;
+        return $this->_node['id'] . ':' . $this->_versionId;
     }
 
     protected function initWithSession(): void

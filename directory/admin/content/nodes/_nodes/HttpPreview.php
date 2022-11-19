@@ -5,14 +5,12 @@
  */
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
 
-class HttpPreview extends arch\node\Base {
-
-    public function execute() {
+class HttpPreview extends arch\node\Base
+{
+    public function execute()
+    {
         $node = $this->scaffold->getRecord();
         $context = $this->context->spawnInstance($node['slug']);
         $type = $node->getType();

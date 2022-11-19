@@ -6,9 +6,9 @@
 
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
-use df\fire;
-
 use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
+
+use df\fire;
 
 class PageEdit extends PageAdd
 {
@@ -47,7 +47,7 @@ class PageEdit extends PageAdd
 
         if ($this->_layout && $this->_content) {
             foreach ($this->_layout->getSlots() as $slot) {
-                $this['slot-'.$slot->getId()]->as(ContentSlot::class)
+                $this['slot-' . $slot->getId()]->as(ContentSlot::class)
                     ->setSlotContent(
                         $this->_content->getSlot($slot->getId())
                     );

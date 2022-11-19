@@ -6,11 +6,11 @@
 
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
+use DecodeLabs\Disciple;
 use df\arch;
-use df\fire;
 use df\arch\node\form\NightfireTypeDelegate;
 
-use DecodeLabs\Disciple;
+use df\fire;
 
 class HttpAdd extends arch\node\Form
 {
@@ -63,7 +63,6 @@ class HttpAdd extends arch\node\Form
             $fs->addField($this->_('Type'))->setErrorContainer($this->values->type)->push(
                 $this->html->textbox('type', $this->_type->getName())
                     ->isDisabled(true),
-
                 $this->html->eventButton('resetType', $this->_('Change type'))
                     ->setIcon('edit')
                     ->shouldValidate(false)
@@ -73,7 +72,6 @@ class HttpAdd extends arch\node\Form
                 $this->html->select('type', $this->values->type, $this->data->nightfire->node->getTypeOptionList())
                     ->isRequired(true)
                     ->setNoSelectionLabel($this->_('Select node type...')),
-
                 $this->html->eventButton('selectType', $this->_('Select'))
                     ->setIcon('accept')
                     ->shouldValidate(false)

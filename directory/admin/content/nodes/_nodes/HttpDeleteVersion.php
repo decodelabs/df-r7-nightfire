@@ -6,14 +6,11 @@
 
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
-use df;
-use df\core;
-use df\apex;
+use DecodeLabs\Exceptional;
+use DecodeLabs\Tagged as Html;
+
 use df\arch;
 use df\fire;
-
-use DecodeLabs\Tagged as Html;
-use DecodeLabs\Exceptional;
 
 class HttpDeleteVersion extends arch\node\DeleteForm
 {
@@ -54,7 +51,7 @@ class HttpDeleteVersion extends arch\node\DeleteForm
 
     protected function getInstanceId(): ?string
     {
-        return $this->_node['id'].':'.$this->_version['id'];
+        return $this->_node['id'] . ':' . $this->_version['id'];
     }
 
     protected function createItemUi($container)
@@ -73,7 +70,7 @@ class HttpDeleteVersion extends arch\node\DeleteForm
             ->addField('preview', function ($version) {
                 return $this->_type->renderPreview($this->view, $this->_node, $version);
             })
-            ;
+        ;
     }
 
     protected function apply()

@@ -6,16 +6,12 @@
 
 namespace df\fire\type;
 
-use df;
-use df\core;
-use df\fire;
-use df\arch;
-use df\aura;
-use df\flex;
-
 use DecodeLabs\Dictum;
 use DecodeLabs\Exceptional;
+
 use DecodeLabs\R7\Legacy;
+use df\arch;
+use df\aura;
 
 abstract class Base implements IType
 {
@@ -40,11 +36,11 @@ abstract class Base implements IType
 
     public static function factory($name)
     {
-        $class = 'df\\fire\\type\\'.ucfirst($name);
+        $class = 'df\\fire\\type\\' . ucfirst($name);
 
         if (!class_exists($class)) {
             throw Exceptional::Runtime(
-                'Nightfire node type '.$name.' could not be found'
+                'Nightfire node type ' . $name . ' could not be found'
             );
         }
 
@@ -62,7 +58,7 @@ abstract class Base implements IType
         return Dictum::name($this->getName());
     }
 
-    public function renderPreview(aura\view\IView $view, INode $node, $versionId=null)
+    public function renderPreview(aura\view\IView $view, INode $node, $versionId = null)
     {
     }
 
@@ -72,14 +68,14 @@ abstract class Base implements IType
          * Delegate
          * @var  arch\node\form\NightfireTypeDelegate $delegate
          */
-        $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Add');
+        $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/' . $this->getName() . 'Add');
         $delegate
             ->setNode($node);
 
         return $this;
     }
 
-    public function loadEditFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node, $versionId=null, $makeNew=false)
+    public function loadEditFormDelegate(arch\node\IFormNode $form, $delegateId, INode $node, $versionId = null, $makeNew = false)
     {
         $specific = true;
 
@@ -92,7 +88,7 @@ abstract class Base implements IType
          * Delegate
          * @var  arch\node\form\NightfireTypeDelegate $delegate
          */
-        $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Edit');
+        $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/' . $this->getName() . 'Edit');
         $delegate
             ->setNode($node)
             ->setVersionId($versionId)
@@ -109,7 +105,7 @@ abstract class Base implements IType
              * Delegate
              * @var  arch\node\form\NightfireTypeDelegate $delegate
              */
-            $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/'.$this->getName().'Delete');
+            $delegate = $form->loadDelegate($delegateId, '~/nightfire/#/types/' . $this->getName() . 'Delete');
             $delegate
                 ->setNode($node);
         } catch (arch\node\DelegateException $e) {

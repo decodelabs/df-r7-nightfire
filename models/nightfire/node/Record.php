@@ -5,60 +5,58 @@
  */
 namespace df\apex\models\nightfire\node;
 
-use df;
-use df\core;
-use df\apex;
-use df\axis;
+use df\arch;
 use df\fire;
 use df\opal;
-use df\arch;
-use df\flex;
 
-class Record extends opal\record\Base implements fire\type\INode {
-
-    const BROADCAST_HOOK_EVENTS = true;
+class Record extends opal\record\Base implements fire\type\INode
+{
+    public const BROADCAST_HOOK_EVENTS = true;
 
     protected $_typeHistory = [];
 
-    public function setTypeHistory(array $history) {
+    public function setTypeHistory(array $history)
+    {
         $this->_typeHistory = $history;
         return $this;
     }
 
-    protected function onPreSave($queue, $job) {
+    protected function onPreSave($queue, $job)
+    {
         $this->_writeHistory($queue, $job);
     }
 
-    protected function _writeHistory($queue, $job) {
+    protected function _writeHistory($queue, $job)
+    {
         $isNew = $this->isNew();
 
-        if(!$isNew && !$this->hasChanged()) {
+        if (!$isNew && !$this->hasChanged()) {
             return $this;
         }
 
-        if($isNew) {
-            $description = 'Created node: '.$this['title'];
+        if ($isNew) {
+            $description = 'Created node: ' . $this['title'];
         } else {
             $lines = $this->_typeHistory;
 
-            foreach($this->getChangedValues() as $field => $value) {
-                switch($field) {
+            foreach ($this->getChangedValues() as $field => $value) {
+                switch ($field) {
                     case 'slug':
-                        $lines[] = 'Moved to '.$value;
+                        $lines[] = 'Moved to ' . $value;
                         break;
 
                     case 'title':
-                        $lines[] = 'Updated title to "'.$value.'"';
+                        $lines[] = 'Updated title to "' . $value . '"';
                         break;
 
                     case 'type':
-                        $lines[] = 'Changed type to '.$value;
+                        $lines[] = 'Changed type to ' . $value;
                         break;
 
                     case 'owner':
-                        if(is_object($value)) {
-                            $lines[] = 'Set owner to '.$value['fullName'];
-                        } else if(!empty($value)) {
+                        if (is_object($value)) {
+                            $lines[] = 'Set owner to ' . $value['fullName'];
+                        } elseif (!empty($value)) {
                             $lines[] = 'Set new owner';
                         } else {
                             $lines[] = 'Removed owner';
@@ -67,7 +65,7 @@ class Record extends opal\record\Base implements fire\type\INode {
                         break;
 
                     case 'defaultAccess':
-                        $lines[] = 'Set default access to '.$value;
+                        $lines[] = 'Set default access to ' . $value;
                         break;
 
                     case 'notes':
@@ -75,12 +73,12 @@ class Record extends opal\record\Base implements fire\type\INode {
                         break;
 
                     case 'isLive':
-                        $lines[] = 'Set node '.($value ? 'active' : 'inactive');
+                        $lines[] = 'Set node ' . ($value ? 'active' : 'inactive');
                         break;
                 }
             }
 
-            if(empty($lines)) {
+            if (empty($lines)) {
                 return $this;
             }
 
@@ -88,62 +86,78 @@ class Record extends opal\record\Base implements fire\type\INode {
         }
 
         $this->getAdapter()->context->data->content->history->createRecordEntry(
-            $this, $queue, $job, $description
+            $this,
+            $queue,
+            $job,
+            $description
         );
     }
 
-    public function getId(): ?string {
+    public function getId(): ?string
+    {
         return $this['id'];
     }
 
-    public function getSlug() {
+    public function getSlug()
+    {
         return $this['slug'];
     }
 
-    public function getDate() {
+    public function getDate()
+    {
         return $this['creationDate'];
     }
 
-    public function getOwnerId() {
+    public function getOwnerId()
+    {
         return $this['#owner'];
     }
 
-    public function getOwner() {
+    public function getOwner()
+    {
         return $this['owner'];
     }
 
-    public function getTitle(): ?string {
+    public function getTitle(): ?string
+    {
         return $this['title'];
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this['description'];
     }
 
-    public function isMappable() {
+    public function isMappable()
+    {
         return $this['isMappable'];
     }
 
 
-    public function getTypeName() {
+    public function getTypeName()
+    {
         return $this['type'];
     }
 
-    public function getType() {
+    public function getType()
+    {
         return fire\type\Base::factory($this['type']);
     }
 
-    public function getTypeId() {
+    public function getTypeId()
+    {
         return $this['typeId'];
     }
 
-    public function getTypeData() {
+    public function getTypeData()
+    {
         return $this['typeData'];
     }
 
 
-    public function getNodeDefaultAccess() {
-        switch($this['defaultAccess']) {
+    public function getNodeDefaultAccess()
+    {
+        switch ($this['defaultAccess']) {
             case 'all': return arch\IAccess::ALL;
             case 'none': return arch\IAccess::NONE;
 
@@ -157,15 +171,17 @@ class Record extends opal\record\Base implements fire\type\INode {
         }
     }
 
-    public function getNodeAccessSignifiers() {
-        if($sigs = $this['accessSignifiers']) {
+    public function getNodeAccessSignifiers()
+    {
+        if ($sigs = $this['accessSignifiers']) {
             return $sigs->toArray();
         } else {
             return [];
         }
     }
 
-    public function createResponse(arch\IContext $context) {
+    public function createResponse(arch\IContext $context)
+    {
         return $this->getType()->createResponse($context, $this);
     }
 }

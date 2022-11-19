@@ -5,15 +5,12 @@
  */
 namespace df\apex\models\nightfire\page;
 
-use df;
-use df\core;
-use df\apex;
 use df\axis;
-use df\opal;
 
-class Unit extends axis\unit\Table {
-
-    protected function createSchema($schema) {
+class Unit extends axis\unit\Table
+{
+    protected function createSchema($schema)
+    {
         $schema->addPrimaryField('id', 'Guid');
         $schema->addField('node', 'One', 'node');
         $schema->addField('owner', 'One', 'user/client');

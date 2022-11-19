@@ -5,22 +5,18 @@
  */
 namespace df\arch\node;
 
-use df;
-use df\core;
-use df\arch;
-use df\fire;
-
-abstract class Nightfire extends Base {
-
-    public function dispatch() {
+abstract class Nightfire extends Base
+{
+    public function dispatch()
+    {
         $record = $this->data->nightfire->node->load($this->context->request);
 
-        if($record !== null) {
+        if ($record !== null) {
             $this
                 ->shouldCheckAccess(true)
                 ->setDefaultAccess($record->getNodeDefaultAccess())
                 ->setAccessSignifiers(...$record->getAccessSignifiers())
-                ->setCallback(function($node) use($record) {
+                ->setCallback(function ($node) use ($record) {
                     return $record->createResponse($this->context);
                 });
         }

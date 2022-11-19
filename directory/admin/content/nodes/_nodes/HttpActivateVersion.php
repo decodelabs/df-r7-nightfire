@@ -6,13 +6,10 @@
 
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\fire;
-
 use DecodeLabs\Exceptional;
+use df\arch;
+
+use df\fire;
 
 class HttpActivateVersion extends arch\node\ConfirmForm
 {
@@ -44,7 +41,7 @@ class HttpActivateVersion extends arch\node\ConfirmForm
 
     protected function getInstanceId(): ?string
     {
-        return $this->_node['id'].':'.$this->_versionId;
+        return $this->_node['id'] . ':' . $this->_versionId;
     }
 
     protected function setDefaultValues(): void

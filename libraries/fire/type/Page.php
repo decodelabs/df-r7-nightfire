@@ -5,17 +5,16 @@
  */
 namespace df\fire\type;
 
-use df;
-use df\core;
-use df\fire;
 use df\arch;
-use df\axis;
 use df\aura;
+use df\axis;
+use df\fire;
 
-class Page extends Base implements fire\type\IVersionedType {
-
-    public function createResponse(arch\IContext $context, INode $node, $versionId=null) {
-        if($versionId === null) {
+class Page extends Base implements fire\type\IVersionedType
+{
+    public function createResponse(arch\IContext $context, INode $node, $versionId = null)
+    {
+        if ($versionId === null) {
             $versionId = $node['typeId'];
         }
 
@@ -34,32 +33,36 @@ class Page extends Base implements fire\type\IVersionedType {
         return $view;
     }
 
-    public function renderPreview(aura\view\IView $view, INode $node, $page=null) {
-        if(!$page instanceof fire\type\IVersion) {
+    public function renderPreview(aura\view\IView $view, INode $node, $page = null)
+    {
+        if (!$page instanceof fire\type\IVersion) {
             $page = $this->getVersion($node, $page);
         }
 
-        if($page) {
+        if ($page) {
             return $view->nightfire->renderLayoutPreview($page['body']);
         }
     }
 
 
 // Versions
-    public function countVersions(INode $node) {
+    public function countVersions(INode $node)
+    {
         return $this->_getUnit()->select()
             ->where('node', '=', $node->getId())
             ->count();
     }
 
-    public function isValidVersionId($id) {
+    public function isValidVersionId($id)
+    {
         return (bool)$this->_getUnit()->select()
             ->where('id', '=', $id)
             ->count();
     }
 
-    public function getVersion(INode $node, $versionId=null) {
-        if(!$versionId) {
+    public function getVersion(INode $node, $versionId = null)
+    {
+        if (!$versionId) {
             $versionId = $node['typeId'];
         }
 
@@ -69,7 +72,8 @@ class Page extends Base implements fire\type\IVersionedType {
             ->toRow();
     }
 
-    public function getVersionList(INode $node) {
+    public function getVersionList(INode $node)
+    {
         return $this->_getUnit()->fetch()
             ->importRelationBlock('owner', 'link')
             ->where('node', '=', $node)
@@ -77,17 +81,19 @@ class Page extends Base implements fire\type\IVersionedType {
             ->toArray();
     }
 
-    public function getLatestVersionId(INode $node) {
+    public function getLatestVersionId(INode $node)
+    {
         return $this->_getUnit()->select('id')
             ->where('node', '=', $node->getId())
             ->orderBy('date DESC')
             ->toValue('id');
     }
 
-    public function getVersionNumber(INode $node, $versionId=null) {
+    public function getVersionNumber(INode $node, $versionId = null)
+    {
         $unit = $this->_getUnit();
 
-        if(!$versionId) {
+        if (!$versionId) {
             $versionId = $node['typeId'];
         }
 
@@ -100,20 +106,21 @@ class Page extends Base implements fire\type\IVersionedType {
             ->count() + 1;
     }
 
-    public function applyVersion(INode $node, $page, $deleteUnused=false, $keepCurrent=true) {
-        if(!$page instanceof fire\type\IVersion) {
+    public function applyVersion(INode $node, $page, $deleteUnused = false, $keepCurrent = true)
+    {
+        if (!$page instanceof fire\type\IVersion) {
             $page = $this->getVersion($node, $page);
         }
 
-        if(!$page) {
+        if (!$page) {
             return false;
         }
 
-        if($deleteUnused) {
+        if ($deleteUnused) {
             $this->_getUnit()->delete()
                 ->where('node', '=', $node)
                 ->where('id', '!=', $page['id'])
-                ->chainIf($keepCurrent, function($query) use($node) {
+                ->chainIf($keepCurrent, function ($query) use ($node) {
                     $query->where('id', '!=', $node['typeId']);
                 })
                 ->execute();
@@ -127,8 +134,9 @@ class Page extends Base implements fire\type\IVersionedType {
         return true;
     }
 
-    public function deleteVersion(INode $node, $page) {
-        if(!$page instanceof fire\type\IVersion) {
+    public function deleteVersion(INode $node, $page)
+    {
+        if (!$page instanceof fire\type\IVersion) {
             $page = $this->getVersion($node, $page);
         }
 
@@ -137,7 +145,8 @@ class Page extends Base implements fire\type\IVersionedType {
     }
 
 
-    protected function _getUnit() {
+    protected function _getUnit()
+    {
         return axis\Model::factory('nightfire')->getUnit('page');
     }
 }

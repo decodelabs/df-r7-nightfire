@@ -6,11 +6,7 @@
 
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
-use df;
-use df\core;
-use df\apex;
 use df\arch;
-use df\fire;
 use df\aura;
 
 class RedirectAdd extends arch\node\form\NightfireTypeDelegate
@@ -40,7 +36,7 @@ class RedirectAdd extends arch\node\form\NightfireTypeDelegate
             ->applyTo($this->_node);
 
         if ($this->_node->hasChanged('typeData')) {
-            return ['Updated url to '.$this->values['url']];
+            return ['Updated url to ' . $this->values['url']];
         }
     }
 

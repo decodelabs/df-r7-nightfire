@@ -6,11 +6,11 @@
 
 namespace df\apex\directory\admin\content\nodes\_nodes;
 
+use DecodeLabs\Exceptional;
 use df\arch;
-use df\fire;
 use df\arch\node\form\NightfireTypeDelegate;
 
-use DecodeLabs\Exceptional;
+use df\fire;
 
 class HttpEditVersion extends arch\node\Form
 {
@@ -42,7 +42,7 @@ class HttpEditVersion extends arch\node\Form
 
     protected function getInstanceId(): ?string
     {
-        return $this->_node['id'].':'.$this->_versionId;
+        return $this->_node['id'] . ':' . $this->_versionId;
     }
 
     protected function loadDelegates(): void

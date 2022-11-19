@@ -5,28 +5,26 @@
  */
 namespace df\apex\models\nightfire\node;
 
-use df;
-use df\core;
-use df\apex;
-use df\axis;
 use df\arch;
+use df\axis;
 use df\fire;
 
-class Unit extends axis\unit\Table {
-
-    const SEARCH_FIELDS = [
+class Unit extends axis\unit\Table
+{
+    public const SEARCH_FIELDS = [
         'slug' => 3,
         'title' => 1
     ];
 
-    const ORDERABLE_FIELDS = [
+    public const ORDERABLE_FIELDS = [
         'slug', 'title', 'type', 'creationDate', 'lastEditDate',
         'owner', 'currentVersion', 'versionCount', 'defaultAccess', 'isMappable', 'isLive'
     ];
 
-    const DEFAULT_ORDER = 'slug ASC';
+    public const DEFAULT_ORDER = 'slug ASC';
 
-    protected function createSchema($schema) {
+    protected function createSchema($schema)
+    {
         $schema->addPrimaryField('id', 'Guid');
         $schema->addField('slug', 'Slug')
             ->allowPathFormat(true);
@@ -64,14 +62,16 @@ class Unit extends axis\unit\Table {
         $schema->addField('isLive', 'Boolean');
     }
 
-    public function load(arch\IRequest $request) {
+    public function load(arch\IRequest $request)
+    {
         return $this->fetch()
             ->where('slug', '=', $request->toSlug())
             ->where('isLive', '=', true)
             ->toRow();
     }
 
-    public function exists(arch\IRequest $request) {
+    public function exists(arch\IRequest $request)
+    {
         return (bool)$this->select('id')
             ->where('slug', '=', $request->toSlug())
             ->where('isLive', '=', true)
@@ -86,10 +86,11 @@ class Unit extends axis\unit\Table {
     }
     */
 
-    public function getTypeOptionList() {
+    public function getTypeOptionList()
+    {
         $output = [];
 
-        foreach(fire\type\Base::loadAll() as $type) {
+        foreach (fire\type\Base::loadAll() as $type) {
             $output[$type->getName()] = $type->getDisplayName();
         }
 

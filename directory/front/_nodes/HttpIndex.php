@@ -5,16 +5,15 @@
  */
 namespace df\apex\directory\front\_nodes;
 
-use df;
-use df\core;
 use df\arch;
 
-class HttpIndex extends arch\node\Nightfire {
+class HttpIndex extends arch\node\Nightfire
+{
+    public const CHECK_ACCESS = false;
+    public const DEFAULT_ACCESS = arch\IAccess::ALL;
 
-    const CHECK_ACCESS = false;
-    const DEFAULT_ACCESS = arch\IAccess::ALL;
-
-    public function executeAsHtml() {
+    public function executeAsHtml()
+    {
         return $this->apex->view('Index.html');
     }
 }

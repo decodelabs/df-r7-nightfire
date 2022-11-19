@@ -6,14 +6,14 @@
 
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
-use df\arch;
-use df\fire;
-use df\aura;
-
-use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
-
 use DecodeLabs\Disciple;
 use DecodeLabs\Tagged as Html;
+use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
+
+use df\arch;
+
+use df\aura;
+use df\fire;
 
 class PageAdd extends arch\node\form\NightfireTypeDelegate
 {
@@ -48,7 +48,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
     {
         if ($this->_layout) {
             foreach ($this->_layout->getSlots() as $slot) {
-                $this->loadDelegate('slot-'.$slot->getId(), '~/nightfire/ContentSlot')
+                $this->loadDelegate('slot-' . $slot->getId(), '~/nightfire/ContentSlot')
                     ->as(ContentSlot::class)
                     ->isRequired($slot->getMinBlocks() > 0 || $slot->getId() == 'primary')
                     ->setSlotDefinition($slot);
@@ -109,7 +109,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
         foreach ($this->_layout->getSlots() as $slot) {
             $form->addFieldSet($this->_('Slot %n%', ['%n%' => ++$i]))->addField()->push(
                 Html::{'h3'}($slot->getName()),
-                $this['slot-'.$slot->getId()]
+                $this['slot-' . $slot->getId()]
             );
         }
     }
@@ -123,7 +123,6 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
             $this->html->select($this->fieldName('layout'), $this->values->layout, $this->_config->getLayoutList())
                 ->isRequired(true)
                 ->setNoSelectionLabel($this->_('Select layout...')),
-
             $this->html->eventButton($this->eventName('selectLayout'), $this->_('Select'))
                 ->setIcon('accept')
                 ->shouldValidate(false)
@@ -183,7 +182,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
         $slots = [];
 
         foreach ($this->_layout->getSlots() as $slot) {
-            $slots[$slot->getId()] = $this['slot-'.$slot->getId()]->as(ContentSlot::class)->apply();
+            $slots[$slot->getId()] = $this['slot-' . $slot->getId()]->as(ContentSlot::class)->apply();
         }
 
         if ($this->isValid()) {

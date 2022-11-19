@@ -5,13 +5,9 @@
  */
 namespace df\apex\directory\admin\content\nodes\_components;
 
-use df;
-use df\core;
-use df\apex;
-use df\arch;
-use df\neon;
-
 use DecodeLabs\Tagged as Html;
+
+use df\arch;
 
 class VersionList extends arch\component\CollectionList
 {
@@ -91,42 +87,42 @@ class VersionList extends arch\component\CollectionList
             return [
                 // Preview
                 $this->html->link(
-                        $this->uri('./preview?node='.$this->node->getId().'&version='.$version->getId()),
-                        $this->_('Preview')
-                    )
+                    $this->uri('./preview?node=' . $this->node->getId() . '&version=' . $version->getId()),
+                    $this->_('Preview')
+                )
                     ->setIcon('preview')
                     ->setDisposition('transitive')
                     ->setTarget('_blank'),
 
                 // Activate
                 $this->html->link(
-                        $this->uri('./activate-version?node='.$this->node->getId().'&version='.$version->getId(), true),
-                        $this->_('Activate')
-                    )
+                    $this->uri('./activate-version?node=' . $this->node->getId() . '&version=' . $version->getId(), true),
+                    $this->_('Activate')
+                )
                     ->setIcon('accept')
                     ->setDisposition('positive')
                     ->isDisabled($isActive),
 
                 // Copy
                 $this->html->link(
-                        $this->uri('./edit?node='.$this->node->getId().'&version='.$version->getId(), true),
-                        $this->_('Copy')
-                    )
+                    $this->uri('./edit?node=' . $this->node->getId() . '&version=' . $version->getId(), true),
+                    $this->_('Copy')
+                )
                     ->setIcon('clipboard')
                     ->setDisposition('positive'),
 
                 // Edit
                 $this->html->link(
-                        $this->uri('./edit-version?node='.$this->node->getId().'&version='.$version->getId(), true),
-                        $this->_('Edit')
-                    )
+                    $this->uri('./edit-version?node=' . $this->node->getId() . '&version=' . $version->getId(), true),
+                    $this->_('Edit')
+                )
                     ->setIcon('edit'),
 
                 // Delete
                 $this->html->link(
-                        $this->uri('./delete-version?node='.$this->node->getId().'&version='.$version->getId(), true),
-                        $this->_('Delete')
-                    )
+                    $this->uri('./delete-version?node=' . $this->node->getId() . '&version=' . $version->getId(), true),
+                    $this->_('Delete')
+                )
                     ->setIcon('delete')
                     ->isDisabled($isActive)
             ];
