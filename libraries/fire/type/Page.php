@@ -45,7 +45,7 @@ class Page extends Base implements fire\type\IVersionedType
     }
 
 
-// Versions
+    // Versions
     public function countVersions(INode $node)
     {
         return $this->_getUnit()->select()
