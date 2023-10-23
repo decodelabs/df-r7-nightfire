@@ -3,8 +3,10 @@
  * This file is part of the Decode Framework
  * @license http://opensource.org/licenses/MIT
  */
+
 namespace df\aura\view\content;
 
+use DecodeLabs\R7\Config\Nightfire as NightfireConfig;
 use df\arch;
 use df\aura;
 use df\core;
@@ -38,7 +40,7 @@ class NightfireLayoutContentProvider implements aura\view\IContentProvider
     {
         $view = $this->getView();
 
-        $config = fire\Config::getInstance();
+        $config = NightfireConfig::load();
         $layout = $config->getLayoutDefinition($this->_content->getId());
 
         $view->setLayout($layout->getId());

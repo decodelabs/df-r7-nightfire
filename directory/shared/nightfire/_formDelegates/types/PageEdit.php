@@ -6,8 +6,8 @@
 
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
+use DecodeLabs\R7\Config\Nightfire as NightfireConfig;
 use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
-
 use df\fire;
 
 class PageEdit extends PageAdd
@@ -21,7 +21,7 @@ class PageEdit extends PageAdd
             $this->_versionId
         );
 
-        $this->_config = fire\Config::getInstance();
+        $this->_config = NightfireConfig::load();
         $this->_content = fire\layout\Content::fromXmlString($this->_page['body']);
 
         if (!$this->hasStore('layout')) {

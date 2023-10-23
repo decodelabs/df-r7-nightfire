@@ -7,11 +7,10 @@
 namespace df\apex\directory\shared\nightfire\_formDelegates\types;
 
 use DecodeLabs\Disciple;
+use DecodeLabs\R7\Config\Nightfire as NightfireConfig;
 use DecodeLabs\Tagged as Html;
 use df\apex\directory\shared\nightfire\_formDelegates\ContentSlot;
-
 use df\arch;
-
 use df\aura;
 use df\fire;
 
@@ -25,7 +24,7 @@ class PageAdd extends arch\node\form\NightfireTypeDelegate
     protected function init(): void
     {
         $layout = $this->getStore('layout');
-        $this->_config = fire\Config::getInstance();
+        $this->_config = NightfireConfig::load();
 
         if (!$layout) {
             $list = $this->_config->getLayoutList();
